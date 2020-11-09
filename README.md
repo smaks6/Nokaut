@@ -1,5 +1,5 @@
-Welcome to the knockout plugin files!
-We are glad you got here!
+Welcome to the nokaut(knockout) plugin files!
+I'm glad you're here!
 
 
 Plugin page:
