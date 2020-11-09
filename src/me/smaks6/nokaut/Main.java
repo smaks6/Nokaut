@@ -43,7 +43,7 @@ public class Main extends JavaPlugin implements Listener{
 	public void onEnable() {
 		
 		Bukkit.getConsoleSender().sendMessage("");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "|\\     |  |  /");//napis
+		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "|\\     |  |  /");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "| \\    |  | /");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "|  \\   |  |/");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "|   \\  |  |\\");
