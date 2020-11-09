@@ -1,0 +1,18 @@
+name: nokaut
+version: 1.4
+main: me.smaks6.nokaut.Main
+author: smaks6
+website: https://www.spigotmc.org/resources/nokaut.85152/
+depend: [PosePlugin]
+loadbefore: [PosePlugin]
+description: Plugin jest kopia pluginu na nokaut z km
+
+commands:
+  zginodrazu:
+    aliases: [zo, deathnow, dn]
+    permission: nokaut.deathnow
+
+permissions:
+  nokaut.deathnow:
+    description: Permissions to the command deathnow and zginodrazu
+    default: true
