@@ -38,7 +38,7 @@ import ru.armagidon.poseplugin.api.utils.npc.HandType;
 
 public class Main extends JavaPlugin implements Listener{
 	
-    HashMap<String, String> gracze = new HashMap<String, String>();
+    HashMap<String, String> gracze = new HashMap<String, String>();//hashmapa
     
 	public void onEnable() {
 		
