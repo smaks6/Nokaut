@@ -34,10 +34,13 @@ import ru.armagidon.poseplugin.api.utils.npc.HandType;
 
 public class Main extends JavaPlugin implements Listener{
 	
+	private static Main instance;
+	
     public static HashMap<String, String> gracze = new HashMap<String, String>();
     
 	public void onEnable() {
 		
+		instance = this;
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "|\\     |  |  /");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "| \\    |  | /");
@@ -49,6 +52,7 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the plugin nokaut BY smaks6");
 		
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
+		Bukkit.getServer().getPluginManager().registerEvents(BlockInNokaut.getInstance(), this);
 
 		getConfig().addDefault("NokautTimeInMin", 2);
 		getConfig().addDefault("cancelmessage", "Nie mo¿esz tego robiæ w czasie nokautu");
@@ -61,6 +65,10 @@ public class Main extends JavaPlugin implements Listener{
 		reloadConfig();
 
 	}
+	
+	public static Main getInstance() {
+	    return instance;
+	} 
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

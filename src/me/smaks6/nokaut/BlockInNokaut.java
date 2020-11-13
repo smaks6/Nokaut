@@ -7,12 +7,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.plugin.java.JavaPlugin;
-import me.smaks6.nokaut.Main;
+import static me.smaks6.nokaut.Main.gracze;
 
 import ru.armagidon.poseplugin.api.events.StopPosingEvent;
 
-public class BlockInNokaut extends JavaPlugin implements Listener{
+public class BlockInNokaut implements Listener{
+	
+	private static BlockInNokaut instance;
+	
+	
+	public static BlockInNokaut getInstance() {
+	    return instance;
+	} 
 	
 	@EventHandler
 	public void kladz(BlockPlaceEvent event) {
@@ -20,7 +26,7 @@ public class BlockInNokaut extends JavaPlugin implements Listener{
 		String hashmap = gracze.get(p.getName());
 		if(hashmap != "stoi") {
 			event.setCancelled(true);
-			p.sendMessage(ChatColor.RED + getConfig().getString("cancelmessage"));
+			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
 		}else {
 			event.setCancelled(false);
 		}
@@ -32,7 +38,7 @@ public class BlockInNokaut extends JavaPlugin implements Listener{
 		String hashmap = gracze.get(p.getName());
 		if(hashmap != "stoi") {
 			event.setCancelled(true);
-			p.sendMessage(ChatColor.RED + getConfig().getString("cancelmessage"));
+			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
 		}else {
 			event.setCancelled(false);
 		}
@@ -65,7 +71,7 @@ public class BlockInNokaut extends JavaPlugin implements Listener{
 		String hashmap = gracze.get(p.getName());
 		if(hashmap != "stoi") {
 			event.setCancelled(true);
-			p.sendMessage(ChatColor.RED + getConfig().getString("cancelmessage"));
+			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
 		}else {
 			event.setCancelled(false);
 		}
