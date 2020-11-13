@@ -13,13 +13,6 @@ import ru.armagidon.poseplugin.api.events.StopPosingEvent;
 
 public class BlockInNokaut implements Listener{
 	
-	private static BlockInNokaut instance;
-	
-	
-	public static BlockInNokaut getInstance() {
-	    return instance;
-	} 
-	
 	@EventHandler
 	public void kladz(BlockPlaceEvent event) {
 		Player p = event.getPlayer();

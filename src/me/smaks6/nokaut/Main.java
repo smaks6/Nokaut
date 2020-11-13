@@ -51,8 +51,9 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the plugin nokaut BY smaks6");
 		
+		BlockInNokaut BlockInNokaut = new BlockInNokaut();
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
-		Bukkit.getServer().getPluginManager().registerEvents(BlockInNokaut.getInstance(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(BlockInNokaut, this);
 
 		getConfig().addDefault("NokautTimeInMin", 2);
 		getConfig().addDefault("cancelmessage", "Nie mo¿esz tego robiæ w czasie nokautu");
