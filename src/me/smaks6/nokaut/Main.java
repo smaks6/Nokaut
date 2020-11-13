@@ -14,20 +14,16 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import ru.armagidon.poseplugin.api.PosePluginAPI;
-import ru.armagidon.poseplugin.api.events.StopPosingEvent;
 import ru.armagidon.poseplugin.api.player.PosePluginPlayer;
 import ru.armagidon.poseplugin.api.poses.EnumPose;
 import ru.armagidon.poseplugin.api.poses.IPluginPose;
@@ -38,7 +34,7 @@ import ru.armagidon.poseplugin.api.utils.npc.HandType;
 
 public class Main extends JavaPlugin implements Listener{
 	
-    HashMap<String, String> gracze = new HashMap<String, String>();//hashmapa
+    public static HashMap<String, String> gracze = new HashMap<String, String>();
     
 	public void onEnable() {
 		
@@ -322,63 +318,7 @@ public class Main extends JavaPlugin implements Listener{
 		
 	}
 	
-	@EventHandler
-	public void kladz(BlockPlaceEvent event) {
-		Player p = event.getPlayer();
-		String hashmap = gracze.get(p.getName());
-		if(hashmap != "stoi") {
-			event.setCancelled(true);
-			p.sendMessage(ChatColor.RED + getConfig().getString("cancelmessage"));
-		}else {
-			event.setCancelled(false);
-		}
-	}
-	
-	@EventHandler
-	public void niszcz(BlockBreakEvent event) {
-		Player p = event.getPlayer();
-		String hashmap = gracze.get(p.getName());
-		if(hashmap != "stoi") {
-			event.setCancelled(true);
-			p.sendMessage(ChatColor.RED + getConfig().getString("cancelmessage"));
-		}else {
-			event.setCancelled(false);
-		}
-		
-	}
-	
 
-	
-	@EventHandler
-	public void niewstawaj(StopPosingEvent event) {
-		Player p = event.getPlayer().getHandle();
-		String hashmap = gracze.get(p.getName());
-		if(hashmap == "nies") {
-			event.setCancelled(false);
-			return;
-		}
-		if(hashmap != "stoi") {
-			event.setCancelled(true);
-		}else {
-			event.setCancelled(false);
-		}
-		
-
-		
-	}
-	
-	@EventHandler
-	public void chestitd(PlayerInteractEvent event) {
-		Player p = event.getPlayer();
-		String hashmap = gracze.get(p.getName());
-		if(hashmap != "stoi") {
-			event.setCancelled(true);
-			p.sendMessage(ChatColor.RED + getConfig().getString("cancelmessage"));
-		}else {
-			event.setCancelled(false);
-		}
-		
-	}
 }
 
 
