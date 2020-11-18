@@ -56,11 +56,12 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getServer().getPluginManager().registerEvents(BlockInNokaut, this);
 
 		getConfig().addDefault("NokautTimeInMin", 2);
-		getConfig().addDefault("cancelmessage", "Nie mo¿esz tego robiæ w czasie nokautu");
-		getConfig().addDefault("helpnokautmessage", "Musisz poprosiæ innego gracza aby ciê uderzy³(ocuci³) przed miniêciem czasu inaczej zginiesz....");
-		getConfig().addDefault("wakeupplayer", "Zosta³eœ ocucony przez {player}");
-		getConfig().addDefault("wakeupdamager", "ocuci³eœ gracza {player}");
-		getConfig().addDefault("deathnownot", "Ta komenda jest dostêpna tylko podczas nokautu");
+		getConfig().addDefault("cancelmessage", "Nie moÂ¿esz tego robiÃ¦ w czasie nokautu");
+		getConfig().addDefault("helpnokautmessage", "Musisz poprosiÃ¦ innego gracza aby ciÃª uderzyÂ³(ocuciÂ³) przed miniÃªciem czasu inaczej zginiesz....");
+		getConfig().addDefault("wakeupplayer", "ZostaÂ³eÅ“ ocucony przez {player}");
+		getConfig().addDefault("wakeupdamager", "ocuciÂ³eÅ“ gracza {player}");
+		getConfig().addDefault("deathnownot", "Ta komenda jest dostÃªpna tylko podczas nokautu");
+		getConfig().addDefault("NokautTitle", "Nokaut");
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		reloadConfig();
@@ -136,22 +137,10 @@ public class Main extends JavaPlugin implements Listener{
 				gracze.replace(p.getName(), "lezy");
 				Location dloc = d.getLocation();
 				p.teleport(dloc);
-				try {
-					Thread.sleep(500);//przeczekanie 0,5 sekundy
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
                 PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
                 IPluginPose pose = PoseBuilder.builder(EnumPose.LYING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
                 posePluginPlayer.changePose(pose);
                 e.setCancelled(true);
-				try {
-					Thread.sleep(500);//przeczekanie 0,5 sekundy
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
                 p.leaveVehicle();
                 return;
 			}
@@ -165,12 +154,6 @@ public class Main extends JavaPlugin implements Listener{
 				gracze.replace(p.getName(), "stoi");
 				p.sendMessage(ChatColor.DARK_GREEN + getConfig().getString("wakeupplayer").replace("{player}", d.getName()));
 				d.sendMessage(ChatColor.DARK_GREEN + getConfig().getString("wakeupdamager").replace("{player}", p.getName()));
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 				PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
                 posePluginPlayer.resetCurrentPose();
                 d.removePassenger(p);
@@ -200,29 +183,26 @@ public class Main extends JavaPlugin implements Listener{
 	}
 	
 	@EventHandler
-	public void podniescgracza(PlayerInteractEntityEvent e) {//Event który jest odpowiedzialny za mo¿liwoœæ wziêcia gracza na ³ep i pójœcia sobie gdzieœ z nim :)
+	public void podniescgracza(PlayerInteractEntityEvent e) {//Event ktÃ³ry jest odpowiedzialny za moÂ¿liwoÅ“Ã¦ wziÃªcia gracza na Â³ep i pÃ³jÅ“cia sobie gdzieÅ“ z nim :)
 		Player p = e.getPlayer();//pobieranie gracza od eventu
 		String hashmap = gracze.get(p.getName());//pobieranie danych o graczu z hashmapy
-		if(hashmap != "stoi") {//if sprawdzaj¹cy czy gracz stoi je¿eli tak to kod idzie dalej je¿eli nie to koniec kodu
+		if(hashmap != "stoi") {//if sprawdzajÂ¹cy czy gracz stoi jeÂ¿eli tak to kod idzie dalej jeÂ¿eli nie to koniec kodu
 			return;
 		}
-		Entity rightclick = e.getRightClicked();//pobieranie entity na któr¹ klikn¹ gracz
-		if(rightclick instanceof Player){//sprawdzanie czy klikniête entity to gracz
-			Player playeron = (Player) e.getRightClicked();//pobieranie gracza który zosta³ klikniêty
-			String hashmapon = gracze.get(playeron.getName());//pobieranie hashmapy dla gracza klikniêtego
-			if(hashmapon == "stoi") {//if sprawdzaj¹cy czy gracz klikniêty stoi je¿eli tak to koniec kodu
+		Entity rightclick = e.getRightClicked();//pobieranie entity na ktÃ³rÂ¹ kliknÂ¹ gracz
+		if(rightclick instanceof Player){//sprawdzanie czy klikniÃªte entity to gracz
+			Player playeron = (Player) e.getRightClicked();//pobieranie gracza ktÃ³ry zostaÂ³ klikniÃªty
+			String hashmapon = gracze.get(playeron.getName());//pobieranie hashmapy dla gracza klikniÃªtego
+			if(hashmapon == "stoi") {//if sprawdzajÂ¹cy czy gracz klikniÃªty stoi jeÂ¿eli tak to koniec kodu
 				return;
 			}
-			gracze.replace(playeron.getName(), "nies");//zmiana hashmapy ¿eby móg³ podnieœæ gracza
-			p.addPassenger(playeron);//dodawanie gracza klikniêtego na ³ep gracza który klikn¹³ go 
-			try {
-				Thread.sleep(50);//przeczekanie 0,05 sekundy
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			if(hashmapon == "nies") {//if sprawdza czy gracz klikniÃªty juÅ¼ jest przenoszony
+				return;
 			}
-			p.addPassenger(playeron);//dodawanie gracza klikniêtego na ³ep gracza który klikn¹³ go
-			siedzisz(p, playeron);//w³¹czanie metody ¿eby gracz nie móg³ siadaæ z gracza
+			gracze.replace(playeron.getName(), "nies");//zmiana hashmapy Â¿eby mÃ³gÂ³ podnieÅ“Ã¦ gracza
+			p.addPassenger(playeron);//dodawanie gracza klikniÃªtego na Â³ep gracza ktÃ³ry kliknÂ¹Â³ go 
+			p.addPassenger(playeron);//dodawanie gracza klikniÃªtego na Â³ep gracza ktÃ³ry kliknÂ¹Â³ go
+			siedzisz(p, playeron);//wÂ³Â¹czanie metody Â¿eby gracz nie mÃ³gÂ³ siadaÃ¦ z gracza
 		}
 	}
 	
@@ -265,7 +245,7 @@ public class Main extends JavaPlugin implements Listener{
     			}
 
     			
-    			p.sendTitle(ChatColor.RED + "Nokaut",ChatColor.RED + razem, 1 , 20 , 1 );
+    			p.sendTitle(ChatColor.RED + getConfig().getString("NokautTitle"),ChatColor.RED + razem, 1 , 20 , 1 );
     			
     			--czass;
 	        }
@@ -324,6 +304,8 @@ public class Main extends JavaPlugin implements Listener{
 	public void smierc(PlayerDeathEvent event) {
 		Player p =(Player) event.getEntity();
 		gracze.replace(p.getName(), "stoi");
+		PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
+        posePluginPlayer.resetCurrentPose();
 		
 	}
 	
