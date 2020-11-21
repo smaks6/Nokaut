@@ -4,13 +4,10 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -20,11 +17,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import ru.armagidon.poseplugin.api.PosePluginAPI;
 import ru.armagidon.poseplugin.api.player.PosePluginPlayer;
-import ru.armagidon.poseplugin.api.poses.EnumPose;
-import ru.armagidon.poseplugin.api.poses.IPluginPose;
-import ru.armagidon.poseplugin.api.poses.PoseBuilder;
-import ru.armagidon.poseplugin.api.poses.options.EnumPoseOption;
-import ru.armagidon.poseplugin.api.utils.npc.HandType;
 
 
 public class Main extends JavaPlugin implements Listener{
@@ -47,8 +39,12 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the plugin nokaut BY smaks6");
 		
 		BlockInNokaut BlockInNokaut = new BlockInNokaut();
+		nokaut nokaut = new nokaut();
+		ocuc ocuc = new ocuc();
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.getServer().getPluginManager().registerEvents(BlockInNokaut, this);
+		Bukkit.getServer().getPluginManager().registerEvents(nokaut, this);
+		Bukkit.getServer().getPluginManager().registerEvents(ocuc, this);
 		
 		new deathnowcmd(this);
 		
@@ -71,99 +67,6 @@ public class Main extends JavaPlugin implements Listener{
 	} 
 	
 	
-	@EventHandler
-    public void death(EntityDamageEvent event) throws InterruptedException{
-        if (event.getEntity() instanceof Player){
-            Player p = (Player) event.getEntity();
-            int hp = (int) p.getHealth();
-            int dm = (int) event.getDamage();
-            String hashmap = gracze.get(p.getName());
-        	if(hp <= dm) {
-                if(hashmap == "stoi") {
-                	gracze.replace(p.getName(), "chwila");
-                	event.setCancelled(true);
-                    PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
-                    IPluginPose pose = PoseBuilder.builder(EnumPose.LYING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
-                    posePluginPlayer.changePose(pose);
-    				if(p.getHealth() <= 10.0) {
-    					p.setHealth(10.0);
-    				}
-    				p.sendMessage(ChatColor.RED + getConfig().getString("helpnokautmessage"));
-    				odliczanie(p);
-                }else if(hashmap != "stoi") {
-                	event.setCancelled(false);
-                }else {
-                	p.kickPlayer("[nokaut] An unexpected error has occurred in the program");
-                }
-				
-        	}
-        }
-           
-    }
-	
-	
-	
-	@EventHandler
-	public void ocuc(EntityDamageByEntityEvent e) {
-		Entity entityhp = e.getEntity();
-		Entity entityd = e.getDamager();
-		if(entityhp instanceof Player && entityd instanceof Player){
-			Player p = (Player) e.getEntity();
-			Player d = (Player) e.getDamager();
-			String hashmap = gracze.get(p.getName());
-			String hashmapdamager = gracze.get(d.getName());
-			if(hashmap == "chwila") {
-				e.setCancelled(true);
-				return;
-			}
-			if(hashmap == "nies") {
-				gracze.replace(p.getName(), "lezy");
-				Location dloc = d.getLocation();
-				p.teleport(dloc);
-                PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
-                IPluginPose pose = PoseBuilder.builder(EnumPose.LYING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
-                posePluginPlayer.changePose(pose);
-                e.setCancelled(true);
-                p.leaveVehicle();
-                return;
-			}
-			
-			if(hashmapdamager != "stoi") {
-				e.setCancelled(true);
-				d.sendMessage(ChatColor.RED + getConfig().getString("cancelmessage"));
-				return;
-			}
-			if(hashmap == "lezy"){
-				gracze.replace(p.getName(), "stoi");
-				p.sendMessage(ChatColor.DARK_GREEN + getConfig().getString("wakeupplayer").replace("{player}", d.getName()));
-				d.sendMessage(ChatColor.DARK_GREEN + getConfig().getString("wakeupdamager").replace("{player}", p.getName()));
-				PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
-                posePluginPlayer.resetCurrentPose();
-                d.removePassenger(p);
-			}
-			
-			
-		}else if(entityhp instanceof Player) {
-			Player p = (Player) e.getEntity();
-			String hashmap = gracze.get(p.getName());
-			if(hashmap == "lezy") {
-				e.setCancelled(true);
-			}else {
-				e.setCancelled(false);
-			}
-
-		}else if(entityd instanceof Player){
-			Player p = (Player) e.getDamager();
-			String hashmap = gracze.get(p.getName());
-			if(hashmap != "stoi") {
-				e.setCancelled(true);
-				p.sendMessage(ChatColor.RED + getConfig().getString("cancelmessage"));
-			}
-		}else {
-			e.setCancelled(false);
-		}
-		
-	}
 	
 	@EventHandler
 	public void podniescgracza(PlayerInteractEntityEvent e) {//Event który jest odpowiedzialny za mo¿liwoœæ wziêcia gracza na ³ep i pójœcia sobie gdzieœ z nim :)
@@ -188,53 +91,6 @@ public class Main extends JavaPlugin implements Listener{
 			siedzisz(p, playeron);//w³¹czanie metody ¿eby gracz nie móg³ siadaæ z gracza
 		}
 	}
-	
-	
-	public void odliczanie(Player p){
-		new BukkitRunnable() {
-			
-    		int czass = 0;
-    		int czasm = getConfig().getInt("NokautTimeInMin");
-    		String razem;
-    		
-			@Override
-	        public void run() {
-				
-	    		String hashmap = gracze.get(p.getName());
-				if(hashmap == "stoi") {
-					this.cancel();
-				}
-				
-				if(hashmap == "chwila" && czass == 55) {
-					gracze.replace(p.getName(), "lezy");
-				}
-
-				
-    			if((czass <= 0) && (czasm >= 1)) {
-    				--czasm;
-    				czass = 60;
-    			}
-    			
-    			if((czasm <= 0) && (czass <= 0)) {
-    				gracze.replace(p.getName(), "stoi");
-    				p.setHealth(0);
-    				this.cancel();
-    			}
-    			
-    			if(czass <= 9) {
-        			razem = czasm + ":0" + czass;
-    			}else {
-        			razem = czasm + ":" + czass;
-    			}
-
-    			
-    			p.sendTitle(ChatColor.RED + getConfig().getString("NokautTitle"),ChatColor.RED + razem, 1 , 20 , 1 );
-    			
-    			--czass;
-	        }
-	    }.runTaskTimer(this, 0L, 20L);
-	}
-	
 	
 	public void siedzisz(Player p, Player d){
 		new BukkitRunnable() {
