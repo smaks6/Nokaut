@@ -1,15 +1,10 @@
 package me.smaks6.nokaut;
 
-
-
 import java.util.HashMap;
-
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -54,6 +49,9 @@ public class Main extends JavaPlugin implements Listener{
 		BlockInNokaut BlockInNokaut = new BlockInNokaut();
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.getServer().getPluginManager().registerEvents(BlockInNokaut, this);
+		
+		new deathnowcmd(this);
+		
 
 		getConfig().addDefault("NokautTimeInMin", 2);
 		getConfig().addDefault("cancelmessage", "Nie mo¿esz tego robiæ w czasie nokautu");
@@ -72,21 +70,6 @@ public class Main extends JavaPlugin implements Listener{
 	    return instance;
 	} 
 	
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(cmd.getName().equalsIgnoreCase("zginodrazu")) {
-			Player p = (Player) sender;
-			String hashmap = gracze.get(p.getName());
-			if(hashmap != "stoi") {
-				p.setHealth(0);
-				gracze.replace(p.getName(), "stoi");
-			}else {
-				p.sendMessage(ChatColor.RED + getConfig().getString("deathnownot"));
-			}
-
-		}
-		return false;
-	}
 	
 	@EventHandler
     public void death(EntityDamageEvent event) throws InterruptedException{
