@@ -56,6 +56,7 @@ public class ocuc implements Listener{
 				PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
                 posePluginPlayer.resetCurrentPose();
                 d.removePassenger(p);
+                e.setCancelled(true);
 			}
 			
 			

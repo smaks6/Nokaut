@@ -8,15 +8,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import ru.armagidon.poseplugin.api.PosePluginAPI;
-import ru.armagidon.poseplugin.api.player.PosePluginPlayer;
 
 
 public class Main extends JavaPlugin implements Listener{
@@ -118,34 +112,6 @@ public class Main extends JavaPlugin implements Listener{
 				
 	        }
 	    }.runTaskTimer(this, 0L, 5L);
-	}
-
-	
-	@EventHandler
-	public void wchodzi(PlayerJoinEvent event) {
-		Player p = event.getPlayer();
-		gracze.put(p.getName(), "stoi");
-		
-	}
-	
-	@EventHandler
-	public void wychodzi(PlayerQuitEvent event) {
-		Player p = event.getPlayer();
-		String hashmap = gracze.get(p.getName());
-		if(hashmap != "stoi") {
-			p.setHealth(0);
-		}
-		gracze.remove(p.getName());
-		
-	}
-	
-	@EventHandler
-	public void smierc(PlayerDeathEvent event) {
-		Player p =(Player) event.getEntity();
-		gracze.replace(p.getName(), "stoi");
-		PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
-        posePluginPlayer.resetCurrentPose();
-		
 	}
 	
 
