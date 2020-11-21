@@ -4,13 +4,8 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 
 public class Main extends JavaPlugin implements Listener{
@@ -35,10 +30,12 @@ public class Main extends JavaPlugin implements Listener{
 		BlockInNokaut BlockInNokaut = new BlockInNokaut();
 		nokaut nokaut = new nokaut();
 		ocuc ocuc = new ocuc();
+		przenoszenie przenoszenie = new przenoszenie();
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.getServer().getPluginManager().registerEvents(BlockInNokaut, this);
 		Bukkit.getServer().getPluginManager().registerEvents(nokaut, this);
 		Bukkit.getServer().getPluginManager().registerEvents(ocuc, this);
+		Bukkit.getServer().getPluginManager().registerEvents(przenoszenie, this);
 		
 		new deathnowcmd(this);
 		
@@ -58,63 +55,7 @@ public class Main extends JavaPlugin implements Listener{
 	
 	public static Main getInstance() {
 	    return instance;
-	} 
-	
-	
-	
-	@EventHandler
-	public void podniescgracza(PlayerInteractEntityEvent e) {//Event który jest odpowiedzialny za mo¿liwoœæ wziêcia gracza na ³ep i pójœcia sobie gdzieœ z nim :)
-		Player p = e.getPlayer();//pobieranie gracza od eventu
-		String hashmap = gracze.get(p.getName());//pobieranie danych o graczu z hashmapy
-		if(hashmap != "stoi") {//if sprawdzaj¹cy czy gracz stoi je¿eli tak to kod idzie dalej je¿eli nie to koniec kodu
-			return;
-		}
-		Entity rightclick = e.getRightClicked();//pobieranie entity na któr¹ klikn¹ gracz
-		if(rightclick instanceof Player){//sprawdzanie czy klikniête entity to gracz
-			Player playeron = (Player) e.getRightClicked();//pobieranie gracza który zosta³ klikniêty
-			String hashmapon = gracze.get(playeron.getName());//pobieranie hashmapy dla gracza klikniêtego
-			if(hashmapon == "stoi") {//if sprawdzaj¹cy czy gracz klikniêty stoi je¿eli tak to koniec kodu
-				return;
-			}
-			if(hashmapon == "nies") {//if sprawdza czy gracz klikniêty już jest przenoszony
-				return;
-			}
-			gracze.replace(playeron.getName(), "nies");//zmiana hashmapy ¿eby móg³ podnieœæ gracza
-			p.addPassenger(playeron);//dodawanie gracza klikniêtego na ³ep gracza który klikn¹³ go 
-			p.addPassenger(playeron);//dodawanie gracza klikniêtego na ³ep gracza który klikn¹³ go
-			siedzisz(p, playeron);//w³¹czanie metody ¿eby gracz nie móg³ siadaæ z gracza
-		}
 	}
-	
-	public void siedzisz(Player p, Player d){
-		new BukkitRunnable() {
-			
-			int czas = 50;
-			
-			@Override
-	        public void run() {
-				
-				String hashmap = gracze.get(d.getName());
-				
-				if(d.isInsideVehicle() == false || d.getVehicle() instanceof Player){
-					p.addPassenger(d);
-					
-				}
-				
-				if(hashmap != "nies" && czas == 0){
-					this.cancel();
-				}
-				
-				if(czas != 0) {
-					--czas;
-				}
-				
-				
-	        }
-	    }.runTaskTimer(this, 0L, 5L);
-	}
-	
-
 }
 
 
