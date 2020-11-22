@@ -50,6 +50,23 @@ public class Main extends JavaPlugin implements Listener{
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		reloadConfig();
+		
+		 
+        new updatechecker(85152).getVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+            	Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "You have the latest version of the plugin");
+            	Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Nokaut plugin BY smaks6");
+            } else {
+            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "You don't have the latest plugin version");
+            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "\\          /");
+            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + " \\        /");
+            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "  \\      /");
+            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "   \\    /");
+            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "    \\  /");
+            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "     \\/");
+            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Nokaut plugin BY smaks6");
+            }
+        });
 
 	}
 	
