@@ -1,6 +1,7 @@
 package me.smaks6.nokaut;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.util.Consumer;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class updatechecker {
                     consumer.accept(scanner.next());
                 }
             } catch (IOException exception) {
-            	Bukkit.getConsoleSender().sendMessage("Nie mozna polaczyc sie z serwerem");
+            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Unable to connect to the server");
             }
         });
     }
