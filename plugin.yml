@@ -11,8 +11,14 @@ commands:
   zginodrazu:
     aliases: [zo, deathnow, dn]
     permission: nokaut.deathnow
+  nokaut:
+    aliases: nk
+    permission: nokaut.admin
 
 permissions:
   nokaut.deathnow:
     description: Permissions to the command deathnow and zginodrazu
     default: true
+  nokaut.admin:
+    description: Permissions to the admin command
+    default: op

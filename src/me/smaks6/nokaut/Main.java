@@ -38,7 +38,8 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getServer().getPluginManager().registerEvents(przenoszenie, this);
 		
 		new deathnowcmd(this);
-		
+		new nokautcmd(this);
+		getCommand("nokaut").setTabCompleter(new tabnokautcmd());
 
 		getConfig().addDefault("NokautTimeInMin", 2);
 		getConfig().addDefault("cancelmessage", "Nie mo¿esz tego robiæ w czasie nokautu");

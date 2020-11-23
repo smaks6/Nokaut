@@ -3,6 +3,7 @@ package me.smaks6.nokaut;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -19,7 +20,7 @@ import ru.armagidon.poseplugin.api.player.PosePluginPlayer;
 
 public class BlockInNokaut implements Listener{
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOW)
 	public void kladz(BlockPlaceEvent event) {
 		Player p = event.getPlayer();
 		String hashmap = gracze.get(p.getName());
@@ -31,7 +32,7 @@ public class BlockInNokaut implements Listener{
 		}
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOW)
 	public void niszcz(BlockBreakEvent event) {
 		Player p = event.getPlayer();
 		String hashmap = gracze.get(p.getName());
@@ -46,7 +47,7 @@ public class BlockInNokaut implements Listener{
 	
 
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOW)
 	public void niewstawaj(StopPosingEvent event) {
 		Player p = event.getPlayer().getHandle();
 		String hashmap = gracze.get(p.getName());
@@ -64,7 +65,7 @@ public class BlockInNokaut implements Listener{
 		
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOW)
 	public void chestitd(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
 		String hashmap = gracze.get(p.getName());
