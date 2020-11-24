@@ -42,11 +42,11 @@ public class Main extends JavaPlugin implements Listener{
 		getCommand("nokaut").setTabCompleter(new tabnokautcmd());
 
 		getConfig().addDefault("NokautTimeInMin", 2);
-		getConfig().addDefault("cancelmessage", "Nie mo¿esz tego robiæ w czasie nokautu");
-		getConfig().addDefault("helpnokautmessage", "Musisz poprosiæ innego gracza aby ciê uderzy³(ocuci³) przed miniêciem czasu inaczej zginiesz....");
-		getConfig().addDefault("wakeupplayer", "Zosta³eœ ocucony przez {player}");
-		getConfig().addDefault("wakeupdamager", "ocuci³eœ gracza {player}");
-		getConfig().addDefault("deathnownot", "Ta komenda jest dostêpna tylko podczas nokautu");
+		getConfig().addDefault("cancelmessage", "Nie możesz tego robić w czasie nokautu");
+		getConfig().addDefault("helpnokautmessage", "Musisz poprosić innego gracza aby cię uderzył(ocucił) przed minięciem czasu inaczej zginiesz....");
+		getConfig().addDefault("wakeupplayer", "Zostałeś ocucony przez {player}");
+		getConfig().addDefault("wakeupdamager", "ocuciłeś gracza {player}");
+		getConfig().addDefault("deathnownot", "Ta komenda jest dostępna tylko podczas nokautu");
 		getConfig().addDefault("NokautTitle", "Nokaut");
 		getConfig().options().copyDefaults(true);
 		saveConfig();
