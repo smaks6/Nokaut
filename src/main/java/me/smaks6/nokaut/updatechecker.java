@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class updatechecker {
 
-	private int i;
+	private final int i;
 
 	public updatechecker(int i) {
         this.i = i;

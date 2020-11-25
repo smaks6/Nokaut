@@ -28,11 +28,11 @@ public class ocuc implements Listener{
 			Player d = (Player) e.getDamager();
 			String hashmap = gracze.get(p.getName());
 			String hashmapdamager = gracze.get(d.getName());
-			if(hashmap == "chwila") {
+			if(hashmap.equals("chwila")) {
 				e.setCancelled(true);
 				return;
 			}
-			if(hashmap == "nies") {
+			if(hashmap.equals("nies")) {
 				gracze.replace(p.getName(), "lezy");
 				Location dloc = d.getLocation();
 				p.teleport(dloc);
@@ -44,12 +44,12 @@ public class ocuc implements Listener{
                 return;
 			}
 			
-			if(hashmapdamager != "stoi") {
+			if(!hashmapdamager.equals("stoi")) {
 				e.setCancelled(true);
 				d.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
 				return;
 			}
-			if(hashmap == "lezy"){
+			if(hashmap.equals("lezy")){
 				gracze.replace(p.getName(), "stoi");
 				p.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupplayer").replace("{player}", d.getName()));
 				d.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupdamager").replace("{player}", p.getName()));
@@ -63,16 +63,12 @@ public class ocuc implements Listener{
 		}else if(entityhp instanceof Player) {
 			Player p = (Player) e.getEntity();
 			String hashmap = gracze.get(p.getName());
-			if(hashmap == "lezy") {
-				e.setCancelled(true);
-			}else {
-				e.setCancelled(false);
-			}
+			e.setCancelled(hashmap.equals("lezy"));
 
 		}else if(entityd instanceof Player){
 			Player p = (Player) e.getDamager();
 			String hashmap = gracze.get(p.getName());
-			if(hashmap != "stoi") {
+			if(!hashmap.equals("stoi")) {
 				e.setCancelled(true);
 				p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
 			}

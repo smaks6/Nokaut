@@ -26,7 +26,7 @@ public class nokaut implements Listener{
             int dm = (int) event.getDamage();
             String hashmap = gracze.get(p.getName());
         	if(hp <= dm) {
-                if(hashmap == "stoi") {
+                if(hashmap.equals("stoi")) {
                 	gracze.replace(p.getName(), "chwila");
                 	event.setCancelled(true);
                     PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
@@ -37,7 +37,7 @@ public class nokaut implements Listener{
     				}
     				p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("helpnokautmessage"));
     				odliczanie(p);
-                }else if(hashmap != "stoi") {
+                }else if(!hashmap.equals("stoi")) {
                 	event.setCancelled(false);
                 }else {
                 	p.kickPlayer("[nokaut] An unexpected error has occurred in the program");
@@ -58,11 +58,11 @@ public class nokaut implements Listener{
 	        public void run() {
 				
 	    		String hashmap = gracze.get(p.getName());
-				if(hashmap == "stoi") {
+				if(hashmap.equals("stoi")) {
 					this.cancel();
 				}
 				
-				if(hashmap == "chwila" && czass == 55) {
+				if(hashmap.equals("chwila") && czass == 55) {
 					gracze.replace(p.getName(), "lezy");
 				}
 

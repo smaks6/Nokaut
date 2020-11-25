@@ -10,7 +10,6 @@ public class nokautcmd implements CommandExecutor{
 
 	public nokautcmd(Main main) {
 		Main.getInstance().getCommand("nokaut").setExecutor(this);
-		return;
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

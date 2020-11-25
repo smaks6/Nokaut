@@ -14,17 +14,17 @@ public class przenoszenie implements Listener{
 	public void podniescgracza(PlayerInteractEntityEvent e) {
 		Player p = e.getPlayer();
 		String hashmap = gracze.get(p.getName());
-		if(hashmap != "stoi") {
+		if(!hashmap.equals("stoi")) {
 			return;
 		}
 		Entity rightclick = e.getRightClicked();
 		if(rightclick instanceof Player){
 			Player playeron = (Player) e.getRightClicked();
 			String hashmapon = gracze.get(playeron.getName());
-			if(hashmapon == "stoi") {
+			if(hashmapon.equals("stoi")) {
 				return;
 			}
-			if(hashmapon == "nies") {
+			if(hashmapon.equals("nies")) {
 				return;
 			}
 			gracze.replace(playeron.getName(), "nies");
@@ -44,12 +44,12 @@ public class przenoszenie implements Listener{
 				
 				String hashmap = gracze.get(d.getName());
 				
-				if(d.isInsideVehicle() == false || d.getVehicle() instanceof Player){
+				if(!d.isInsideVehicle() || d.getVehicle() instanceof Player){
 					p.addPassenger(d);
 					
 				}
 				
-				if(hashmap != "nies" && czas == 0){
+				if(!hashmap.equals("nies") && czas == 0){
 					this.cancel();
 				}
 				

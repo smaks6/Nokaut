@@ -24,7 +24,7 @@ public class BlockInNokaut implements Listener{
 	public void kladz(BlockPlaceEvent event) {
 		Player p = event.getPlayer();
 		String hashmap = gracze.get(p.getName());
-		if(hashmap != "stoi") {
+		if(!hashmap.equals("stoi")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
 		}else {
@@ -36,7 +36,7 @@ public class BlockInNokaut implements Listener{
 	public void niszcz(BlockBreakEvent event) {
 		Player p = event.getPlayer();
 		String hashmap = gracze.get(p.getName());
-		if(hashmap != "stoi") {
+		if(!hashmap.equals("stoi")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
 		}else {
@@ -51,15 +51,11 @@ public class BlockInNokaut implements Listener{
 	public void niewstawaj(StopPosingEvent event) {
 		Player p = event.getPlayer().getHandle();
 		String hashmap = gracze.get(p.getName());
-		if(hashmap == "nies") {
+		if(hashmap.equals("nies")) {
 			event.setCancelled(false);
 			return;
 		}
-		if(hashmap != "stoi") {
-			event.setCancelled(true);
-		}else {
-			event.setCancelled(false);
-		}
+		event.setCancelled(!hashmap.equals("stoi"));
 		
 
 		
@@ -69,7 +65,7 @@ public class BlockInNokaut implements Listener{
 	public void chestitd(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
 		String hashmap = gracze.get(p.getName());
-		if(hashmap != "stoi") {
+		if(!hashmap.equals("stoi")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
 		}else {
@@ -89,7 +85,7 @@ public class BlockInNokaut implements Listener{
 	public void wychodzi(PlayerQuitEvent event) {
 		Player p = event.getPlayer();
 		String hashmap = gracze.get(p.getName());
-		if(hashmap != "stoi") {
+		if(!hashmap.equals("stoi")) {
 			p.setHealth(0);
 		}
 		gracze.remove(p.getName());
@@ -98,7 +94,7 @@ public class BlockInNokaut implements Listener{
 	
 	@EventHandler
 	public void smierc(PlayerDeathEvent event) {
-		Player p =(Player) event.getEntity();
+		Player p = event.getEntity();
 		gracze.replace(p.getName(), "stoi");
 		PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
         posePluginPlayer.resetCurrentPose();

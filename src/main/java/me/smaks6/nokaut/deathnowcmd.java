@@ -11,14 +11,13 @@ public class deathnowcmd implements CommandExecutor{
 
 	public deathnowcmd(Main main) {
 		Main.getInstance().getCommand("zginodrazu").setExecutor(this);
-		return;
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("zginodrazu")) {
 			Player p = (Player) sender;
 			String hashmap = gracze.get(p.getName());
-			if(hashmap != "stoi") {
+			if(!hashmap.equals("stoi")) {
 				p.setHealth(0);
 				gracze.replace(p.getName(), "stoi");
 			}else {
