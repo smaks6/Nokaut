@@ -12,7 +12,7 @@ public class Main extends JavaPlugin implements Listener{
 	
 	private static Main instance;
 	
-    public static HashMap<String, String> gracze = new HashMap<>();
+    public static HashMap<String, String> gracze = new HashMap<String, String>();
     
 	public void onEnable() {
 		

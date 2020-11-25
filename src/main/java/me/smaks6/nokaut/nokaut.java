@@ -19,7 +19,7 @@ import static me.smaks6.nokaut.Main.gracze;
 public class nokaut implements Listener{
 
 	@EventHandler
-    public void death(EntityDamageEvent event) throws InterruptedException{
+    public void death(EntityDamageEvent event){
         if (event.getEntity() instanceof Player){
             Player p = (Player) event.getEntity();
             int hp = (int) p.getHealth();
