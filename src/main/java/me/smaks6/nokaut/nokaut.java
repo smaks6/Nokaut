@@ -56,7 +56,16 @@ public class nokaut implements Listener{
     		
 			@Override
 	        public void run() {
-				
+
+				if(czass <= 9) {
+					razem = czasm + ":0" + czass;
+				}else {
+					razem = czasm + ":" + czass;
+				}
+
+
+				p.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"),ChatColor.RED + razem, 1 , 20 , 1 );
+
 	    		String hashmap = gracze.get(p.getName());
 				if(hashmap.equals("stoi")) {
 					this.cancel();
@@ -73,19 +82,16 @@ public class nokaut implements Listener{
     			}
     			
     			if((czasm <= 0) && (czass <= 0)) {
-    				gracze.replace(p.getName(), "stoi");
-    				p.setHealth(0);
+					gracze.replace(p.getName(), "stoi");
+    				if(Main.getInstance().getConfig().getBoolean("DeathOnEnd")){
+						p.setHealth(0);
+					}
+					else{
+						PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
+						posePluginPlayer.resetCurrentPose();
+					}
     				this.cancel();
     			}
-    			
-    			if(czass <= 9) {
-        			razem = czasm + ":0" + czass;
-    			}else {
-        			razem = czasm + ":" + czass;
-    			}
-
-    			
-    			p.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"),ChatColor.RED + razem, 1 , 20 , 1 );
     			
     			--czass;
 	        }

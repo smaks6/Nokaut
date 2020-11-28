@@ -48,11 +48,11 @@ public class Main extends JavaPlugin implements Listener{
 		getConfig().addDefault("wakeupdamager", "ocuciłeś gracza {player}");
 		getConfig().addDefault("deathnownot", "Ta komenda jest dostępna tylko podczas nokautu");
 		getConfig().addDefault("NokautTitle", "Nokaut");
+		getConfig().addDefault("DeathOnEnd", "true");
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		reloadConfig();
-		
-		 
+
         new updatechecker(85152).getVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
             	Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "You have the latest version of the plugin");
