@@ -83,7 +83,7 @@ public class nokaut implements Listener{
     			
     			if((czasm <= 0) && (czass <= 0)) {
 					gracze.replace(p.getName(), "stoi");
-    				if(Main.getInstance().getConfig().getBoolean("DeathOnEnd")){
+    				if(Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")){
 						p.setHealth(0);
 					}
 					else{

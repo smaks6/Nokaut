@@ -7,7 +7,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -47,7 +49,7 @@ public class BlockInNokaut implements Listener{
 	
 
 	
-	@EventHandler(priority = EventPriority.LOW)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void niewstawaj(StopPosingEvent event) {
 		Player p = event.getPlayer().getHandle();
 		String hashmap = gracze.get(p.getName());
@@ -61,7 +63,7 @@ public class BlockInNokaut implements Listener{
 		
 	}
 	
-	@EventHandler(priority = EventPriority.LOW)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void chestitd(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
 		String hashmap = gracze.get(p.getName());
@@ -72,6 +74,32 @@ public class BlockInNokaut implements Listener{
 			event.setCancelled(false);
 		}
 		
+	}
+
+	@EventHandler
+	public void bowshoot(EntityShootBowEvent event) {
+		Player p = event.getEntity().getKiller();
+		String hashmap = gracze.get(p.getName());
+		if(!hashmap.equals("stoi")) {
+			event.setCancelled(true);
+			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
+		}else {
+			event.setCancelled(false);
+		}
+
+	}
+
+	@EventHandler
+	public void dropitem(PlayerDropItemEvent event) {
+		Player p = event.getPlayer();
+		String hashmap = gracze.get(p.getName());
+		if(!hashmap.equals("stoi")) {
+			event.setCancelled(true);
+			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
+		}else {
+			event.setCancelled(false);
+		}
+
 	}
 	
 	@EventHandler
