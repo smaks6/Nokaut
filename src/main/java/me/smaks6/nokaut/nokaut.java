@@ -64,7 +64,7 @@ public class nokaut implements Listener{
 				}
 
 
-				p.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"),ChatColor.RED + razem, 1 , 20 , 1 );
+				p.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"),ChatColor.WHITE + razem, 1 , 20 , 1 );
 
 	    		String hashmap = gracze.get(p.getName());
 				if(hashmap.equals("stoi")) {
