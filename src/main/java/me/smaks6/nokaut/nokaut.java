@@ -3,6 +3,7 @@ package me.smaks6.nokaut;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
@@ -21,7 +22,7 @@ import static me.smaks6.nokaut.Main.gracze;
 
 public class nokaut implements Listener{
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
     public void death(EntityDamageEvent event){
         if (event.getEntity() instanceof Player){
             Player p = (Player) event.getEntity();

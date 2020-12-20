@@ -50,6 +50,7 @@ public class Main extends JavaPlugin implements Listener{
 		getConfig().addDefault("NokautTitle", "Nokaut");
 		getConfig().addDefault("DeathOnEnd", "true");
 		getConfig().addDefault("BlidnesOnNokaut", "true");
+		getConfig().addDefault("WeakUpTitle", "Podnoszenie");
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		reloadConfig();

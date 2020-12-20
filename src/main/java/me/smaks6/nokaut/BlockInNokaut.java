@@ -7,6 +7,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -78,15 +79,16 @@ public class BlockInNokaut implements Listener{
 
 	@EventHandler
 	public void bowshoot(EntityShootBowEvent event) {
-		Player p = event.getEntity().getKiller();
-		String hashmap = gracze.get(p.getName());
-		if(!hashmap.equals("stoi")) {
-			event.setCancelled(true);
-			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
-		}else {
-			event.setCancelled(false);
+		if(event.getEntity().getKiller() instanceof Player){
+			Player p = event.getEntity().getKiller();
+			String hashmap = gracze.get(p.getName());
+			if(!hashmap.equals("stoi")) {
+				event.setCancelled(true);
+				p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
+			}else {
+				event.setCancelled(false);
+			}
 		}
-
 	}
 
 	@EventHandler
@@ -101,6 +103,7 @@ public class BlockInNokaut implements Listener{
 		}
 
 	}
+
 	
 	@EventHandler
 	public void wchodzi(PlayerJoinEvent event) {
