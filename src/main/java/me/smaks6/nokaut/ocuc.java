@@ -8,6 +8,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import ru.armagidon.poseplugin.api.PosePluginAPI;
 import ru.armagidon.poseplugin.api.player.PosePluginPlayer;
 import ru.armagidon.poseplugin.api.poses.EnumPose;
@@ -15,6 +18,10 @@ import ru.armagidon.poseplugin.api.poses.IPluginPose;
 import ru.armagidon.poseplugin.api.poses.PoseBuilder;
 import ru.armagidon.poseplugin.api.poses.options.EnumPoseOption;
 import ru.armagidon.poseplugin.api.utils.npc.HandType;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static me.smaks6.nokaut.Main.gracze;
 
 public class ocuc implements Listener{
@@ -57,6 +64,7 @@ public class ocuc implements Listener{
                 posePluginPlayer.resetCurrentPose();
                 d.removePassenger(p);
                 e.setCancelled(true);
+                p.removePotionEffect(PotionEffectType.BLINDNESS);
 			}
 			
 			
@@ -77,4 +85,5 @@ public class ocuc implements Listener{
 		}
 		
 	}
+
 }

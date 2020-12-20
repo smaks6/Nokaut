@@ -5,6 +5,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import ru.armagidon.poseplugin.api.PosePluginAPI;
@@ -32,6 +35,10 @@ public class nokaut implements Listener{
                     PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
                     IPluginPose pose = PoseBuilder.builder(EnumPose.LYING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
                     posePluginPlayer.changePose(pose);
+                    if(Main.getInstance().getConfig().getString("BlidnesOnNokaut").equals("true")){
+						p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000000 , 100 ));
+						}
+					}
     				if(p.getHealth() <= 10.0) {
     					p.setHealth(10.0);
     				}
@@ -39,14 +46,11 @@ public class nokaut implements Listener{
     				odliczanie(p);
                 }else if(!hashmap.equals("stoi")) {
                 	event.setCancelled(false);
-                }else {
-                	p.kickPlayer("[nokaut] An unexpected error has occurred in the program");
                 }
 				
         	}
         }
-           
-    }
+
 	public void odliczanie(Player p){
 		new BukkitRunnable() {
 			
@@ -89,6 +93,7 @@ public class nokaut implements Listener{
 					else{
 						PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
 						posePluginPlayer.resetCurrentPose();
+						p.removePotionEffect(PotionEffectType.BLINDNESS);
 					}
     				this.cancel();
     			}

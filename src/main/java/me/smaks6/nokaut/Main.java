@@ -49,6 +49,7 @@ public class Main extends JavaPlugin implements Listener{
 		getConfig().addDefault("deathnownot", "Ta komenda jest dostępna tylko podczas nokautu");
 		getConfig().addDefault("NokautTitle", "Nokaut");
 		getConfig().addDefault("DeathOnEnd", "true");
+		getConfig().addDefault("BlidnesOnNokaut", "true");
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		reloadConfig();
