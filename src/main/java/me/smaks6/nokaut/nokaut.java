@@ -36,7 +36,7 @@ public class nokaut implements Listener{
                     PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
                     IPluginPose pose = PoseBuilder.builder(EnumPose.LYING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
                     posePluginPlayer.changePose(pose);
-                    if(Main.getInstance().getConfig().getString("BlidnesOnNokaut").equals("true")){
+                    if(Main.getInstance().getConfig().getString("BlindnessOnNokaut").equals("true")){
 						p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000000 , 100 ));
 						}
 					}

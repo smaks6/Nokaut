@@ -44,7 +44,7 @@ public class ocuc implements Listener{
 	public void ocucanie(Player p, Player ocucany){
 		new BukkitRunnable() {
 
-			int czas = 10;
+			int czas = 0;
 
 			@Override
 			public void run() {
@@ -53,11 +53,9 @@ public class ocuc implements Listener{
 					this.cancel();
 				}
 
+				p.sendTitle(ChatColor.GREEN + Main.getInstance().getConfig().getString("WakeUpTitle"),ChatColor.GREEN + "" + czas + "%", 1 , 20 , 1 );
 
-
-				p.sendTitle(ChatColor.GREEN + Main.getInstance().getConfig().getString("WeakUpTitle"),ChatColor.WHITE + "" + czas, 1 , 20 , 1 );
-
-				if(czas <= 0){
+				if(czas >= 100){
 					this.cancel();
 					gracze.replace(ocucany.getName(), "stoi");
 					p.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupdamager").replace("{player}", ocucany.getName()));
@@ -67,9 +65,9 @@ public class ocuc implements Listener{
 					ocucany.removePotionEffect(PotionEffectType.BLINDNESS);
 				}
 
-				--czas;
+				++czas;
 			}
-		}.runTaskTimer(Main.getInstance(), 0L, 20L);
+		}.runTaskTimer(Main.getInstance(), 0L, 2L);
 	}
 
 }
