@@ -13,7 +13,6 @@ import org.bukkit.util.StringUtil;
 public class tabnokautcmd implements TabCompleter {
 
 	private static final List<String> COMMANDS = Arrays.asList("reload");
-    //create a static array of values
 
 public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         final List<String> completions = new ArrayList<>();
