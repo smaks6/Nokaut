@@ -22,17 +22,18 @@ import static me.smaks6.nokaut.Main.gracze;
 
 public class nokaut implements Listener{
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.MONITOR)
     public void death(EntityDamageEvent event){
         if (event.getEntity() instanceof Player){
             Player p = (Player) event.getEntity();
             int hp = (int) p.getHealth();
-            int dm = (int) event.getDamage();
+            int dm = (int) event.getFinalDamage();
             String hashmap = gracze.get(p.getName());
         	if(hp <= dm) {
                 if(hashmap.equals("stoi")) {
+					event.setCancelled(true);
                 	gracze.replace(p.getName(), "chwila");
-                	event.setCancelled(true);
+                	p.setFireTicks(0);
                     PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
                     IPluginPose pose = PoseBuilder.builder(EnumPose.LYING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
                     posePluginPlayer.changePose(pose);

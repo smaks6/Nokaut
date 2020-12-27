@@ -37,7 +37,7 @@ public class przenoszenie implements Listener{
 			if(hashmapon.equals("stoi")) {
 				return;
 			}
-			if(hashmapon.equals("nies")) {
+			else if(hashmapon.equals("nies")) {
 				return;
 			}
 			else if(hashmapon.equals("lezy")){
@@ -117,13 +117,10 @@ public class przenoszenie implements Listener{
 					
 				}
 				
-				if(!hashmap.equals("nies") && czas == 0){
+				if(!hashmap.equals("nies")){
 					this.cancel();
 				}
-				
-				if(czas != 0) {
-					--czas;
-				}
+
 				
 				
 	        }

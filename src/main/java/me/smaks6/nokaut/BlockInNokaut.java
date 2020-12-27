@@ -10,10 +10,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 
 import static me.smaks6.nokaut.Main.gracze;
 
@@ -77,7 +74,7 @@ public class BlockInNokaut implements Listener{
 		
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOW)
 	public void bowshoot(EntityShootBowEvent event) {
 		if(event.getEntity().getKiller() instanceof Player){
 			Player p = event.getEntity().getKiller();
@@ -85,8 +82,6 @@ public class BlockInNokaut implements Listener{
 			if(!hashmap.equals("stoi")) {
 				event.setCancelled(true);
 				p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
-			}else {
-				event.setCancelled(false);
 			}
 		}
 	}
@@ -104,6 +99,19 @@ public class BlockInNokaut implements Listener{
 
 	}
 
+	@EventHandler
+	public void commandblock(PlayerCommandPreprocessEvent event) {
+		Player p = event.getPlayer();
+		String hashmap = gracze.get(p.getName());
+		if(!hashmap.equals("stoi")) {
+			if (!event.getMessage().toLowerCase().startsWith("/zo") && !event.getMessage().toLowerCase().startsWith("/zginodrazu") && !event.getMessage().toLowerCase().startsWith("/deathnow") && !event.getMessage().toLowerCase().startsWith("/dn")) {
+				event.setCancelled(true);
+				event.getPlayer().sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
+			}
+		}else {
+			event.setCancelled(false);
+		}
+	}
 	
 	@EventHandler
 	public void wchodzi(PlayerJoinEvent event) {
