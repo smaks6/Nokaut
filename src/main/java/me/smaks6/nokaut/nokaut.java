@@ -69,10 +69,12 @@ public class nokaut implements Listener{
 					razem = czasm + ":" + czass;
 				}
 
-
 				p.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"),ChatColor.WHITE + razem, 1 , 20 , 1 );
 
 	    		String hashmap = gracze.get(p.getName());
+				if(!p.isOnline()){
+					this.cancel();
+				}
 				if(hashmap.equals("stoi")) {
 					this.cancel();
 				}
