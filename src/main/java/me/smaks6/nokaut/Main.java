@@ -1,3 +1,8 @@
+
+//
+// Copyright (c) 2021 smaks6
+//
+
 package me.smaks6.nokaut;
 
 import java.util.HashMap;

@@ -75,7 +75,7 @@
 			<artifactId>api</artifactId>
 			<scope>system</scope>
 			<version>1_16_R3</version>
-			<systemPath>C:\poseplugin.jar</systemPath>
+			<systemPath>C:\Poseplugin.jar</systemPath>
 		</dependency>
     </dependencies>
 </project>

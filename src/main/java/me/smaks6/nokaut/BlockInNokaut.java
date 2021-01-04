@@ -99,7 +99,7 @@ public class BlockInNokaut implements Listener{
 
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOW)
 	public void commandblock(PlayerCommandPreprocessEvent event) {
 		Player p = event.getPlayer();
 		String hashmap = gracze.get(p.getName());
