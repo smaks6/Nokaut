@@ -30,6 +30,9 @@ public class ocuc implements Listener{
 		if(players.isEmpty()){
 			return;
 		}
+		if(CitizensListener.isNpc(players.get(0))){
+			return;
+		}
 		if(players.get(0) instanceof Player){
 			Player plist = (Player) players.get(0);
 			String hashmap = gracze.get(plist.getName());

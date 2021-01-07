@@ -112,6 +112,24 @@ public class BlockInNokaut implements Listener{
 			event.setCancelled(false);
 		}
 	}
+
+	@EventHandler
+	public void onMove(PlayerMoveEvent e) {
+		if (e.getTo().getBlockX() == e.getFrom().getBlockX() && e.getTo().getBlockY() == e.getFrom().getBlockY() && e.getTo().getBlockZ() == e.getFrom().getBlockZ()) return; //The player hasn't moved
+
+		Player p = e.getPlayer();
+		String hashmap = gracze.get(p.getName());
+		if(hashmap.equals("nies")){
+			return;
+		}
+		if(!hashmap.equals("stoi")) {
+			e.setCancelled(true);
+			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
+		}else {
+			e.setCancelled(false);
+		}
+
+	}
 	
 	@EventHandler
 	public void wchodzi(PlayerJoinEvent event) {

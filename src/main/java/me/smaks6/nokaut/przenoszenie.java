@@ -30,6 +30,9 @@ public class przenoszenie implements Listener{
 		if(!hashmap.equals("stoi")) {
 			return;
 		}
+		if(CitizensListener.isNpc(e.getRightClicked())){
+			return;
+		}
 		Entity rightclick = e.getRightClicked();
 		if(rightclick instanceof Player){
 			Player playeron = (Player) e.getRightClicked();
@@ -53,6 +56,9 @@ public class przenoszenie implements Listener{
 	public void Ocuc(EntityDamageByEntityEvent e) {
 		Entity entityhp = e.getEntity();
 		Entity entityd = e.getDamager();
+		if(CitizensListener.isNpc(e.getEntity())){
+			return;
+		}
 		if(entityhp instanceof Player && entityd instanceof Player){
 			Player p = (Player) e.getEntity();
 			Player d = (Player) e.getDamager();
@@ -65,10 +71,17 @@ public class przenoszenie implements Listener{
 			if(hashmap.equals("nies")) {
 				gracze.replace(p.getName(), "lezy");
 				Location dloc = d.getLocation();
-				p.teleport(dloc);
+				p.leaveVehicle();
+				p.teleport(dloc);;
 				PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
-				IPluginPose pose = PoseBuilder.builder(EnumPose.LYING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
-				posePluginPlayer.changePose(pose);
+				if(Main.getInstance().getConfig().getString("LyingPosition").equals("true")){
+					IPluginPose pose = PoseBuilder.builder(EnumPose.LYING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
+					posePluginPlayer.changePose(pose);
+				}else{
+					p.leaveVehicle();
+					IPluginPose pose = PoseBuilder.builder(EnumPose.SWIMMING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
+					posePluginPlayer.changePose(pose);
+				}
 				e.setCancelled(true);
 				p.leaveVehicle();
 				return;
@@ -115,6 +128,10 @@ public class przenoszenie implements Listener{
 				if(!d.isInsideVehicle() || d.getVehicle() instanceof Player){
 					p.addPassenger(d);
 					
+				}
+
+				if(!d.isOnline()){
+					this.cancel();
 				}
 				
 				if(!hashmap.equals("nies")){

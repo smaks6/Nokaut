@@ -7,6 +7,7 @@ package me.smaks6.nokaut;
 
 import java.util.HashMap;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
@@ -31,6 +32,9 @@ public class Main extends JavaPlugin implements Listener{
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "|     \\|  |  \\");
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the plugin nokaut BY smaks6");
+
+		int pluginId = 9923;
+		Metrics metrics = new Metrics(this, pluginId);
 		
 		BlockInNokaut BlockInNokaut = new BlockInNokaut();
 		nokaut nokaut = new nokaut();
@@ -56,6 +60,7 @@ public class Main extends JavaPlugin implements Listener{
 		getConfig().addDefault("DeathOnEnd", "true");
 		getConfig().addDefault("BlindnessOnNokaut", "true");
 		getConfig().addDefault("WakeUpTitle", "Reanimowanie");
+		getConfig().addDefault("LyingPosition", "true");
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		reloadConfig();
