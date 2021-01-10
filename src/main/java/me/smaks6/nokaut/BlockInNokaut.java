@@ -27,8 +27,6 @@ public class BlockInNokaut implements Listener{
 		if(!hashmap.equals("stoi")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
-		}else {
-			event.setCancelled(false);
 		}
 	}
 	
@@ -39,8 +37,6 @@ public class BlockInNokaut implements Listener{
 		if(!hashmap.equals("stoi")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
-		}else {
-			event.setCancelled(false);
 		}
 		
 	}
@@ -68,8 +64,6 @@ public class BlockInNokaut implements Listener{
 		if(!hashmap.equals("stoi")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
-		}else {
-			event.setCancelled(false);
 		}
 		
 	}
@@ -93,8 +87,6 @@ public class BlockInNokaut implements Listener{
 		if(!hashmap.equals("stoi")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
-		}else {
-			event.setCancelled(false);
 		}
 
 	}
@@ -123,8 +115,6 @@ public class BlockInNokaut implements Listener{
 		if(!hashmap.equals("stoi")) {
 			e.setCancelled(true);
 			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
-		}else {
-			e.setCancelled(false);
 		}
 
 	}
