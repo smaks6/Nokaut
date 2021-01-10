@@ -31,32 +31,32 @@ public class nokaut implements Listener{
             int hp = (int) p.getHealth();
             int dm = (int) event.getFinalDamage();
             String hashmap = gracze.get(p.getName());
+            if(!hashmap.equals("stoi")){
+            	return;
+			}
         	if(hp <= dm) {
-                if(hashmap.equals("stoi")) {
-					event.setCancelled(true);
-                	gracze.replace(p.getName(), "chwila");
-                	p.setFireTicks(0);
-                    PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
-                    if(Main.getInstance().getConfig().getString("LyingPosition").equals("true")){
-						IPluginPose pose = PoseBuilder.builder(EnumPose.LYING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
-						posePluginPlayer.changePose(pose);
-					}else{
-						IPluginPose pose = PoseBuilder.builder(EnumPose.SWIMMING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
-						posePluginPlayer.changePose(pose);
-					}
+				event.setCancelled(true);
+				gracze.replace(p.getName(), "lezy");
+				p.setFireTicks(0);
+				PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
+				if (Main.getInstance().getConfig().getString("LyingPosition").equals("true")) {
+					IPluginPose pose = PoseBuilder.builder(EnumPose.LYING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
+					posePluginPlayer.changePose(pose);
+				} else {
+					IPluginPose pose = PoseBuilder.builder(EnumPose.SWIMMING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
+					posePluginPlayer.changePose(pose);
+				}
 
-                    if(Main.getInstance().getConfig().getString("BlindnessOnNokaut").equals("true")){
-						p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000000 , 100 ));
-						}
-					}
-    				if(p.getHealth() <= 10.0) {
-    					p.setHealth(10.0);
-    				}
-    				p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("helpnokautmessage"));
-    				odliczanie(p);
-                }else if(!hashmap.equals("stoi")) {
-                	event.setCancelled(false);
-                }
+				if (Main.getInstance().getConfig().getString("BlindnessOnNokaut").equals("true")) {
+					p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000000, 100));
+				}
+
+				if (p.getHealth() <= 10.0) {
+					p.setHealth(10.0);
+				}
+				p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("helpnokautmessage"));
+				odliczanie(p);
+			}
 				
         	}
         }
@@ -86,12 +86,7 @@ public class nokaut implements Listener{
 				if(hashmap.equals("stoi")) {
 					this.cancel();
 				}
-				
-				if(hashmap.equals("chwila") && czass == 55) {
-					gracze.replace(p.getName(), "lezy");
-				}
 
-				
     			if((czass <= 0) && (czasm >= 1)) {
     				--czasm;
     				czass = 60;

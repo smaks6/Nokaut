@@ -64,10 +64,6 @@ public class przenoszenie implements Listener{
 			Player d = (Player) e.getDamager();
 			String hashmap = gracze.get(p.getName());
 			String hashmapdamager = gracze.get(d.getName());
-			if(hashmap.equals("chwila")) {
-				e.setCancelled(true);
-				return;
-			}
 			if(hashmap.equals("nies")) {
 				gracze.replace(p.getName(), "lezy");
 				Location dloc = d.getLocation();

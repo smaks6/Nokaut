@@ -108,8 +108,6 @@ public class BlockInNokaut implements Listener{
 				event.setCancelled(true);
 				event.getPlayer().sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
 			}
-		}else {
-			event.setCancelled(false);
 		}
 	}
 
