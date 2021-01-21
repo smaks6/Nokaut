@@ -53,8 +53,6 @@ public class BlockInNokaut implements Listener{
 		}
 		event.setCancelled(!hashmap.equals("stoi"));
 		
-
-		
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)

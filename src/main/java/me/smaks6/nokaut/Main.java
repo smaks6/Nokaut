@@ -14,7 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
-public class Main extends JavaPlugin implements Listener{
+public class Main extends JavaPlugin{
 	
 	private static Main instance;
 	
@@ -23,6 +23,11 @@ public class Main extends JavaPlugin implements Listener{
 	public void onEnable() {
 		
 		instance = this;
+		if(!getDescription().getAuthors().equals("smaks6") || !getDescription().getName().equals("nokaut")){
+			getLogger().info("Please download this plugin:");
+			getLogger().info("https://www.spigotmc.org/resources/nokaut-knockout.85152/");
+			getServer().getPluginManager().disablePlugin(this);
+		}
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "|\\     |  |  /");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "| \\    |  | /");
@@ -40,7 +45,6 @@ public class Main extends JavaPlugin implements Listener{
 		nokaut nokaut = new nokaut();
 		ocuc ocuc = new ocuc();
 		przenoszenie przenoszenie = new przenoszenie();
-		Bukkit.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.getServer().getPluginManager().registerEvents(BlockInNokaut, this);
 		Bukkit.getServer().getPluginManager().registerEvents(nokaut, this);
 		Bukkit.getServer().getPluginManager().registerEvents(ocuc, this);
