@@ -1,6 +1,7 @@
 package me.smaks6.nokaut;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,8 +10,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import ru.armagidon.poseplugin.api.PosePluginAPI;
-import ru.armagidon.poseplugin.api.player.PosePluginPlayer;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class ocuc implements Listener{
 	@EventHandler
 	public void ocucS(PlayerToggleSneakEvent e){
 		Player p = e.getPlayer();
-		List<Entity> players = p.getNearbyEntities(4,6,4);;
+		List<Entity> players = p.getNearbyEntities(2,2,2);
 		if(players.isEmpty()){
 			return;
 		}
@@ -41,6 +40,8 @@ public class ocuc implements Listener{
 			}
 		}
 
+		return;
+
 	}
 
 
@@ -49,10 +50,12 @@ public class ocuc implements Listener{
 
 			int czas = 0;
 
+			final Location loc = p.getLocation();
+
 			@Override
 			public void run() {
 
-				if(!p.isSneaking()){
+				if(!p.isSneaking() || !loc.equals(p.getLocation())){
 					this.cancel();
 				}
 
@@ -60,11 +63,9 @@ public class ocuc implements Listener{
 
 				if(czas >= 100){
 					this.cancel();
-					gracze.replace(ocucany.getName(), "stoi");
 					p.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupdamager").replace("{player}", ocucany.getName()));
 					ocucany.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupplayer").replace("{player}", p.getName()));
-					PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(ocucany);
-					posePluginPlayer.resetCurrentPose();
+					pose.stop(ocucany);
 					ocucany.removePotionEffect(PotionEffectType.BLINDNESS);
 				}
 

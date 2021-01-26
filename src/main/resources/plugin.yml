@@ -1,10 +1,8 @@
 name: nokaut
-version: 1.9.3
+version: 2.0
 main: me.smaks6.nokaut.Main
 author: smaks6
 website: https://www.spigotmc.org/resources/nokaut.85152/
-depend: [PosePlugin]
-loadbefore: [PosePlugin]
 description: Plugin jest kopia pluginu na nokaut z km
 
 commands:

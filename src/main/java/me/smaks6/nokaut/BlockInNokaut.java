@@ -7,16 +7,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 
 import static me.smaks6.nokaut.Main.gracze;
-
-import ru.armagidon.poseplugin.api.PosePluginAPI;
-import ru.armagidon.poseplugin.api.events.StopPosingEvent;
-import ru.armagidon.poseplugin.api.player.PosePluginPlayer;
 
 public class BlockInNokaut implements Listener{
 	
@@ -40,20 +36,7 @@ public class BlockInNokaut implements Listener{
 		}
 		
 	}
-	
 
-	
-	@EventHandler(priority = EventPriority.LOWEST)
-	public void niewstawaj(StopPosingEvent event) {
-		Player p = event.getPlayer().getHandle();
-		String hashmap = gracze.get(p.getName());
-		if(hashmap.equals("nies")) {
-			event.setCancelled(false);
-			return;
-		}
-		event.setCancelled(!hashmap.equals("stoi"));
-		
-	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void chestitd(PlayerInteractEvent event) {
@@ -89,6 +72,28 @@ public class BlockInNokaut implements Listener{
 
 	}
 
+
+	@EventHandler
+	public void wezitem(PlayerPickupItemEvent event) {
+		Player p = event.getPlayer();
+		String hashmap = gracze.get(p.getName());
+		if(!hashmap.equals("stoi")) {
+			event.setCancelled(true);
+		}
+
+	}
+
+	@EventHandler
+	public void regeneracjaHP(EntityRegainHealthEvent e) {
+		if (e.getEntity() instanceof Player) {
+			Player p = (Player)e.getEntity();
+			if (!gracze.get(p.getName()).equals("stoi")) {
+				e.setCancelled(true);
+			}
+		}
+
+	}
+
 	@EventHandler(priority = EventPriority.LOW)
 	public void commandblock(PlayerCommandPreprocessEvent event) {
 		Player p = event.getPlayer();
@@ -99,22 +104,6 @@ public class BlockInNokaut implements Listener{
 				event.getPlayer().sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
 			}
 		}
-	}
-
-	@EventHandler
-	public void onMove(PlayerMoveEvent e) {
-		if (e.getTo().getBlockX() == e.getFrom().getBlockX() && e.getTo().getBlockY() == e.getFrom().getBlockY() && e.getTo().getBlockZ() == e.getFrom().getBlockZ()) return; //The player hasn't moved
-
-		Player p = e.getPlayer();
-		String hashmap = gracze.get(p.getName());
-		if(hashmap.equals("nies")){
-			return;
-		}
-		if(!hashmap.equals("stoi")) {
-			e.setCancelled(true);
-			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
-		}
-
 	}
 	
 	@EventHandler
@@ -138,9 +127,6 @@ public class BlockInNokaut implements Listener{
 	@EventHandler
 	public void smierc(PlayerDeathEvent event) {
 		Player p = event.getEntity();
-		gracze.replace(p.getName(), "stoi");
-		PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
-        posePluginPlayer.resetCurrentPose();
-		
+		pose.stop(p);
 	}
 }

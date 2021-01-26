@@ -9,15 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import ru.armagidon.poseplugin.api.PosePluginAPI;
-import ru.armagidon.poseplugin.api.player.PosePluginPlayer;
-import ru.armagidon.poseplugin.api.poses.EnumPose;
-import ru.armagidon.poseplugin.api.poses.IPluginPose;
-import ru.armagidon.poseplugin.api.poses.PoseBuilder;
-import ru.armagidon.poseplugin.api.poses.options.EnumPoseOption;
-import ru.armagidon.poseplugin.api.utils.npc.HandType;
 
 import static me.smaks6.nokaut.Main.gracze;
 
@@ -45,8 +37,6 @@ public class przenoszenie implements Listener{
 			}
 			else if(hashmapon.equals("lezy")){
 				gracze.replace(playeron.getName(), "nies");
-				p.addPassenger(playeron);
-				p.addPassenger(playeron);
 				siedzisz(p, playeron);
 			}
 		}
@@ -66,20 +56,8 @@ public class przenoszenie implements Listener{
 			String hashmapdamager = gracze.get(d.getName());
 			if(hashmap.equals("nies")) {
 				gracze.replace(p.getName(), "lezy");
-				Location dloc = d.getLocation();
-				p.leaveVehicle();
-				p.teleport(dloc);;
-				PosePluginPlayer posePluginPlayer = PosePluginAPI.getAPI().getPlayerMap().getPosePluginPlayer(p);
-				if(Main.getInstance().getConfig().getString("LyingPosition").equals("true")){
-					IPluginPose pose = PoseBuilder.builder(EnumPose.LYING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
-					posePluginPlayer.changePose(pose);
-				}else{
-					p.leaveVehicle();
-					IPluginPose pose = PoseBuilder.builder(EnumPose.SWIMMING).option(EnumPoseOption.HANDTYPE, HandType.LEFT).build(p);
-					posePluginPlayer.changePose(pose);
-				}
+				pose.usunblock(p);
 				e.setCancelled(true);
-				p.leaveVehicle();
 				return;
 			}
 
@@ -114,29 +92,28 @@ public class przenoszenie implements Listener{
 	public void siedzisz(Player p, Player d){
 		new BukkitRunnable() {
 			
-			int czas = 50;
-			
 			@Override
 	        public void run() {
 				
 				String hashmap = gracze.get(d.getName());
-				
-				if(!d.isInsideVehicle() || d.getVehicle() instanceof Player){
-					p.addPassenger(d);
-					
-				}
 
-				if(!d.isOnline()){
+				d.teleport(p.getLocation().add(0,2,0));
+
+				if(!d.isOnline() || !p.isOnline()){
 					this.cancel();
+					return;
 				}
 				
 				if(!hashmap.equals("nies")){
 					this.cancel();
+					return;
 				}
+
+				pose.usunblock(d);
 
 				
 				
 	        }
-	    }.runTaskTimer(Main.getInstance(), 0L, 5L);
+	    }.runTaskTimer(Main.getInstance(), 0L, 1L);
 	}
 }

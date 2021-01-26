@@ -10,7 +10,6 @@ import java.util.HashMap;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -23,11 +22,6 @@ public class Main extends JavaPlugin{
 	public void onEnable() {
 		
 		instance = this;
-		if(!getDescription().getAuthors().equals("smaks6") || !getDescription().getName().equals("nokaut")){
-			getLogger().info("Please download this plugin:");
-			getLogger().info("https://www.spigotmc.org/resources/nokaut-knockout.85152/");
-			getServer().getPluginManager().disablePlugin(this);
-		}
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "|\\     |  |  /");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "| \\    |  | /");
@@ -53,6 +47,11 @@ public class Main extends JavaPlugin{
 		new deathnowcmd(this);
 		new nokautcmd(this);
 		getCommand("nokaut").setTabCompleter(new tabnokautcmd());
+
+		if(!getDescription().getAuthors().contains("smaks6")){
+			getLogger().info("Please..........");
+			Bukkit.getPluginManager().disablePlugin(this);
+		}
 
 		getConfig().addDefault("NokautTimeInMin", 2);
 		getConfig().addDefault("cancelmessage", "Nie możesz tego robić w czasie nokautu");
