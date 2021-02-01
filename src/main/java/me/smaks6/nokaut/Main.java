@@ -10,6 +10,8 @@ import java.util.HashMap;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -18,6 +20,7 @@ public class Main extends JavaPlugin{
 	private static Main instance;
 	
     public static HashMap<String, String> gracze = new HashMap<String, String>();
+	public static HashMap<Player, Player> attacker = new HashMap<Player, Player>();
     
 	public void onEnable() {
 		

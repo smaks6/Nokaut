@@ -29,6 +29,8 @@ public class pose {
         gracze(p);
         p.setWalkSpeed(0);
         p.setAllowFlight(true);
+        p.setFlying(false);
+        p.setFlySpeed(0);
         p.setDisplayName(Main.getInstance().getConfig().getString("NokautTitle") + p.getName());
     }
 
@@ -65,6 +67,7 @@ public class pose {
         p.sendBlockChange(block.getLocation(), Material.AIR, (byte)0);
 
         p.setWalkSpeed(0.2F);
+        p.setFlySpeed(0.2F);
         p.setAllowFlight(false);
 
     }
