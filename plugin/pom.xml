@@ -57,5 +57,10 @@
             <version>1.8</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>me.smaks6</groupId>
+            <artifactId>v1_16_R3</artifactId>
+            <version>1.10</version>
+        </dependency>
     </dependencies>
 </project>

@@ -9,6 +9,7 @@
     <version>1.10</version>
     <modules>
         <module>plugin</module>
+        <module>v1_16_R3</module>
     </modules>
     <packaging>pom</packaging>
 
