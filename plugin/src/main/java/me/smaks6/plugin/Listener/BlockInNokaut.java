@@ -109,6 +109,16 @@ public class BlockInNokaut implements Listener{
 		}
 	}
 
+	@EventHandler
+	public void event(PlayerMoveEvent event){
+		Player p = event.getPlayer();
+		if (!gracze.get(p.getName()).equals("stoi")) {
+			if(event.getFrom().getX() != event.getTo().getX() || event.getFrom().getY() != event.getTo().getY() || event.getFrom().getZ() != event.getTo().getZ()){
+				event.setCancelled(true);
+			}
+		}
+	}
+
 	@EventHandler(priority = EventPriority.HIGH)
 	public void stopdamage(EntityDamageByEntityEvent event){
 		if(event.getDamager() instanceof Player){

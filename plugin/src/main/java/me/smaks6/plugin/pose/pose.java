@@ -2,16 +2,12 @@ package me.smaks6.plugin.pose;
 
 import me.smaks6.plugin.Main;
 import me.smaks6.v1_16_R3.PoseMain;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Pose;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import static me.smaks6.plugin.Main.gracze;
 
@@ -22,6 +18,8 @@ public class pose {
         p.setFlySpeed(0);
 
         PoseMain.startPose(p, Main.getInstance().getServer());
+
+        p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 100, false));
 
     }
 
@@ -38,6 +36,7 @@ public class pose {
         p.setFlySpeed(0.1F);
         PoseMain.stopPose(p, Main.getInstance().getServer());
 
+        p.removePotionEffect(PotionEffectType.INVISIBILITY);
     }
 
 
