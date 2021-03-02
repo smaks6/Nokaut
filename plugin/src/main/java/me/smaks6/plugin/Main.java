@@ -61,18 +61,6 @@ public class Main extends JavaPlugin{
 			getLogger().info("Please..........");
 			Bukkit.getPluginManager().disablePlugin(this);
 		}
-
-		getConfig().addDefault("NokautTimeInMin", 2);
-		getConfig().addDefault("cancelmessage", "Nie możesz tego robić w czasie nokautu");
-		getConfig().addDefault("helpnokautmessage", "Musisz poprosić innego gracza aby cię uderzył(ocucił) przed minięciem czasu inaczej zginiesz....");
-		getConfig().addDefault("wakeupplayer", "Zostałeś ocucony przez {player}");
-		getConfig().addDefault("wakeupdamager", "ocuciłeś gracza {player}");
-		getConfig().addDefault("deathnownot", "Ta komenda jest dostępna tylko podczas nokautu");
-		getConfig().addDefault("NokautTitle", "Nokaut");
-		getConfig().addDefault("DeathOnEnd", "true");
-		getConfig().addDefault("BlindnessOnNokaut", "true");
-		getConfig().addDefault("WakeUpTitle", "Reanimowanie");
-		getConfig().addDefault("LyingPosition", "true");
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		reloadConfig();

@@ -1,0 +1,12 @@
+NokautTimeInMin: 2
+cancelmessage: Nie możesz tego robić w czasie nokautu
+helpnokautmessage: Musisz poprosić innego gracza aby cię uderzył(ocucił) przed minięciem
+  czasu inaczej zginiesz....
+wakeupplayer: Zostałeś ocucony przez {player}
+wakeupdamager: ocuciłeś gracza {player}
+deathnownot: Ta komenda jest dostępna tylko podczas nokautu
+NokautTitle: Nokaut
+DeathOnEnd: 'true'
+BlindnessOnNokaut: 'true'
+WakeUpTitle: Reanimowanie
+LyingPosition: 'true'
