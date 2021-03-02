@@ -1,5 +1,8 @@
-package me.smaks6.nokaut;
+package me.smaks6.nokaut.nokaut;
 
+import me.smaks6.nokaut.Main;
+import me.smaks6.nokaut.pose.pose;
+import me.smaks6.nokaut.service.CitizensListener;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -29,15 +32,20 @@ public class ocuc implements Listener{
 		if(players.isEmpty()){
 			return;
 		}
-		if(CitizensListener.isNpc(players.get(0))){
-			return;
-		}
-		if(players.get(0) instanceof Player){
-			Player plist = (Player) players.get(0);
-			String hashmap = gracze.get(plist.getName());
-			if(hashmap.equals("lezy")){
-				ocucanie(p, plist);
+
+		for (Entity player : players) {
+			if (CitizensListener.isNpc(player)) {
+				return;
 			}
+			if(player instanceof Player){
+				Player plist = (Player) player;
+				String hashmap = gracze.get(plist.getName());
+				if(hashmap.equals("lezy")){
+					ocucanie(p, plist);
+					break;
+				}
+			}
+
 		}
 
 		return;

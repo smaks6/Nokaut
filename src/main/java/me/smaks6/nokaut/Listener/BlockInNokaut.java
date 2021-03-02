@@ -1,5 +1,7 @@
-package me.smaks6.nokaut;
+package me.smaks6.nokaut.Listener;
 
+import me.smaks6.nokaut.Main;
+import me.smaks6.nokaut.pose.pose;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -7,6 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -102,6 +105,26 @@ public class BlockInNokaut implements Listener{
 			if (!event.getMessage().toLowerCase().startsWith("/zo") && !event.getMessage().toLowerCase().startsWith("/zginodrazu") && !event.getMessage().toLowerCase().startsWith("/deathnow") && !event.getMessage().toLowerCase().startsWith("/dn")) {
 				event.setCancelled(true);
 				event.getPlayer().sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
+			}
+		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGH)
+	public void stopdamage(EntityDamageByEntityEvent event){
+		if(event.getDamager() instanceof Player){
+			if(!gracze.get((Player) event.getDamager()).equals("stoi")){
+				event.setCancelled(true);
+			}
+
+			if(event.getEntity() instanceof Player){
+				Player damager = (Player) event.getDamager();
+				Player player  = (Player) event.getEntity();
+
+
+				if(gracze.get(damager.getName()).equals("stoi") && gracze.get(player.getName()).equals("niesc")){
+					gracze.replace(player.getName(), "lezy");
+				}
+
 			}
 		}
 	}

@@ -1,19 +1,17 @@
-package me.smaks6.nokaut;
+package me.smaks6.nokaut.pose;
 
-import net.minecraft.server.v1_16_R3.*;
+import me.smaks6.nokaut.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static me.smaks6.nokaut.Main.gracze;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+
+import static me.smaks6.nokaut.Main.gracze;
 
 public class pose {
 
@@ -31,37 +29,17 @@ public class pose {
         p.setAllowFlight(true);
         p.setFlying(false);
         p.setFlySpeed(0);
-        p.setDisplayName(Main.getInstance().getConfig().getString("NokautTitle") + p.getName());
+        p.setDisplayName(me.smaks6.nokaut.Main.getInstance().getConfig().getString("NokautTitle") + p.getName());
+        p.setCustomNameVisible(true);
     }
 
     public static void stop(Player p){
-
-        List<Player> others = new ArrayList<>();
-        for (Player po : Bukkit.getOnlinePlayers()){
-            others.add(po);
-        }
-
-
         p.setSwimming(false);
         p.setSprinting(false);
         gracze.replace(p.getName(), "stoi");
         usunblock(p);
 
         p.setDisplayName(p.getName());
-
-        EntityPlayer entityPlayer = ((CraftPlayer)p).getHandle();
-        DataWatcher watcher = entityPlayer.getDataWatcher();
-        watcher.set(DataWatcherRegistry.s.a(6), EntityPose.STANDING);
-        PacketPlayOutEntityMetadata metadata = new PacketPlayOutEntityMetadata(entityPlayer.getId(), watcher, true);
-        Iterator var7 = others.iterator();
-
-        while(var7.hasNext()) {
-            Player receiver = (Player)var7.next();
-            if (receiver != p) {
-                ((CraftPlayer)receiver).getHandle().playerConnection.sendPacket(metadata);
-            }
-        }
-
 
         Block block = p.getLocation().getBlock().getRelative(BlockFace.UP);
         p.sendBlockChange(block.getLocation(), Material.AIR, (byte)0);
@@ -90,18 +68,9 @@ public class pose {
                     return;
                 }
 
-                EntityPlayer entityPlayer = ((CraftPlayer)target).getHandle();
-                DataWatcher watcher = entityPlayer.getDataWatcher();
-                watcher.set(DataWatcherRegistry.s.a(6), EntityPose.SWIMMING);
-                PacketPlayOutEntityMetadata metadata = new PacketPlayOutEntityMetadata(entityPlayer.getId(), watcher, true);
-                Iterator var7 = others.iterator();
 
-                while(var7.hasNext()) {
-                    Player receiver = (Player)var7.next();
-                    if (receiver != target) {
-                        ((CraftPlayer)receiver).getHandle().playerConnection.sendPacket(metadata);
-                    }
-                }
+                //Tutaj będzie wykonywanie pozycji!
+
 
                 if(hashmap.equals("nies"))return;
 

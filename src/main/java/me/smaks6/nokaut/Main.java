@@ -5,25 +5,31 @@
 
 package me.smaks6.nokaut;
 
-import java.util.HashMap;
-
+import me.smaks6.nokaut.Listener.BlockInNokaut;
+import me.smaks6.nokaut.cmd.deathnowcmd;
+import me.smaks6.nokaut.cmd.nokautcmd;
+import me.smaks6.nokaut.cmd.tabnokautcmd;
+import me.smaks6.nokaut.nokaut.nokaut;
+import me.smaks6.nokaut.nokaut.ocuc;
+import me.smaks6.nokaut.nokaut.przenoszenie;
+import me.smaks6.nokaut.service.updatechecker;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashMap;
 
 
 public class Main extends JavaPlugin{
 	
 	private static Main instance;
+
+	public static final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	
     public static HashMap<String, String> gracze = new HashMap<String, String>();
-	public static HashMap<Player, Player> attacker = new HashMap<Player, Player>();
     
 	public void onEnable() {
-		
 		instance = this;
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "|\\     |  |  /");

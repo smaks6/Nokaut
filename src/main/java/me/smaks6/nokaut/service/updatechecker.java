@@ -1,5 +1,6 @@
-package me.smaks6.nokaut;
+package me.smaks6.nokaut.service;
 
+import me.smaks6.nokaut.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.util.Consumer;

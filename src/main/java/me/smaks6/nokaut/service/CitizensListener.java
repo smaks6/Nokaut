@@ -1,4 +1,4 @@
-package me.smaks6.nokaut;
+package me.smaks6.nokaut.service;
 
 import org.bukkit.entity.Entity;
 

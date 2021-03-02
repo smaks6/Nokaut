@@ -1,43 +1,33 @@
-package me.smaks6.nokaut;
+package me.smaks6.nokaut.nokaut;
 
+import me.smaks6.nokaut.Main;
+import me.smaks6.nokaut.pose.pose;
+import me.smaks6.nokaut.service.CitizensListener;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import static me.smaks6.nokaut.Main.gracze;
-import static me.smaks6.nokaut.Main.attacker;
 
 public class nokaut implements Listener {
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void getattacker(EntityDamageByEntityEvent e) {
-		if (checkNokaut(e.getEntity(), e.getFinalDamage(), e.getDamager())) {
-			e.setCancelled(true);
-		}
-		Main.getInstance().getServer().broadcastMessage("byentity");
-
-	}
-
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void death(EntityDamageEvent event) {
-		if (checkNokaut(event.getEntity(), event.getFinalDamage(), null)) {
+		if (checkNokaut(event.getEntity(), event.getFinalDamage())) {
 			event.setCancelled(true);
 		}
 
-		Main.getInstance().getServer().broadcastMessage("entity");
-
 	}
 
 
-	public boolean checkNokaut(Entity e, double dmm, Entity d) {
+	public boolean checkNokaut(Entity e, double dmm) {
 		if (CitizensListener.isNpc(e)) {
 			return false;
 		}
@@ -50,16 +40,12 @@ public class nokaut implements Listener {
 				return false;
 			}
 			if (hp <= dm) {
-				if(d instanceof Player){
-					attacker.put(p,(Player) d);
-					p.sendMessage("dodano!");
-				}
 				gracze.replace(p.getName(), "lezy");
 				p.setFireTicks(0);
 				p.setHealth(2);
 
 				pose.start(p);
-
+				
 				if (Main.getInstance().getConfig().getString("BlindnessOnNokaut").equals("true")) {
 					p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000000, 100));
 				}
@@ -78,7 +64,6 @@ public class nokaut implements Listener {
 
 	public void odliczanie(Player p){
 		new BukkitRunnable() {
-			Player pattacker;
     		int czass = 0;
     		int czasm = Main.getInstance().getConfig().getInt("NokautTimeInMin");
     		String razem;
@@ -111,13 +96,7 @@ public class nokaut implements Listener {
     			if((czasm <= 0) && (czass <= 0)) {
 					gracze.replace(p.getName(), "stoi");
     				if(Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")){
-    					if(attacker.containsKey(p)){
-							attacker.get(p).damage(200, p);
-							attacker.remove(p);
-						}
-    					else {
-							p.setHealth(0);
-						}
+    					p.setHealth(0);
 					}
 					else{
 
