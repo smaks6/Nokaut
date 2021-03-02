@@ -3,16 +3,16 @@
 // Copyright (c) 2021 smaks6
 //
 
-package me.smaks6.nokaut;
+package me.smaks6.plugin;
 
-import me.smaks6.nokaut.Listener.BlockInNokaut;
-import me.smaks6.nokaut.cmd.deathnowcmd;
-import me.smaks6.nokaut.cmd.nokautcmd;
-import me.smaks6.nokaut.cmd.tabnokautcmd;
-import me.smaks6.nokaut.nokaut.nokaut;
-import me.smaks6.nokaut.nokaut.ocuc;
-import me.smaks6.nokaut.nokaut.przenoszenie;
-import me.smaks6.nokaut.service.updatechecker;
+import me.smaks6.plugin.Listener.BlockInNokaut;
+import me.smaks6.plugin.cmd.deathnowcmd;
+import me.smaks6.plugin.cmd.nokautcmd;
+import me.smaks6.plugin.cmd.tabnokautcmd;
+import me.smaks6.plugin.nokaut.nokaut;
+import me.smaks6.plugin.nokaut.ocuc;
+import me.smaks6.plugin.nokaut.przenoszenie;
+import me.smaks6.plugin.service.updatechecker;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

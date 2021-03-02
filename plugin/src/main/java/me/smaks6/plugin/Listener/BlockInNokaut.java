@@ -1,7 +1,7 @@
-package me.smaks6.nokaut.Listener;
+package me.smaks6.plugin.Listener;
 
-import me.smaks6.nokaut.Main;
-import me.smaks6.nokaut.pose.pose;
+import me.smaks6.plugin.Main;
+import me.smaks6.plugin.pose.pose;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,7 +15,7 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 
-import static me.smaks6.nokaut.Main.gracze;
+import static me.smaks6.plugin.Main.gracze;
 
 public class BlockInNokaut implements Listener{
 	

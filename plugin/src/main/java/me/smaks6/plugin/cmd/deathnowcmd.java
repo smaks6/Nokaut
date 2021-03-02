@@ -1,12 +1,12 @@
-package me.smaks6.nokaut.cmd;
+package me.smaks6.plugin.cmd;
 
-import me.smaks6.nokaut.Main;
+import me.smaks6.plugin.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import static me.smaks6.nokaut.Main.gracze;
+import static me.smaks6.plugin.Main.gracze;
 
 public class deathnowcmd implements CommandExecutor{
 

@@ -1,8 +1,8 @@
-package me.smaks6.nokaut.nokaut;
+package me.smaks6.plugin.nokaut;
 
-import me.smaks6.nokaut.Main;
-import me.smaks6.nokaut.pose.pose;
-import me.smaks6.nokaut.service.CitizensListener;
+import me.smaks6.plugin.Main;
+import me.smaks6.plugin.pose.pose;
+import me.smaks6.plugin.service.CitizensListener;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -16,7 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
-import static me.smaks6.nokaut.Main.gracze;
+import static me.smaks6.plugin.Main.gracze;
 
 public class ocuc implements Listener{
 

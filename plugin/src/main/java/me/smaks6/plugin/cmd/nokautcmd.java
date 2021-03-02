@@ -1,7 +1,7 @@
-package me.smaks6.nokaut.cmd;
+package me.smaks6.plugin.cmd;
 
 
-import me.smaks6.nokaut.Main;
+import me.smaks6.plugin.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

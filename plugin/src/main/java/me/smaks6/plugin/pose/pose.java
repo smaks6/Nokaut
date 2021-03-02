@@ -1,6 +1,6 @@
-package me.smaks6.nokaut.pose;
+package me.smaks6.plugin.pose;
 
-import me.smaks6.nokaut.Main;
+import me.smaks6.plugin.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,7 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static me.smaks6.nokaut.Main.gracze;
+import static me.smaks6.plugin.Main.gracze;
 
 public class pose {
 
@@ -29,7 +29,7 @@ public class pose {
         p.setAllowFlight(true);
         p.setFlying(false);
         p.setFlySpeed(0);
-        p.setDisplayName(me.smaks6.nokaut.Main.getInstance().getConfig().getString("NokautTitle") + p.getName());
+        p.setDisplayName(Main.getInstance().getConfig().getString("NokautTitle") + p.getName());
         p.setCustomNameVisible(true);
     }
 
