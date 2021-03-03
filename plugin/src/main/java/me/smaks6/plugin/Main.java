@@ -6,13 +6,14 @@
 package me.smaks6.plugin;
 
 import me.smaks6.plugin.Listener.BlockInNokaut;
-import me.smaks6.plugin.cmd.deathnowcmd;
-import me.smaks6.plugin.cmd.nokautcmd;
-import me.smaks6.plugin.cmd.tabnokautcmd;
+import me.smaks6.plugin.cmd.deathnow.deathnowcmd;
+import me.smaks6.plugin.cmd.nokaut.nokautcmd;
+import me.smaks6.plugin.cmd.nokaut.tabnokautcmd;
 import me.smaks6.plugin.nokaut.nokaut;
 import me.smaks6.plugin.nokaut.ocuc;
-import me.smaks6.plugin.nokaut.przenoszenie;
 import me.smaks6.plugin.service.updatechecker;
+import me.smaks6.plugin.cmd.podniesGracza.podniesGraczaCmd;
+import me.smaks6.plugin.cmd.rzucgracza.rzucgraczaCmd;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,7 +28,7 @@ public class Main extends JavaPlugin{
 
 	public static final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	
-    public static HashMap<String, String> gracze = new HashMap<String, String>();
+    public static HashMap<String, String> gracze = new HashMap<String, String>();// value = stoi, lezy, nies
     
 	public void onEnable() {
 		instance = this;
@@ -47,14 +48,14 @@ public class Main extends JavaPlugin{
 		BlockInNokaut BlockInNokaut = new BlockInNokaut();
 		nokaut nokaut = new nokaut();
 		ocuc ocuc = new ocuc();
-		przenoszenie przenoszenie = new przenoszenie();
 		Bukkit.getServer().getPluginManager().registerEvents(BlockInNokaut, this);
 		Bukkit.getServer().getPluginManager().registerEvents(nokaut, this);
 		Bukkit.getServer().getPluginManager().registerEvents(ocuc, this);
-		Bukkit.getServer().getPluginManager().registerEvents(przenoszenie, this);
 		
 		new deathnowcmd(this);
 		new nokautcmd(this);
+		new podniesGraczaCmd(this);
+		new rzucgraczaCmd(this);
 		getCommand("nokaut").setTabCompleter(new tabnokautcmd());
 
 		if(!getDescription().getAuthors().contains("smaks6")){

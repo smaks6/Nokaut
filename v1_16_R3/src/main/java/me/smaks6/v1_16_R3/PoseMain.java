@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class PoseMain {
 
-    private static HashMap<Player, EntityPlayer> body = new HashMap<Player, EntityPlayer>();
+    private static final HashMap<Player, EntityPlayer> body = new HashMap<Player, EntityPlayer>();
 
     private static Server server = null;
 
@@ -33,6 +33,15 @@ public class PoseMain {
         body.remove(p);
     }
 
+    public static void tpPlayerToPlayer(Player sender, Player znokautowany){
+        EntityPlayer npc = body.get(znokautowany);
+        Location loc = sender.getLocation().add(0, 2, 0);
+        BlockPosition blockPos = new BlockPosition(loc.getBlock().getX(), loc.getBlock().getY(), loc.getBlock().getZ());
+        WorldServer worldServer = ((CraftWorld)loc.getWorld()).getHandle();
+        npc.teleportTo(worldServer, blockPos);
+
+    }
+
     private static EntityPlayer spawnnpc(Location location){
         MinecraftServer nmsServer = ((CraftServer) Bukkit.getServer()).getServer();
         WorldServer nmsWorld = ((CraftWorld)Bukkit.getWorld("world")).getHandle(); // Change "world" to the world the NPC should be spawned in.
@@ -48,6 +57,7 @@ public class PoseMain {
             connection.sendPacket(new PacketPlayOutEntityHeadRotation(npc, (byte) (npc.yaw * 256 / 360)));
             DataWatcher watcher = npc.getDataWatcher();
             ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutEntityMetadata(npc.getId(), watcher, false));
+            npc.setPose(EntityPose.SWIMMING);
         }
 
         
@@ -72,5 +82,6 @@ public class PoseMain {
             player.showPlayer(p);
         }
     }
+
 
 }

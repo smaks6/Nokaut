@@ -1,4 +1,4 @@
-package me.smaks6.plugin.cmd;
+package me.smaks6.plugin.cmd.nokaut;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -61,7 +61,6 @@ public class przenoszenie implements Listener{
 					return;
 				}
 
-				pose.usunblock(d);
 
 				
 				

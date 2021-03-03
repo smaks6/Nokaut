@@ -1,4 +1,4 @@
-package me.smaks6.plugin.cmd;
+package me.smaks6.plugin.cmd.deathnow;
 
 import me.smaks6.plugin.Main;
 import org.bukkit.ChatColor;

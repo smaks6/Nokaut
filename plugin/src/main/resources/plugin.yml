@@ -12,6 +12,7 @@ commands:
   nokaut:
     aliases: nk
     permission: nokaut.admin
+  podniesgracza:
 
 permissions:
   nokaut.deathnow:

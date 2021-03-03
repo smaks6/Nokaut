@@ -25,7 +25,6 @@ public class pose {
 
     public static void stop(Player p){
         gracze.replace(p.getName(), "stoi");
-        usunblock(p);
 
         p.setDisplayName(p.getName());
 
@@ -40,30 +39,8 @@ public class pose {
     }
 
 
-    public static void usunblock(Player target){
-
-        Block up = target.getLocation().getBlock().getRelative(BlockFace.UP);
-        Block down = target.getLocation().getBlock().getRelative(BlockFace.DOWN);
-
-        up.getState().update();
-        up.getLocation().add(1,0,0).getBlock().getState().update();
-        up.getLocation().add(-1,0,0).getBlock().getState().update();
-        up.getLocation().add(0,0,1).getBlock().getState().update();
-        up.getLocation().add(0,0,-1).getBlock().getState().update();
-        up.getLocation().add(1,0,1).getBlock().getState().update();
-        up.getLocation().add(-1,0,-1).getBlock().getState().update();
-        up.getLocation().add(1,0,-1).getBlock().getState().update();
-        up.getLocation().add(-1,0,1).getBlock().getState().update();
-
-        down.getLocation().add(1,0,0).getBlock().getState().update();
-        down.getLocation().add(-1,0,0).getBlock().getState().update();
-        down.getLocation().add(0,0,1).getBlock().getState().update();
-        down.getLocation().add(0,0,-1).getBlock().getState().update();
-        down.getLocation().add(1,0,1).getBlock().getState().update();
-        down.getLocation().add(-1,0,-1).getBlock().getState().update();
-        down.getLocation().add(1,0,-1).getBlock().getState().update();
-        down.getLocation().add(-1,0,1).getBlock().getState().update();
-
+    public static void tpPlayerToPlayer(Player sender, Player znokautowany){
+        PoseMain.tpPlayerToPlayer(sender, znokautowany);
     }
 
 
