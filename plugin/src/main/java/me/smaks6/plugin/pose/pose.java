@@ -1,6 +1,7 @@
 package me.smaks6.plugin.pose;
 
 import me.smaks6.plugin.Main;
+import me.smaks6.plugin.utilities.NokautEnum;
 import me.smaks6.v1_16_R3.PoseMain;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
