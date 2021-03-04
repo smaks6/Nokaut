@@ -2,6 +2,7 @@ package me.smaks6.plugin.cmd.podniesGracza;
 
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.pose;
+import me.smaks6.plugin.utilities.NokautEnum;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,7 +28,7 @@ public class podniesGraczaCmd implements CommandExecutor {
 
         Player sender = (Player) commandSender;
 
-        if(!gracze.get(sender).equals("stoi") || !sender.getPassengers().isEmpty()){
+        if(!gracze.get(sender).equals(NokautEnum.STOI) || !sender.getPassengers().isEmpty()){
             return false;
         }
 
@@ -38,8 +39,8 @@ public class podniesGraczaCmd implements CommandExecutor {
             if(e instanceof Player){
                 Player znokautowany = (Player) e;
 
-                if(gracze.get(znokautowany).equals("lezy")){
-                    gracze.replace(znokautowany, "nies");
+                if(gracze.get(znokautowany).equals(NokautEnum.LEZY)){
+                    gracze.replace(znokautowany, NokautEnum.NIES);
                     przenoszenie(sender, znokautowany);
 
                     //dodaj by gracz się za nim teleportował
@@ -69,7 +70,7 @@ public class podniesGraczaCmd implements CommandExecutor {
                     return;
                 }
 
-                if(!gracze.get(znokautowany).equals("nies")){
+                if(!gracze.get(znokautowany).equals(NokautEnum.NIES)){
                     cancel();
                     return;
                 }

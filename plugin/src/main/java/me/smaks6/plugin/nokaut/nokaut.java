@@ -3,6 +3,7 @@ package me.smaks6.plugin.nokaut;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.pose;
 import me.smaks6.plugin.service.CitizensListener;
+import me.smaks6.plugin.utilities.NokautEnum;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -35,12 +36,12 @@ public class nokaut implements Listener {
 			Player p = (Player) e;
 			int hp = (int) p.getHealth();
 			int dm = (int) dmm;
-			String hashmap = gracze.get(p);
-			if (!hashmap.equals("stoi")) {
+			NokautEnum hashmap = gracze.get(p);
+			if (!hashmap.equals(NokautEnum.STOI)) {
 				return false;
 			}
 			if (hp <= dm) {
-				gracze.replace(p, "lezy");
+				gracze.replace(p, NokautEnum.LEZY);
 				p.setFireTicks(0);
 				p.setHealth(2);
 
@@ -80,11 +81,11 @@ public class nokaut implements Listener {
 
 				p.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"),ChatColor.WHITE + razem, 1 , 20 , 1 );
 
-	    		String hashmap = gracze.get(p);
+	    		NokautEnum hashmap = gracze.get(p);
 				if(!p.isOnline()){
 					this.cancel();
 				}
-				if(hashmap.equals("stoi")) {
+				if(hashmap.equals(NokautEnum.STOI)) {
 					this.cancel();
 				}
 
@@ -94,7 +95,7 @@ public class nokaut implements Listener {
     			}
     			
     			if((czasm <= 0) && (czass <= 0)) {
-					gracze.replace(p, "stoi");
+					gracze.replace(p, NokautEnum.STOI);
     				if(Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")){
     					p.setHealth(0);
 					}

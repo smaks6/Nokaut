@@ -1,6 +1,7 @@
 package me.smaks6.plugin.pose;
 
 import me.smaks6.plugin.Main;
+import me.smaks6.plugin.utilities.NokautEnum;
 import me.smaks6.v1_16_R3.PoseMain;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -11,6 +12,7 @@ import static me.smaks6.plugin.Main.gracze;
 public class pose {
 
     public static void start(Player p) {
+        gracze.replace(p, NokautEnum.LEZY);
         p.setWalkSpeed(0);
         p.setFlySpeed(0);
 
@@ -21,7 +23,7 @@ public class pose {
     }
 
     public static void stop(Player p){
-        gracze.replace(p, "stoi");
+        gracze.replace(p, NokautEnum.STOI);
 
         p.setDisplayName(p.getName());
 

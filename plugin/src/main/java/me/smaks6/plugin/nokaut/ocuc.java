@@ -3,6 +3,7 @@ package me.smaks6.plugin.nokaut;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.pose;
 import me.smaks6.plugin.service.CitizensListener;
+import me.smaks6.plugin.utilities.NokautEnum;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -39,8 +40,8 @@ public class ocuc implements Listener{
 			}
 			if(player instanceof Player){
 				Player plist = (Player) player;
-				String hashmap = gracze.get(plist);
-				if(hashmap.equals("lezy")){
+				NokautEnum hashmap = gracze.get(plist);
+				if(hashmap.equals(NokautEnum.LEZY)){
 					ocucanie(p, plist);
 					break;
 				}

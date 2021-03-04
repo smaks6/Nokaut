@@ -1,6 +1,7 @@
 package me.smaks6.plugin.cmd.rzucgracza;
 
 import me.smaks6.plugin.Main;
+import me.smaks6.plugin.utilities.NokautEnum;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,8 +34,8 @@ public class rzucgraczaCmd implements CommandExecutor {
         for(Entity e : passengers){
             if(e instanceof Player){
                 Player passanger = (Player) e;
-                if(gracze.get(passanger).equals("nies")){
-                    gracze.replace(passanger, "lezy");
+                if(gracze.get(passanger).equals(NokautEnum.NIES)){
+                    gracze.replace(passanger, NokautEnum.LEZY);
 
                     //dodaj by gracz przestał się za nim teleportować
 
