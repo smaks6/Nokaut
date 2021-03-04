@@ -39,8 +39,11 @@ public class podniesGraczaCmd implements CommandExecutor {
                 Player znokautowany = (Player) e;
 
                 if(gracze.get(znokautowany).equals("lezy")){
-                    gracze.replace(znokautowany.getName(), "nies");
+                    gracze.replace(znokautowany, "nies");
                     przenoszenie(sender, znokautowany);
+
+                    //dodaj by gracz się za nim teleportował
+
                     break;
                 }
 

@@ -17,6 +17,7 @@ import me.smaks6.plugin.cmd.rzucgracza.rzucgraczaCmd;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class Main extends JavaPlugin{
 
 	public static final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	
-    public static HashMap<String, String> gracze = new HashMap<String, String>();// value = stoi, lezy, nies
+    public static HashMap<Player, String> gracze = new HashMap<Player, String>();// value = stoi, lezy, nies
     
 	public void onEnable() {
 		instance = this;

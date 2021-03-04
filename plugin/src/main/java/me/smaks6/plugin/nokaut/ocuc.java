@@ -39,7 +39,7 @@ public class ocuc implements Listener{
 			}
 			if(player instanceof Player){
 				Player plist = (Player) player;
-				String hashmap = gracze.get(plist.getName());
+				String hashmap = gracze.get(plist);
 				if(hashmap.equals("lezy")){
 					ocucanie(p, plist);
 					break;

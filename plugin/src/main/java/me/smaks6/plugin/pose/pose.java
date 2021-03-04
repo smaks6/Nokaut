@@ -1,11 +1,7 @@
 package me.smaks6.plugin.pose;
 
 import me.smaks6.plugin.Main;
-import me.smaks6.plugin.utilities.NokautEnum;
 import me.smaks6.v1_16_R3.PoseMain;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -25,12 +21,9 @@ public class pose {
     }
 
     public static void stop(Player p){
-        gracze.replace(p.getName(), "stoi");
+        gracze.replace(p, "stoi");
 
         p.setDisplayName(p.getName());
-
-        Block block = p.getLocation().getBlock().getRelative(BlockFace.UP);
-        p.sendBlockChange(block.getLocation(), Material.AIR, (byte)0);
 
         p.setWalkSpeed(0.2F);
         p.setFlySpeed(0.1F);

@@ -35,12 +35,12 @@ public class nokaut implements Listener {
 			Player p = (Player) e;
 			int hp = (int) p.getHealth();
 			int dm = (int) dmm;
-			String hashmap = gracze.get(p.getName());
+			String hashmap = gracze.get(p);
 			if (!hashmap.equals("stoi")) {
 				return false;
 			}
 			if (hp <= dm) {
-				gracze.replace(p.getName(), "lezy");
+				gracze.replace(p, "lezy");
 				p.setFireTicks(0);
 				p.setHealth(2);
 
@@ -80,7 +80,7 @@ public class nokaut implements Listener {
 
 				p.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"),ChatColor.WHITE + razem, 1 , 20 , 1 );
 
-	    		String hashmap = gracze.get(p.getName());
+	    		String hashmap = gracze.get(p);
 				if(!p.isOnline()){
 					this.cancel();
 				}
@@ -94,7 +94,7 @@ public class nokaut implements Listener {
     			}
     			
     			if((czasm <= 0) && (czass <= 0)) {
-					gracze.replace(p.getName(), "stoi");
+					gracze.replace(p, "stoi");
     				if(Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")){
     					p.setHealth(0);
 					}

@@ -22,7 +22,7 @@ public class BlockInNokaut implements Listener{
 	@EventHandler(priority = EventPriority.LOW)
 	public void kladz(BlockPlaceEvent event) {
 		Player p = event.getPlayer();
-		String hashmap = gracze.get(p.getName());
+		String hashmap = gracze.get(p);
 		if(!hashmap.equals("stoi")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
@@ -32,7 +32,7 @@ public class BlockInNokaut implements Listener{
 	@EventHandler(priority = EventPriority.LOW)
 	public void niszcz(BlockBreakEvent event) {
 		Player p = event.getPlayer();
-		String hashmap = gracze.get(p.getName());
+		String hashmap = gracze.get(p);
 		if(!hashmap.equals("stoi")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
@@ -44,7 +44,7 @@ public class BlockInNokaut implements Listener{
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void chestitd(PlayerInteractEvent event) {
 		Player p = event.getPlayer();
-		String hashmap = gracze.get(p.getName());
+		String hashmap = gracze.get(p);
 		if(!hashmap.equals("stoi")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
@@ -56,7 +56,7 @@ public class BlockInNokaut implements Listener{
 	public void bowshoot(EntityShootBowEvent event) {
 		if(event.getEntity().getKiller() instanceof Player){
 			Player p = event.getEntity().getKiller();
-			String hashmap = gracze.get(p.getName());
+			String hashmap = gracze.get(p);
 			if(!hashmap.equals("stoi")) {
 				event.setCancelled(true);
 				p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
@@ -67,7 +67,7 @@ public class BlockInNokaut implements Listener{
 	@EventHandler
 	public void dropitem(PlayerDropItemEvent event) {
 		Player p = event.getPlayer();
-		String hashmap = gracze.get(p.getName());
+		String hashmap = gracze.get(p);
 		if(!hashmap.equals("stoi")) {
 			event.setCancelled(true);
 			p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
@@ -79,7 +79,7 @@ public class BlockInNokaut implements Listener{
 	@EventHandler
 	public void wezitem(PlayerPickupItemEvent event) {
 		Player p = event.getPlayer();
-		String hashmap = gracze.get(p.getName());
+		String hashmap = gracze.get(p);
 		if(!hashmap.equals("stoi")) {
 			event.setCancelled(true);
 		}
@@ -90,7 +90,7 @@ public class BlockInNokaut implements Listener{
 	public void regeneracjaHP(EntityRegainHealthEvent e) {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player)e.getEntity();
-			if (!gracze.get(p.getName()).equals("stoi")) {
+			if (!gracze.get(p).equals("stoi")) {
 				e.setCancelled(true);
 			}
 		}
@@ -100,7 +100,7 @@ public class BlockInNokaut implements Listener{
 	@EventHandler(priority = EventPriority.LOW)
 	public void commandblock(PlayerCommandPreprocessEvent event) {
 		Player p = event.getPlayer();
-		String hashmap = gracze.get(p.getName());
+		String hashmap = gracze.get(p);
 		if(!hashmap.equals("stoi")) {
 			if (!event.getMessage().toLowerCase().startsWith("/zo") && !event.getMessage().toLowerCase().startsWith("/zginodrazu") && !event.getMessage().toLowerCase().startsWith("/deathnow") && !event.getMessage().toLowerCase().startsWith("/dn")) {
 				event.setCancelled(true);
@@ -112,7 +112,7 @@ public class BlockInNokaut implements Listener{
 	@EventHandler
 	public void event(PlayerMoveEvent event){
 		Player p = event.getPlayer();
-		if (!gracze.get(p.getName()).equals("stoi")) {
+		if (!gracze.get(p).equals("stoi")) {
 			if(event.getFrom().getX() != event.getTo().getX() || event.getFrom().getY() != event.getTo().getY() || event.getFrom().getZ() != event.getTo().getZ()){
 				event.setCancelled(true);
 			}
@@ -131,8 +131,8 @@ public class BlockInNokaut implements Listener{
 				Player player  = (Player) event.getEntity();
 
 
-				if(gracze.get(damager.getName()).equals("stoi") && gracze.get(player.getName()).equals("niesc")){
-					gracze.replace(player.getName(), "lezy");
+				if(gracze.get(damager).equals("stoi") && gracze.get(player).equals("niesc")){
+					gracze.replace(player, "lezy");
 				}
 
 			}
@@ -142,18 +142,18 @@ public class BlockInNokaut implements Listener{
 	@EventHandler
 	public void wchodzi(PlayerJoinEvent event) {
 		Player p = event.getPlayer();
-		gracze.put(p.getName(), "stoi");
+		gracze.put(p, "stoi");
 		
 	}
 	
 	@EventHandler
 	public void wychodzi(PlayerQuitEvent event) {
 		Player p = event.getPlayer();
-		String hashmap = gracze.get(p.getName());
+		String hashmap = gracze.get(p);
 		if(!hashmap.equals("stoi")) {
 			p.setHealth(0);
 		}
-		gracze.remove(p.getName());
+		gracze.remove(p);
 		
 	}
 	

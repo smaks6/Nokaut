@@ -34,7 +34,10 @@ public class rzucgraczaCmd implements CommandExecutor {
             if(e instanceof Player){
                 Player passanger = (Player) e;
                 if(gracze.get(passanger).equals("nies")){
-                    gracze.replace(passanger.getName(), "lezy");
+                    gracze.replace(passanger, "lezy");
+
+                    //dodaj by gracz przestał się za nim teleportować
+
                     break;
                 }
             }

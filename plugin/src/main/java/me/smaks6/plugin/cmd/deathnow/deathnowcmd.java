@@ -20,7 +20,7 @@ public class deathnowcmd implements CommandExecutor{
 			String hashmap = gracze.get(p.getName());
 			if(!hashmap.equals("stoi")) {
 				p.setHealth(0);
-				gracze.replace(p.getName(), "stoi");
+				gracze.replace(p, "stoi");
 			}else {
 				p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("deathnownot"));
 			}
