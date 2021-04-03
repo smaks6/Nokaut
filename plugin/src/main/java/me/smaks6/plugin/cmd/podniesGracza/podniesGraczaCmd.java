@@ -2,13 +2,12 @@ package me.smaks6.plugin.cmd.podniesGracza;
 
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.pose;
-import me.smaks6.plugin.utilities.NokautEnum;
+import me.smaks6.api.NokautEnum;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import static me.smaks6.plugin.Main.gracze;
 
@@ -38,43 +37,16 @@ public class podniesGraczaCmd implements CommandExecutor {
         for(Entity e : entities){
             if(e instanceof Player){
                 Player znokautowany = (Player) e;
-
                 if(gracze.get(znokautowany).equals(NokautEnum.LEZY)){
                     gracze.replace(znokautowany, NokautEnum.NIES);
-                    przenoszenie(sender, znokautowany);
-
-                    //dodaj by gracz się za nim teleportował
-
+                    pose.changegamemode(znokautowany, sender, true);
+                    sender.addPassenger(znokautowany);
                     break;
                 }
-
             }
         }
-
-
-
 
         return false;
     }
 
-
-    public void przenoszenie(Player sender, Player znokautowany){
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                pose.tpPlayerToPlayer(sender, znokautowany);
-
-                if(!sender.isOnline() || !znokautowany.isOnline()){
-                    cancel();
-                    return;
-                }
-
-                if(!gracze.get(znokautowany).equals(NokautEnum.NIES)){
-                    cancel();
-                    return;
-                }
-            }
-        }.runTaskTimer(Main.getInstance(), 0L, 1L);
-    }
 }

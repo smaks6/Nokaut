@@ -2,7 +2,7 @@ package me.smaks6.plugin.Listener;
 
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.pose;
-import me.smaks6.plugin.utilities.NokautEnum;
+import me.smaks6.api.NokautEnum;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -112,12 +112,20 @@ public class BlockInNokaut implements Listener{
 	}
 
 	@EventHandler
-	public void event(PlayerMoveEvent event){
+	public void moveEvent(PlayerMoveEvent event){
 		Player p = event.getPlayer();
 		if (!gracze.get(p).equals(NokautEnum.STOI)) {
-			if(event.getFrom().getX() != event.getTo().getX() || event.getFrom().getY() != event.getTo().getY() || event.getFrom().getZ() != event.getTo().getZ()){
+			double przed = event.getFrom().getY();
+			double po = event.getTo().getY();
+			double wynik = przed - po;
+			if(wynik < 0){
 				event.setCancelled(true);
 			}
+
+
+//			if(event.getFrom().getX() != event.getTo().getX() || event.getFrom().getY() != event.getTo().getY() || event.getFrom().getZ() != event.getTo().getZ()){
+//				event.setCancelled(true);
+//			}
 		}
 	}
 

@@ -3,7 +3,7 @@ package me.smaks6.plugin.nokaut;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.pose;
 import me.smaks6.plugin.service.CitizensListener;
-import me.smaks6.plugin.utilities.NokautEnum;
+import me.smaks6.api.NokautEnum;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;

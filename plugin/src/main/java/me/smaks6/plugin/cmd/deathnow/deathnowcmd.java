@@ -1,7 +1,7 @@
 package me.smaks6.plugin.cmd.deathnow;
 
 import me.smaks6.plugin.Main;
-import me.smaks6.plugin.utilities.NokautEnum;
+import me.smaks6.api.NokautEnum;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

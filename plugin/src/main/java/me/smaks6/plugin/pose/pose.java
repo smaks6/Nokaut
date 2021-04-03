@@ -1,27 +1,38 @@
 package me.smaks6.plugin.pose;
 
+import me.smaks6.api.NokautEnum;
 import me.smaks6.plugin.Main;
-import me.smaks6.plugin.utilities.NokautEnum;
-import me.smaks6.v1_16_R3.PoseMain;
+import me.smaks6.v1_16_R3.CreateNPC;
+import me.smaks6.v1_16_R3.OtherMetchod;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.io.BukkitObjectInputStream;
 
 import static me.smaks6.plugin.Main.gracze;
 
-public class pose {
+public class pose{
 
+
+    //start pose animation
     public static void start(Player p) {
         gracze.replace(p, NokautEnum.LEZY);
         p.setWalkSpeed(0);
         p.setFlySpeed(0);
 
-        PoseMain.startPose(p, Main.getInstance().getServer());
+        p.setInvisible(true);
 
-        p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 100, false));
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            new CreateNPC(p, onlinePlayer, gracze);
+        }
+
+        hidePlayers(p);
 
     }
 
+    //stop pose animation
     public static void stop(Player p){
         gracze.replace(p, NokautEnum.STOI);
 
@@ -29,16 +40,32 @@ public class pose {
 
         p.setWalkSpeed(0.2F);
         p.setFlySpeed(0.1F);
-        PoseMain.stopPose(p, Main.getInstance().getServer());
 
-        p.removePotionEffect(PotionEffectType.INVISIBILITY);
+        p.setInvisible(false);
+        p.setGameMode(GameMode.SURVIVAL);
+
+        showPlayers(p);
+    }
+
+    //change game mode
+    public static void changegamemode(Player p, Player reviever, boolean nies){
+        //nies:
+        //true - na plecach niech idzie
+        //false - niech już spada z pleców
+        OtherMetchod.changeGameMode(p, reviever, nies);
     }
 
 
-    public static void tpPlayerToPlayer(Player sender, Player znokautowany){
-        PoseMain.tpPlayerToPlayer(sender, znokautowany);
+    public static void hidePlayers(Player player) {
+        for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
+            onlinePlayer.hidePlayer(Main.getInstance(), player);
+        }
     }
 
-
+    public static void showPlayers(Player player){
+        for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
+            onlinePlayer.showPlayer(Main.getInstance(), player);
+        }
+    }
 
 }

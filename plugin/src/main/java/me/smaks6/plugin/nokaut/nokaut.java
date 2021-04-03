@@ -3,7 +3,7 @@ package me.smaks6.plugin.nokaut;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.pose;
 import me.smaks6.plugin.service.CitizensListener;
-import me.smaks6.plugin.utilities.NokautEnum;
+import me.smaks6.api.NokautEnum;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -85,6 +85,7 @@ public class nokaut implements Listener {
 				if(!p.isOnline()){
 					this.cancel();
 				}
+
 				if(hashmap.equals(NokautEnum.STOI)) {
 					this.cancel();
 				}
@@ -98,16 +99,18 @@ public class nokaut implements Listener {
 					gracze.replace(p, NokautEnum.STOI);
     				if(Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")){
     					p.setHealth(0);
+						System.out.println("koniec nokaut");
+    					pose.stop(p);
 					}
 					else{
-
+						System.out.println("koniec nokaut");
 						pose.stop(p);
 						p.removePotionEffect(PotionEffectType.BLINDNESS);
 					}
     				this.cancel();
     			}
-    			
-    			--czass;
+
+				--czass;
 	        }
 	    }.runTaskTimer(Main.getInstance(), 0L, 20L);
 	}

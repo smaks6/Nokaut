@@ -14,7 +14,7 @@ import me.smaks6.plugin.nokaut.ocuc;
 import me.smaks6.plugin.service.updatechecker;
 import me.smaks6.plugin.cmd.podniesGracza.podniesGraczaCmd;
 import me.smaks6.plugin.cmd.rzucgracza.rzucgraczaCmd;
-import me.smaks6.plugin.utilities.NokautEnum;
+import me.smaks6.api.NokautEnum;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,11 +27,9 @@ import java.util.HashMap;
 public class Main extends JavaPlugin{
 	
 	private static Main instance;
-
-	public static final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	
     public static HashMap<Player, NokautEnum> gracze = new HashMap<Player, NokautEnum>();// value = stoi, lezy, nies
-    
+
 	public void onEnable() {
 		instance = this;
 		Bukkit.getConsoleSender().sendMessage("");
@@ -44,8 +42,8 @@ public class Main extends JavaPlugin{
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the plugin nokaut BY smaks6");
 
-		int pluginId = 9923;
-		Metrics metrics = new Metrics(this, pluginId);
+//		int pluginId = 9923;
+//		Metrics metrics = new Metrics(this, pluginId);
 		
 		BlockInNokaut BlockInNokaut = new BlockInNokaut();
 		nokaut nokaut = new nokaut();
