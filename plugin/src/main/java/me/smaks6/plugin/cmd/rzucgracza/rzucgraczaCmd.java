@@ -6,7 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import me.smaks6.plugin.pose.pose;
+import me.smaks6.plugin.pose.Pose;
 
 import static me.smaks6.plugin.Main.gracze;
 
@@ -34,7 +34,7 @@ public class rzucgraczaCmd implements CommandExecutor {
         Player player = (Player) sender.getPassengers().get(0);
         sender.getPassengers().clear();
 
-        pose.changegamemode(player, sender, false);
+        Pose.changegamemode(player, sender, false);
 
         player.teleport(sender);
 

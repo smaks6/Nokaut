@@ -1,7 +1,7 @@
 package me.smaks6.plugin.nokaut;
 
 import me.smaks6.plugin.Main;
-import me.smaks6.plugin.pose.pose;
+import me.smaks6.plugin.pose.Pose;
 import me.smaks6.plugin.service.CitizensListener;
 import me.smaks6.api.NokautEnum;
 import org.bukkit.ChatColor;
@@ -19,7 +19,7 @@ import java.util.List;
 
 import static me.smaks6.plugin.Main.gracze;
 
-public class ocuc implements Listener{
+public class Ocuc implements Listener{
 
 	@EventHandler
 	public void Ocuc(EntityDamageByEntityEvent e) {
@@ -74,7 +74,7 @@ public class ocuc implements Listener{
 					this.cancel();
 					p.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupdamager").replace("{player}", ocucany.getName()));
 					ocucany.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupplayer").replace("{player}", p.getName()));
-					pose.stop(ocucany);
+					Pose.stop(ocucany);
 					ocucany.removePotionEffect(PotionEffectType.BLINDNESS);
 				}
 

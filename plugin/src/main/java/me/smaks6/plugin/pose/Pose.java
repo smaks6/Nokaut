@@ -7,13 +7,10 @@ import me.smaks6.v1_16_R3.OtherMetchod;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.io.BukkitObjectInputStream;
 
 import static me.smaks6.plugin.Main.gracze;
 
-public class pose{
+public class Pose{
 
 
     //start pose animation
@@ -25,7 +22,7 @@ public class pose{
         p.setInvisible(true);
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            new CreateNPC(p, onlinePlayer, gracze);
+            createNPC(p, onlinePlayer);
         }
 
         hidePlayers(p);
@@ -45,6 +42,10 @@ public class pose{
         p.setGameMode(GameMode.SURVIVAL);
 
         showPlayers(p);
+    }
+
+    public static void createNPC(Player znokautowany, Player see){
+        new CreateNPC(znokautowany, see, gracze);
     }
 
     //change game mode

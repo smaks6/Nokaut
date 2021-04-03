@@ -1,7 +1,7 @@
 package me.smaks6.plugin.nokaut;
 
 import me.smaks6.plugin.Main;
-import me.smaks6.plugin.pose.pose;
+import me.smaks6.plugin.pose.Pose;
 import me.smaks6.plugin.service.CitizensListener;
 import me.smaks6.api.NokautEnum;
 import org.bukkit.ChatColor;
@@ -17,7 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import static me.smaks6.plugin.Main.gracze;
 
-public class nokaut implements Listener {
+public class Nokaut implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void death(EntityDamageEvent event) {
@@ -45,7 +45,7 @@ public class nokaut implements Listener {
 				p.setFireTicks(0);
 				p.setHealth(2);
 
-				pose.start(p);
+				Pose.start(p);
 				
 				if (Main.getInstance().getConfig().getString("BlindnessOnNokaut").equals("true")) {
 					p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000000, 100));
@@ -100,11 +100,11 @@ public class nokaut implements Listener {
     				if(Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")){
     					p.setHealth(0);
 						System.out.println("koniec nokaut");
-    					pose.stop(p);
+    					Pose.stop(p);
 					}
 					else{
 						System.out.println("koniec nokaut");
-						pose.stop(p);
+						Pose.stop(p);
 						p.removePotionEffect(PotionEffectType.BLINDNESS);
 					}
     				this.cancel();

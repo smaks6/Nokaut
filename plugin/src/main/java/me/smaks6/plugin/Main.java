@@ -5,12 +5,11 @@
 
 package me.smaks6.plugin;
 
-import me.smaks6.plugin.Listener.BlockInNokaut;
 import me.smaks6.plugin.cmd.deathnow.deathnowcmd;
 import me.smaks6.plugin.cmd.nokaut.nokautcmd;
 import me.smaks6.plugin.cmd.nokaut.tabnokautcmd;
-import me.smaks6.plugin.nokaut.nokaut;
-import me.smaks6.plugin.nokaut.ocuc;
+import me.smaks6.plugin.nokaut.Nokaut;
+import me.smaks6.plugin.nokaut.Ocuc;
 import me.smaks6.plugin.service.updatechecker;
 import me.smaks6.plugin.cmd.podniesGracza.podniesGraczaCmd;
 import me.smaks6.plugin.cmd.rzucgracza.rzucgraczaCmd;
@@ -19,9 +18,11 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
+import java.util.function.Consumer;
 
 
 public class Main extends JavaPlugin{
@@ -42,15 +43,10 @@ public class Main extends JavaPlugin{
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the plugin nokaut BY smaks6");
 
-//		int pluginId = 9923;
-//		Metrics metrics = new Metrics(this, pluginId);
-		
-		BlockInNokaut BlockInNokaut = new BlockInNokaut();
-		nokaut nokaut = new nokaut();
-		ocuc ocuc = new ocuc();
-		Bukkit.getServer().getPluginManager().registerEvents(BlockInNokaut, this);
-		Bukkit.getServer().getPluginManager().registerEvents(nokaut, this);
-		Bukkit.getServer().getPluginManager().registerEvents(ocuc, this);
+		int pluginId = 9923;
+		Metrics metrics = new Metrics(this, pluginId);
+
+		registerEvents();
 		
 		new deathnowcmd(this);
 		new nokautcmd(this);
@@ -86,6 +82,16 @@ public class Main extends JavaPlugin{
 	
 	public static Main getInstance() {
 	    return instance;
+	}
+
+	private void registerEvents(){
+		Consumer<Listener> registerEvent = o -> Bukkit.getServer().getPluginManager().registerEvents(o, this);
+
+		registerEvent.accept(new Nokaut());
+		registerEvent.accept(new Ocuc());
+
+		//zarejestruj eventy debilu
+
 	}
 }
 
