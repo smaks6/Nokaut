@@ -56,6 +56,12 @@ public class Nokaut implements Listener {
 				}
 				p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("helpnokautmessage"));
 				odliczanie(p);
+
+				if(!p.getPassengers().isEmpty()){
+					Player znokautowany = (Player) p.getPassengers().get(0);
+					gracze.replace(znokautowany, NokautEnum.LEZY);
+					p.getPassengers().clear();
+				}
 				return true;
 			}
 
@@ -110,7 +116,9 @@ public class Nokaut implements Listener {
     				this.cancel();
     			}
 
-				--czass;
+    			if(hashmap.equals(NokautEnum.LEZY)){
+					--czass;
+				}
 	        }
 	    }.runTaskTimer(Main.getInstance(), 0L, 20L);
 	}

@@ -5,6 +5,7 @@
 
 package me.smaks6.plugin;
 
+import me.smaks6.plugin.Listener.*;
 import me.smaks6.plugin.cmd.deathnow.deathnowcmd;
 import me.smaks6.plugin.cmd.nokaut.nokautcmd;
 import me.smaks6.plugin.cmd.nokaut.tabnokautcmd;
@@ -43,8 +44,8 @@ public class Main extends JavaPlugin{
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the plugin nokaut BY smaks6");
 
-		int pluginId = 9923;
-		Metrics metrics = new Metrics(this, pluginId);
+//		int pluginId = 9923;
+//		Metrics metrics = new Metrics(this, pluginId);
 
 		registerEvents();
 		
@@ -85,12 +86,22 @@ public class Main extends JavaPlugin{
 	}
 
 	private void registerEvents(){
-		Consumer<Listener> registerEvent = o -> Bukkit.getServer().getPluginManager().registerEvents(o, this);
 
-		registerEvent.accept(new Nokaut());
-		registerEvent.accept(new Ocuc());
-
-		//zarejestruj eventy debilu
+		Bukkit.getServer().getPluginManager().registerEvents(new Nokaut(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new Ocuc(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new CommandListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new DamageByEntityListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new DeathEvent(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new DropItemListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new EntityRegainHealthListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new InteractListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new JoinListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new MoveListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new PickupItemListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new QuitListener(), this);
+		Bukkit.getServer().getPluginManager().registerEvents(new ShootBowListener(), this);
 
 	}
 }

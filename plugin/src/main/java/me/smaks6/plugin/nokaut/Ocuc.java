@@ -29,6 +29,9 @@ public class Ocuc implements Listener{
 	@EventHandler
 	public void ocucS(PlayerToggleSneakEvent e){
 		Player p = e.getPlayer();
+		if(!gracze.get(p).equals(NokautEnum.STOI)){
+			return;
+		}
 		List<Entity> players = p.getNearbyEntities(2,2,2);
 		if(players.isEmpty()){
 			return;
@@ -69,6 +72,7 @@ public class Ocuc implements Listener{
 				}
 
 				p.sendTitle(ChatColor.GREEN + Main.getInstance().getConfig().getString("WakeUpTitle"),ChatColor.GREEN + "" + czas + "%", 1 , 20 , 1 );
+				ocucany.sendTitle(ChatColor.GREEN + Main.getInstance().getConfig().getString("WakeUpTitle"),ChatColor.GREEN + "" + czas + "%", 1 , 20 , 1 );
 
 				if(czas >= 100){
 					this.cancel();
