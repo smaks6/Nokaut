@@ -30,6 +30,7 @@ public class Ocuc implements Listener{
 	public void ocucS(PlayerToggleSneakEvent e){
 		Player p = e.getPlayer();
 		if(!gracze.get(p).equals(NokautEnum.STOI)){
+			e.setCancelled(true);
 			return;
 		}
 		List<Entity> players = p.getNearbyEntities(2,2,2);

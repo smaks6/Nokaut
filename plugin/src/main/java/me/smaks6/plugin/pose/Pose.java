@@ -18,6 +18,7 @@ public class Pose{
         gracze.replace(p, NokautEnum.LEZY);
         p.setWalkSpeed(0);
         p.setFlySpeed(0);
+        p.setCollidable(false);
 
         p.setInvisible(true);
 
@@ -32,6 +33,7 @@ public class Pose{
     //stop pose animation
     public static void stop(Player p){
         gracze.replace(p, NokautEnum.STOI);
+        p.setCollidable(true);
 
         p.setDisplayName(p.getName());
 

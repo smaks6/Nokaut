@@ -13,19 +13,20 @@ public class OtherMetchod {
         //nies:
         //true - na plecach niech idzie
         //false - niech już spada z pleców
-        EntityPlayer KnockedEntity = ((CraftPlayer) znokautowany).getHandle();
+        EntityPlayer knockedEntity = ((CraftPlayer) znokautowany).getHandle();
 
         if(nies){
             znokautowany.setGameMode(GameMode.SPECTATOR);
             znokautowany.setSpectatorTarget(reviever);
-            KnockedEntity.playerInteractManager.setGameMode(EnumGamemode.ADVENTURE);
+            knockedEntity.playerInteractManager.setGameMode(EnumGamemode.ADVENTURE);
+
         }else {
             znokautowany.setGameMode(GameMode.SPECTATOR);
             znokautowany.setSpectatorTarget(null);
             znokautowany.setGameMode(GameMode.SURVIVAL);
 
-            KnockedEntity.playerInteractManager.setGameMode(EnumGamemode.ADVENTURE);
-            KnockedEntity.playerConnection.sendPacket(new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.d, 0));
+            knockedEntity.playerInteractManager.setGameMode(EnumGamemode.ADVENTURE);
+            knockedEntity.playerConnection.sendPacket(new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.d, 0));
         }
 
     }

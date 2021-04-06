@@ -23,7 +23,7 @@ public class JoinListener implements Listener {
 
         gracze.forEach((player, nokautEnum) -> {
 
-            if(nokautEnum.equals(NokautEnum.STOI)){
+            if(!nokautEnum.equals(NokautEnum.STOI)){
                 npc.add(player);
             }
 

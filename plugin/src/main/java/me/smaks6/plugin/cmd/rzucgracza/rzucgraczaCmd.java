@@ -33,12 +33,11 @@ public class rzucgraczaCmd implements CommandExecutor {
 
         Player player = (Player) sender.getPassengers().get(0);
         sender.getPassengers().clear();
+        gracze.replace(player, NokautEnum.LEZY);
 
         Pose.changegamemode(player, sender, false);
 
         player.teleport(sender);
-
-        gracze.replace(player, NokautEnum.LEZY);
 
 
 

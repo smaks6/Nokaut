@@ -58,6 +58,9 @@ public class CreateNPC extends me.smaks6.api.CreateNPC {
         connection.sendPacket(new PacketPlayOutEntityMetadata(npc.getId(), watcher, false));
         connection.sendPacket(new PacketPlayOutEntityHeadRotation(npc, (byte) (npc.yaw * 256 / 360)));
 
+        CraftPlayer craftPlayer = npc.getBukkitEntity();
+        craftPlayer.setCollidable(false);
+
         return npc;
     }
 
@@ -99,6 +102,8 @@ public class CreateNPC extends me.smaks6.api.CreateNPC {
                     if (gracze.get(znokautowany).equals(NokautEnum.NIES)) {
                         teleportNPc(1.0);
                     }
+
+
                 }else {
                     removenpc();
                     cancel();

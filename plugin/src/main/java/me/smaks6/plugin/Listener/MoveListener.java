@@ -19,9 +19,10 @@ public class MoveListener implements Listener {
             double wynik = przed - po;
             if(wynik < 0){
                 event.setCancelled(true);
+                p.teleport(event.getFrom());
             }
 
-            if (event.getTo().getBlockX() == event.getFrom().getBlockX() && event.getTo().getBlockZ() == event.getFrom().getBlockZ()) event.setCancelled(true); return;
+            if (event.getTo().getBlockX() != event.getFrom().getBlockX() || event.getTo().getBlockZ() != event.getFrom().getBlockZ()) event.setCancelled(true); return;
         }
     }
 }
