@@ -22,8 +22,8 @@ public class QuitListener implements Listener {
         if(!p.getPassengers().isEmpty()){
             Player znokautowany = (Player) p.getPassengers().get(0);
             gracze.replace(znokautowany, NokautEnum.LEZY);
-            Pose.changegamemode(znokautowany, p, false);
             p.getPassengers().clear();
+            Pose.changegamemode(znokautowany, p, false);
         }
 
         gracze.remove(p);

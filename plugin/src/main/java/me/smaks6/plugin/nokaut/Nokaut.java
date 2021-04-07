@@ -21,6 +21,7 @@ public class Nokaut implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void death(EntityDamageEvent event) {
+
 		if (checkNokaut(event.getEntity(), event.getFinalDamage())) {
 			event.setCancelled(true);
 		}
@@ -41,6 +42,7 @@ public class Nokaut implements Listener {
 				return false;
 			}
 			if (hp <= dm) {
+
 				gracze.replace(p, NokautEnum.LEZY);
 				p.setFireTicks(0);
 				p.setHealth(2);
@@ -57,12 +59,6 @@ public class Nokaut implements Listener {
 				p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("helpnokautmessage"));
 				odliczanie(p);
 
-				if(!p.getPassengers().isEmpty()){
-					Player znokautowany = (Player) p.getPassengers().get(0);
-					gracze.replace(znokautowany, NokautEnum.LEZY);
-					Pose.changegamemode(znokautowany, p, false);
-					p.getPassengers().clear();
-				}
 				return true;
 			}
 
