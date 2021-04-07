@@ -1,6 +1,7 @@
 package me.smaks6.plugin.Listener;
 
 import me.smaks6.api.NokautEnum;
+import me.smaks6.plugin.pose.Pose;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +21,7 @@ public class QuitListener implements Listener {
 
         if(!p.getPassengers().isEmpty()){
             Player znokautowany = (Player) p.getPassengers().get(0);
+            Pose.changegamemode(znokautowany, p, false);
             gracze.replace(znokautowany, NokautEnum.LEZY);
             p.getPassengers().clear();
         }
