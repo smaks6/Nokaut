@@ -43,6 +43,13 @@ public class Nokaut implements Listener {
 			}
 			if (hp <= dm) {
 
+				if(!p.getPassengers().isEmpty()){
+					Player znokautowany = (Player) p.getPassengers().get(0);
+					gracze.replace(znokautowany, NokautEnum.LEZY);
+					p.getPassengers().clear();
+					Pose.changegamemode(znokautowany, p, false);
+				}
+
 				gracze.replace(p, NokautEnum.LEZY);
 				p.setFireTicks(0);
 				p.setHealth(2);

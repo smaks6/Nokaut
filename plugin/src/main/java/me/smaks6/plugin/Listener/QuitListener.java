@@ -2,7 +2,6 @@ package me.smaks6.plugin.Listener;
 
 import me.smaks6.api.NokautEnum;
 import me.smaks6.plugin.pose.Pose;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
