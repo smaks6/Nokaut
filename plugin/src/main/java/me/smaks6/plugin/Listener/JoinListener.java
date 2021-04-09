@@ -16,7 +16,7 @@ import static me.smaks6.plugin.Main.gracze;
 public class JoinListener implements Listener {
 
     @EventHandler
-    public void wchodzi(PlayerJoinEvent event) {
+    public void joinListenear(PlayerJoinEvent event) {
         Player p = event.getPlayer();
         gracze.put(p, NokautEnum.STOI);
 
@@ -32,7 +32,7 @@ public class JoinListener implements Listener {
 
         for (Player znokautowany : npc) {
             Pose.createNPC(znokautowany, p);
-            p.hidePlayer(Main.getInstance(), p);
+            p.hidePlayer(Main.getInstance(), znokautowany);
         }
 
     }
