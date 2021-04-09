@@ -18,6 +18,9 @@ public class EntityDismountListener implements Listener {
         Player p = (Player) event.getEntity();
         if(!p.isOnline())return;
         NokautEnum hashmap = gracze.get(p);
+
+        if(hashmap == null)return;
+
         if(hashmap.equals(NokautEnum.NIES)) {
             event.setCancelled(true);
             p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));

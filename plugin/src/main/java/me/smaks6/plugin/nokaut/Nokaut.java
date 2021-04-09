@@ -85,7 +85,8 @@ public class Nokaut implements Listener {
 				p.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"),ChatColor.WHITE + razem, 1 , 20 , 1 );
 
 	    		NokautEnum hashmap = gracze.get(p);
-				if(!p.isOnline()){
+
+				if(hashmap == null){
 					this.cancel();
 				}
 
