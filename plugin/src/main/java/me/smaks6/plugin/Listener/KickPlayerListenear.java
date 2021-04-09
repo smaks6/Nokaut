@@ -6,19 +6,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.spigotmc.event.entity.EntityDismountEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 
 import static me.smaks6.plugin.Main.gracze;
 
-public class EntityDismountListener implements Listener {
+public class KickPlayerListenear implements Listener {
 
     @EventHandler
-    public void enityDismount(EntityDismountEvent event) {
-        if(!(event.getEntity() instanceof Player) )return;
-        Player p = (Player) event.getEntity();
-        if(!p.isOnline())return;
+    public void kickListenear(PlayerKickEvent event) {
+        Player p = event.getPlayer();
         NokautEnum hashmap = gracze.get(p);
-        if(hashmap.equals(NokautEnum.NIES)) {
+
+        if(hashmap.equals(NokautEnum.NIES) && event.getReason().contains("Cannot interact with self!")) {
             event.setCancelled(true);
             p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
         }
