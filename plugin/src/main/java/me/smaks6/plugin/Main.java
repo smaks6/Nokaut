@@ -15,6 +15,7 @@ import me.smaks6.plugin.cmd.rzucgracza.rzucgraczaCmd;
 import me.smaks6.plugin.nokaut.Nokaut;
 import me.smaks6.plugin.nokaut.Ocuc;
 import me.smaks6.plugin.service.updatechecker;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -46,8 +47,8 @@ public class Main extends JavaPlugin{
 
 		checkVersion();
 
-//		int pluginId = 9923;
-//		Metrics metrics = new Metrics(this, pluginId);
+		int pluginId = 9923;
+		Metrics metrics = new Metrics(this, pluginId);
 
 		registerEvents();
 		
