@@ -29,7 +29,6 @@ public class JoinListener implements Listener {
             }
 
         });
-
         for (Player znokautowany : npc) {
             Pose.createNPC(znokautowany, p);
             p.hidePlayer(Main.getInstance(), znokautowany);

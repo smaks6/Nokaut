@@ -3,7 +3,6 @@ package me.smaks6.plugin.pose;
 import me.smaks6.api.NokautEnum;
 import me.smaks6.plugin.Main;
 import me.smaks6.v1_16_R3.CreateNPC;
-import me.smaks6.v1_16_R3.OtherMetchod;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -12,6 +11,7 @@ import static me.smaks6.plugin.Main.gracze;
 
 public class Pose{
 
+    private static final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 
     //start pose animation
     public static void start(Player p) {
@@ -47,7 +47,19 @@ public class Pose{
     }
 
     public static void createNPC(Player znokautowany, Player see){
+
         new CreateNPC(znokautowany, see, gracze);
+
+        switch (version){
+            case "v1_16_R3": new me.smaks6.v1_16_R3.CreateNPC(znokautowany, see, gracze);
+
+            case "v1_16_R2": new me.smaks6.v1_16_R2.CreateNPC(znokautowany, see, gracze);
+
+            case "v1_16_R1": new me.smaks6.v1_16_R1.CreateNPC(znokautowany, see, gracze);
+
+            case "v1_15_R1": new me.smaks6.v1_15_R1.CreateNPC(znokautowany, see, gracze);
+
+        }
     }
 
     //change game mode
@@ -55,7 +67,18 @@ public class Pose{
         //nies:
         //true - na plecach niech idzie
         //false - niech już spada z pleców
-        OtherMetchod.changeGameMode(p, reviever, nies);
+
+        switch (version){
+            case "v1_16_R3": me.smaks6.v1_16_R3.OtherMetchod.changeGameMode(p, reviever, nies);
+
+            case "v1_16_R2": me.smaks6.v1_16_R2.OtherMetchod.changeGameMode(p, reviever, nies);
+
+            case "v1_16_R1": me.smaks6.v1_16_R1.OtherMetchod.changeGameMode(p, reviever, nies);
+
+            case "v1_15_R1": me.smaks6.v1_15_R1.OtherMetchod.changeGameMode(p, reviever, nies);
+
+        }
+
     }
 
 
