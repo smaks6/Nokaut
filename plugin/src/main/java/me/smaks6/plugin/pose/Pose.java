@@ -2,7 +2,6 @@ package me.smaks6.plugin.pose;
 
 import me.smaks6.api.NokautEnum;
 import me.smaks6.plugin.Main;
-import me.smaks6.v1_16_R3.CreateNPC;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -48,16 +47,14 @@ public class Pose{
 
     public static void createNPC(Player znokautowany, Player see){
 
-        new CreateNPC(znokautowany, see, gracze);
-
         switch (version){
-            case "v1_16_R3": new me.smaks6.v1_16_R3.CreateNPC(znokautowany, see, gracze);
+            case "v1_16_R3": new me.smaks6.v1_16_R3.CreateNPC(znokautowany, see, gracze); break;
 
-            case "v1_16_R2": new me.smaks6.v1_16_R2.CreateNPC(znokautowany, see, gracze);
+            case "v1_16_R2": new me.smaks6.v1_16_R2.CreateNPC(znokautowany, see, gracze); break;
 
-            case "v1_16_R1": new me.smaks6.v1_16_R1.CreateNPC(znokautowany, see, gracze);
+            case "v1_16_R1": new me.smaks6.v1_16_R1.CreateNPC(znokautowany, see, gracze); break;
 
-            case "v1_15_R1": new me.smaks6.v1_15_R1.CreateNPC(znokautowany, see, gracze);
+            case "v1_15_R1": new me.smaks6.v1_15_R1.CreateNPC(znokautowany, see, gracze); break;
 
         }
     }
@@ -69,13 +66,13 @@ public class Pose{
         //false - niech już spada z pleców
 
         switch (version){
-            case "v1_16_R3": me.smaks6.v1_16_R3.OtherMetchod.changeGameMode(p, reviever, nies);
+            case "v1_16_R3": me.smaks6.v1_16_R3.OtherMetchod.changeGameMode(p, reviever, nies); break;
 
-            case "v1_16_R2": me.smaks6.v1_16_R2.OtherMetchod.changeGameMode(p, reviever, nies);
+            case "v1_16_R2": me.smaks6.v1_16_R2.OtherMetchod.changeGameMode(p, reviever, nies); break;
 
-            case "v1_16_R1": me.smaks6.v1_16_R1.OtherMetchod.changeGameMode(p, reviever, nies);
+            case "v1_16_R1": me.smaks6.v1_16_R1.OtherMetchod.changeGameMode(p, reviever, nies); break;
 
-            case "v1_15_R1": me.smaks6.v1_15_R1.OtherMetchod.changeGameMode(p, reviever, nies);
+            case "v1_15_R1": me.smaks6.v1_15_R1.OtherMetchod.changeGameMode(p, reviever, nies); break;
 
         }
 

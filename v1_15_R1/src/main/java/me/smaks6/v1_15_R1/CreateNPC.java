@@ -2,13 +2,13 @@ package me.smaks6.v1_15_R1;
 
 import com.mojang.authlib.GameProfile;
 import me.smaks6.api.NokautEnum;
-import net.minecraft.server.v1_16_R1.*;
+import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_15_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -41,10 +41,10 @@ public class CreateNPC extends me.smaks6.api.CreateNPC {
         gameProfile.getProperties().putAll(((CraftPlayer) znokautowany).getHandle().getProfile().getProperties());
         EntityPlayer npc = new EntityPlayer(nmsServer, nmsWorld, gameProfile, new PlayerInteractManager(nmsWorld));
         npc.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
-        npc.setPose(EntityPose.SWIMMING);
+//        npc.setPose(EntityPose.SWIMMING);
 
         PlayerConnection connection = ((CraftPlayer) see).getHandle().playerConnection;
-        npc.setPose(EntityPose.SWIMMING);
+//        npc.setPose(EntityPose.SWIMMING);
         DataWatcher watcher = npc.getDataWatcher();
         connection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, npc));
         connection.sendPacket(new PacketPlayOutNamedEntitySpawn(npc));

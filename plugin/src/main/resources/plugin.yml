@@ -1,5 +1,5 @@
 name: nokaut
-version: 1.10
+version: 1.11
 main: me.smaks6.plugin.Main
 author: smaks6
 website: https://www.spigotmc.org/resources/nokaut.85152/
@@ -13,8 +13,10 @@ commands:
     aliases: nk
     permission: nokaut.admin
   podniesgracza:
+    aliases: pickuupplayer
 
   rzucgracza:
+    aliases: dropplayer
 
 
 permissions:

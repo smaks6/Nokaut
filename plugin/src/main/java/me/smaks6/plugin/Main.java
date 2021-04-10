@@ -5,30 +5,29 @@
 
 package me.smaks6.plugin;
 
+import me.smaks6.api.NokautEnum;
 import me.smaks6.plugin.Listener.*;
 import me.smaks6.plugin.cmd.deathnow.deathnowcmd;
 import me.smaks6.plugin.cmd.nokaut.nokautcmd;
 import me.smaks6.plugin.cmd.nokaut.tabnokautcmd;
+import me.smaks6.plugin.cmd.podniesGracza.podniesGraczaCmd;
+import me.smaks6.plugin.cmd.rzucgracza.rzucgraczaCmd;
 import me.smaks6.plugin.nokaut.Nokaut;
 import me.smaks6.plugin.nokaut.Ocuc;
 import me.smaks6.plugin.service.updatechecker;
-import me.smaks6.plugin.cmd.podniesGracza.podniesGraczaCmd;
-import me.smaks6.plugin.cmd.rzucgracza.rzucgraczaCmd;
-import me.smaks6.api.NokautEnum;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
-import java.util.function.Consumer;
 
 
 public class Main extends JavaPlugin{
 	
 	private static Main instance;
+
+	private String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	
     public static HashMap<Player, NokautEnum> gracze = new HashMap<Player, NokautEnum>();// value = stoi, lezy, nies
 
@@ -43,6 +42,9 @@ public class Main extends JavaPlugin{
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "|     \\|  |  \\");
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the plugin nokaut BY smaks6");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Server version: " + version);
+
+		checkVersion();
 
 //		int pluginId = 9923;
 //		Metrics metrics = new Metrics(this, pluginId);
@@ -106,6 +108,19 @@ public class Main extends JavaPlugin{
 		Bukkit.getServer().getPluginManager().registerEvents(new KickPlayerListenear() , this);
 
 
+	}
+
+	private void checkVersion(){
+		if(!(version.equals("v1_16_R3") || version.equals("v1_16_R2") || version.equals("v1_16_R1"))){
+
+			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "======================================");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + " ");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Sory, but your version is not support!");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + " ");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "======================================");
+
+			getServer().getPluginManager().disablePlugin(Main.getInstance());
+		}
 	}
 }
 
