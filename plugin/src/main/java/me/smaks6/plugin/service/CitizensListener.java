@@ -7,6 +7,6 @@ public class CitizensListener {
     }
 
     public static boolean isNpc(Entity e) {
-        return e.hasMetadata("NPC");
+            return e.hasMetadata("NPC");
     }
 }

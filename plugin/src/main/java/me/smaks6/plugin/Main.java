@@ -53,6 +53,8 @@ public class Main extends JavaPlugin{
 
 		registerEvents();
 
+
+
 		//register WorldguardFlag
 		if(getServer().getPluginManager().getPlugin("WorldGuard") != null) {
 			new WorldGuardFlag().registerFlag();
