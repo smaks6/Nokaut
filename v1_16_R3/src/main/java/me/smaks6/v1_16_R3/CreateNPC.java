@@ -1,7 +1,6 @@
 package me.smaks6.v1_16_R3;
 
 import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
 import me.smaks6.api.NokautEnum;
 import net.minecraft.server.v1_16_R3.*;
 import org.bukkit.Bukkit;
@@ -13,12 +12,6 @@ import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -39,11 +32,10 @@ public class CreateNPC extends me.smaks6.api.CreateNPC {
         teleportNPCRunnable();
     }
 
-
     private EntityPlayer spawnNPC(){
         Location location = znokautowany.getLocation();
         MinecraftServer nmsServer = ((CraftServer) Bukkit.getServer()).getServer();
-        WorldServer nmsWorld = ((CraftWorld)Bukkit.getWorld("world")).getHandle();
+        WorldServer nmsWorld = ((CraftWorld)Bukkit.getWorld(znokautowany.getWorld().getName())).getHandle();
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED + "*Nokaut*");
         gameProfile.getProperties().putAll(((CraftPlayer) znokautowany).getHandle().getProfile().getProperties());
         EntityPlayer npc = new EntityPlayer(nmsServer, nmsWorld, gameProfile, new PlayerInteractManager(nmsWorld));
@@ -72,7 +64,6 @@ public class CreateNPC extends me.smaks6.api.CreateNPC {
         PlayerConnection connection = ((CraftPlayer) see).getHandle().playerConnection;
         connection.sendPacket(new PacketPlayOutEntityTeleport(entityPlayer));
     }
-
 
     private void removenpc(){
         PlayerConnection connection = ((CraftPlayer) see).getHandle().playerConnection;

@@ -5,6 +5,7 @@
 
 package me.smaks6.plugin;
 
+import com.sk89q.worldguard.WorldGuard;
 import me.smaks6.api.NokautEnum;
 import me.smaks6.plugin.Listener.*;
 import me.smaks6.plugin.cmd.deathnow.deathnowcmd;
@@ -14,6 +15,7 @@ import me.smaks6.plugin.cmd.podniesGracza.podniesGraczaCmd;
 import me.smaks6.plugin.cmd.rzucgracza.rzucgraczaCmd;
 import me.smaks6.plugin.nokaut.Nokaut;
 import me.smaks6.plugin.nokaut.Ocuc;
+import me.smaks6.plugin.service.WorldGuardFlag;
 import me.smaks6.plugin.service.updatechecker;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -51,6 +53,9 @@ public class Main extends JavaPlugin{
 		Metrics metrics = new Metrics(this, pluginId);
 
 		registerEvents();
+
+		//register WorldguardFlag
+		new WorldGuardFlag().registerFlag();
 		
 		new deathnowcmd(this);
 		new nokautcmd(this);

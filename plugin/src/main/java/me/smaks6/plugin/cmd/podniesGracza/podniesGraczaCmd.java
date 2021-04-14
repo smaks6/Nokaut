@@ -1,7 +1,7 @@
 package me.smaks6.plugin.cmd.podniesGracza;
 
 import me.smaks6.plugin.Main;
-import me.smaks6.plugin.pose.Pose;
+import me.smaks6.plugin.pose.*;
 import me.smaks6.api.NokautEnum;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

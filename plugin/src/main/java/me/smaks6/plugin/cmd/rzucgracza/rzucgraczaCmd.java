@@ -6,7 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import me.smaks6.plugin.pose.Pose;
+import me.smaks6.plugin.pose.*;
 
 import static me.smaks6.plugin.Main.gracze;
 

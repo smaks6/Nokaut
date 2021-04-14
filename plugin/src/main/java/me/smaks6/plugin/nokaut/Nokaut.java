@@ -1,12 +1,15 @@
 package me.smaks6.plugin.nokaut;
 
+import com.sk89q.worldguard.WorldGuard;
 import me.smaks6.plugin.Main;
-import me.smaks6.plugin.pose.Pose;
 import me.smaks6.plugin.service.CitizensListener;
 import me.smaks6.api.NokautEnum;
+import me.smaks6.plugin.service.WorldGuardFlag;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import me.smaks6.plugin.pose.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -22,12 +25,22 @@ public class Nokaut implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void death(EntityDamageEvent event) {
 
-		if (checkNokaut(event.getEntity(), event.getFinalDamage())) {
-			event.setCancelled(true);
+		if(event.getEntity() instanceof Player) {
+
+			Player player = (Player) event.getEntity();
+			if(player.getInventory().getItemInMainHand().getType().equals(Material.TOTEM_OF_UNDYING) ||
+					player.getInventory().getItemInOffHand().getType().equals(Material.TOTEM_OF_UNDYING))
+			{
+				return;
+			}
+
+			if(WorldGuardFlag.isFlag(player))return;
+
+			if (checkNokaut(event.getEntity(), event.getFinalDamage())) {
+				event.setCancelled(true);
+			}
 		}
-
 	}
-
 
 	public boolean checkNokaut(Entity e, double dmm) {
 		if (CitizensListener.isNpc(e)) {
@@ -68,7 +81,6 @@ public class Nokaut implements Listener {
 
 				return true;
 			}
-
 		}
 		return false;
 	}
@@ -78,7 +90,6 @@ public class Nokaut implements Listener {
     		int czass = 0;
     		int czasm = Main.getInstance().getConfig().getInt("NokautTimeInMin");
     		String razem;
-
 
 			@Override
 	        public void run() {

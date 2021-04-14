@@ -36,7 +36,7 @@ public class CreateNPC extends me.smaks6.api.CreateNPC {
     private EntityPlayer spawnNPC(){
         Location location = znokautowany.getLocation();
         MinecraftServer nmsServer = ((CraftServer) Bukkit.getServer()).getServer();
-        WorldServer nmsWorld = ((CraftWorld)Bukkit.getWorld("world")).getHandle();
+        WorldServer nmsWorld = ((CraftWorld)Bukkit.getWorld(znokautowany.getWorld().getName())).getHandle();
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED + "*Nokaut*");
         gameProfile.getProperties().putAll(((CraftPlayer) znokautowany).getHandle().getProfile().getProperties());
         EntityPlayer npc = new EntityPlayer(nmsServer, nmsWorld, gameProfile, new PlayerInteractManager(nmsWorld));

@@ -5,6 +5,8 @@ import me.smaks6.plugin.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import static me.smaks6.plugin.Main.gracze;
 
@@ -19,7 +21,7 @@ public class Pose{
         p.setFlySpeed(0);
         p.setCollidable(false);
 
-        p.setInvisible(true);
+        p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 100));
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             createNPC(p, onlinePlayer);
@@ -35,6 +37,8 @@ public class Pose{
         p.setCollidable(true);
 
         p.setDisplayName(p.getName());
+
+        p.removePotionEffect(PotionEffectType.INVISIBILITY);
 
         p.setWalkSpeed(0.2F);
         p.setFlySpeed(0.1F);
