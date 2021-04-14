@@ -5,7 +5,6 @@
 
 package me.smaks6.plugin;
 
-import com.sk89q.worldguard.WorldGuard;
 import me.smaks6.api.NokautEnum;
 import me.smaks6.plugin.Listener.*;
 import me.smaks6.plugin.cmd.deathnow.deathnowcmd;
@@ -55,7 +54,7 @@ public class Main extends JavaPlugin{
 		registerEvents();
 
 		//register WorldguardFlag
-		if(getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
+		if(!getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
 			new WorldGuardFlag().registerFlag();
 		}
 		

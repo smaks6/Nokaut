@@ -32,7 +32,7 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>me.smaks6</shadedPattern>
+                            <shadedPattern>me.smaks6.plugin</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

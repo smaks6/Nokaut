@@ -1,16 +1,15 @@
 package me.smaks6.plugin.nokaut;
 
-import com.sk89q.worldguard.WorldGuard;
-import me.smaks6.plugin.Main;
-import me.smaks6.plugin.service.CitizensListener;
 import me.smaks6.api.NokautEnum;
+import me.smaks6.plugin.Main;
+import me.smaks6.plugin.pose.Pose;
+import me.smaks6.plugin.service.CitizensListener;
 import me.smaks6.plugin.service.WorldGuardFlag;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import me.smaks6.plugin.pose.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -30,12 +29,9 @@ public class Nokaut implements Listener {
 
 			Player player = (Player) event.getEntity();
 			if(player.getInventory().getItemInMainHand().getType().equals(Material.TOTEM_OF_UNDYING) ||
-					player.getInventory().getItemInOffHand().getType().equals(Material.TOTEM_OF_UNDYING))
-			{
-				return;
-			}
+					player.getInventory().getItemInOffHand().getType().equals(Material.TOTEM_OF_UNDYING))return;
 
-			if(Bukkit.getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
+			if(!Bukkit.getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
 				if (WorldGuardFlag.isFlag(player)) return;
 			}
 
