@@ -31,7 +31,7 @@ public class Nokaut implements Listener {
 			if(player.getInventory().getItemInMainHand().getType().equals(Material.TOTEM_OF_UNDYING) ||
 					player.getInventory().getItemInOffHand().getType().equals(Material.TOTEM_OF_UNDYING))return;
 
-			if(!Bukkit.getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
+			if(Bukkit.getServer().getPluginManager().getPlugin("WorldGuard") != null) {
 				if (WorldGuardFlag.isFlag(player)) return;
 			}
 
