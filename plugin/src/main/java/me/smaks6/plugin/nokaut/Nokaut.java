@@ -5,6 +5,7 @@ import me.smaks6.plugin.Main;
 import me.smaks6.plugin.service.CitizensListener;
 import me.smaks6.api.NokautEnum;
 import me.smaks6.plugin.service.WorldGuardFlag;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -34,7 +35,9 @@ public class Nokaut implements Listener {
 				return;
 			}
 
-			if(WorldGuardFlag.isFlag(player))return;
+			if(Bukkit.getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
+				if (WorldGuardFlag.isFlag(player)) return;
+			}
 
 			if (checkNokaut(event.getEntity(), event.getFinalDamage())) {
 				event.setCancelled(true);

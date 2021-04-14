@@ -55,7 +55,9 @@ public class Main extends JavaPlugin{
 		registerEvents();
 
 		//register WorldguardFlag
-		new WorldGuardFlag().registerFlag();
+		if(getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
+			new WorldGuardFlag().registerFlag();
+		}
 		
 		new deathnowcmd(this);
 		new nokautcmd(this);
