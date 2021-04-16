@@ -28,6 +28,10 @@ public class Nokaut implements Listener {
 
 		if(event.getEntity() instanceof Player) {
 
+			if(event.getCause().equals(EntityDamageEvent.DamageCause.VOID)) {
+				return;
+			}
+
 			Player player = (Player) event.getEntity();
 			if(player.getInventory().getItemInMainHand().getType().equals(Material.TOTEM_OF_UNDYING) ||
 					player.getInventory().getItemInOffHand().getType().equals(Material.TOTEM_OF_UNDYING))return;
