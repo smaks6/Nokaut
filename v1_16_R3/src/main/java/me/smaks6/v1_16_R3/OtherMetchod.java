@@ -27,6 +27,7 @@ public class OtherMetchod {
 
             knockedEntity.playerInteractManager.setGameMode(EnumGamemode.ADVENTURE);
             knockedEntity.playerConnection.sendPacket(new PacketPlayOutGameStateChange(PacketPlayOutGameStateChange.d, 0));
+            //code https://github.com/WcaleNieWolny/TobiaszNokaut/blob/main/src/main/java/pl/wolny/junglenokaut/cmds/PodniesGracza.java
         }
 
     }

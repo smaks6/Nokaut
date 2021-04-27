@@ -25,7 +25,6 @@ public class Nokaut implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void death(EntityDamageEvent event) {
 
-
 		if(event.getEntity() instanceof Player) {
 
 			if(event.getCause().equals(EntityDamageEvent.DamageCause.VOID)) {
