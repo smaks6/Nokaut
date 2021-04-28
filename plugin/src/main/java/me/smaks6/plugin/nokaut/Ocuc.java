@@ -1,11 +1,11 @@
 package me.smaks6.plugin.nokaut;
 
-import me.smaks6.plugin.Main;
-import me.smaks6.plugin.pose.*;
-import me.smaks6.plugin.service.CitizensListener;
 import me.smaks6.api.NokautEnum;
+import me.smaks6.plugin.Main;
+import me.smaks6.plugin.pose.Pose;
+import me.smaks6.plugin.service.CitizensListener;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -59,16 +59,16 @@ public class Ocuc implements Listener{
 
 
 	public void ocucanie(Player p, Player ocucany){
+
+		Block block = p.getLocation().getBlock();
 		new BukkitRunnable() {
 
 			int czas = 0;
 
-			final Location loc = p.getLocation();
-
 			@Override
 			public void run() {
 
-				if(!p.isSneaking() || !loc.equals(p.getLocation())){
+				if(!p.isSneaking() || !block.equals(p.getLocation().getBlock())){
 					this.cancel();
 				}
 
