@@ -18,8 +18,8 @@
     <name>Plugin</name>
 
     <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
     <build>
@@ -88,15 +88,15 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>me.smaks6</groupId>
-            <artifactId>v1_16_R2</artifactId>
-            <version>1.10</version>
-        </dependency>
-        <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-bukkit</artifactId>
             <version>7.0.4</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.smaks6</groupId>
+            <artifactId>v1_16_R2</artifactId>
+            <version>1.10</version>
         </dependency>
         <dependency>
             <groupId>me.smaks6</groupId>

@@ -1,6 +1,6 @@
 package me.smaks6.plugin.nokaut;
 
-import me.smaks6.api.NokautEnum;
+import me.smaks6.api.Enum.NokautEnum;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.Pose;
 import me.smaks6.plugin.service.CitizensListener;
@@ -13,35 +13,48 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashMap;
+
 import static me.smaks6.plugin.Main.gracze;
 
 public class Nokaut implements Listener {
 
+	private static HashMap<Player, Player> nokautEntity = new HashMap<>();
+
+	public static HashMap<Player, Player> getNokautEntity() {
+		return nokautEntity;
+	}
+
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void death(EntityDamageEvent event) {
 
-		if(event.getEntity() instanceof Player) {
+		if(event.getCause().equals(EntityDamageEvent.DamageCause.VOID)) {
+			return;
+		}
 
-			if(event.getCause().equals(EntityDamageEvent.DamageCause.VOID)) {
-				return;
-			}
-
-			Player player = (Player) event.getEntity();
-			if(player.getInventory().getItemInMainHand().getType().equals(Material.TOTEM_OF_UNDYING) ||
-					player.getInventory().getItemInOffHand().getType().equals(Material.TOTEM_OF_UNDYING))return;
-
-			if(Bukkit.getServer().getPluginManager().getPlugin("WorldGuard") != null) {
-				if (WorldGuardFlag.isFlag(player)) return;
-			}
-
+		if(event instanceof EntityDamageByEntityEvent){
 			if (checkNokaut(event.getEntity(), event.getFinalDamage())) {
 				event.setCancelled(true);
+
+				EntityDamageByEntityEvent entityEvent = (EntityDamageByEntityEvent) event;
+
+				if(entityEvent.getDamager() instanceof Player){
+					nokautEntity.put((Player) event.getEntity(), (Player) entityEvent.getDamager());
+				}
+				System.out.println("Od entity");
 			}
+			return;
+		}
+
+		if (checkNokaut(event.getEntity(), event.getFinalDamage())) {
+			event.setCancelled(true);
+			System.out.println("Damage zwykłe");
 		}
 	}
 
@@ -51,6 +64,15 @@ public class Nokaut implements Listener {
 		}
 		if (e instanceof Player) {
 			Player p = (Player) e;
+
+			if(p.getInventory().getItemInMainHand().getType().equals(Material.TOTEM_OF_UNDYING) ||
+					p.getInventory().getItemInOffHand().getType().equals(Material.TOTEM_OF_UNDYING))return false;
+
+			if(Bukkit.getServer().getPluginManager().getPlugin("WorldGuard") != null) {
+				if (WorldGuardFlag.isFlag(p)) return false;
+			}
+
+
 			int hp = (int) p.getHealth();
 			int dm = (int) dmm;
 			NokautEnum hashmap = gracze.get(p);
@@ -123,7 +145,14 @@ public class Nokaut implements Listener {
     			if((czasm <= 0) && (czass <= 0)) {
 					gracze.replace(p, NokautEnum.STOI);
     				if(Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")){
-    					p.setHealth(0);
+
+    					if(!(nokautEntity.get(p) == null)){
+    						p.damage(200, nokautEntity.get(p));
+							nokautEntity.remove(p);
+						}else {
+							p.setHealth(0);
+						}
+
 						System.out.println("koniec nokaut");
     					Pose.stop(p);
 					}

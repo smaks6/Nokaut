@@ -1,7 +1,7 @@
 package me.smaks6.v1_16_R1;
 
 import com.mojang.authlib.GameProfile;
-import me.smaks6.api.NokautEnum;
+import me.smaks6.api.Enum.NokautEnum;
 import net.minecraft.server.v1_16_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

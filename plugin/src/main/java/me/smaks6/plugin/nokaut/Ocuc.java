@@ -1,6 +1,6 @@
 package me.smaks6.plugin.nokaut;
 
-import me.smaks6.api.NokautEnum;
+import me.smaks6.api.Enum.NokautEnum;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.Pose;
 import me.smaks6.plugin.service.CitizensListener;

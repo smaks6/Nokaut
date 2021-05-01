@@ -1,7 +1,8 @@
 package me.smaks6.plugin.cmd.deathnow;
 
 import me.smaks6.plugin.Main;
-import me.smaks6.api.NokautEnum;
+import me.smaks6.api.Enum.NokautEnum;
+import me.smaks6.plugin.nokaut.Nokaut;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,7 +21,14 @@ public class deathnowcmd implements CommandExecutor{
 			Player p = (Player) sender;
 			NokautEnum hashmap = gracze.get(p);
 			if(!hashmap.equals(NokautEnum.STOI)) {
-				p.setHealth(0);
+
+				if(!(Nokaut.getNokautEntity().get(p) == null)){
+					p.damage(200, Nokaut.getNokautEntity().get(p));
+					Nokaut.getNokautEntity().remove(p);
+				}else {
+					p.setHealth(0);
+				}
+
 				gracze.replace(p, NokautEnum.STOI);
 			}else {
 				p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("deathnownot"));

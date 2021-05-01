@@ -1,6 +1,6 @@
 package me.smaks6.plugin.pose;
 
-import me.smaks6.api.NokautEnum;
+import me.smaks6.api.Enum.NokautEnum;
 import me.smaks6.plugin.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
