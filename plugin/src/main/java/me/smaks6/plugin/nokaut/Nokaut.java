@@ -47,14 +47,12 @@ public class Nokaut implements Listener {
 				if(entityEvent.getDamager() instanceof Player){
 					nokautEntity.put((Player) event.getEntity(), (Player) entityEvent.getDamager());
 				}
-				System.out.println("Od entity");
 			}
 			return;
 		}
 
 		if (checkNokaut(event.getEntity(), event.getFinalDamage())) {
 			event.setCancelled(true);
-			System.out.println("Damage zwykłe");
 		}
 	}
 
@@ -143,21 +141,23 @@ public class Nokaut implements Listener {
     			}
     			
     			if((czasm <= 0) && (czass <= 0)) {
-					gracze.replace(p, NokautEnum.STOI);
     				if(Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")){
 
     					if(!(nokautEntity.get(p) == null)){
     						p.damage(200, nokautEntity.get(p));
 							nokautEntity.remove(p);
+							System.out.println("zabito przez debila");
 						}else {
 							p.setHealth(0);
 						}
 
 						System.out.println("koniec nokaut");
+						gracze.replace(p, NokautEnum.STOI);
     					Pose.stop(p);
 					}
 					else{
 						System.out.println("koniec nokaut");
+						gracze.replace(p, NokautEnum.STOI);
 						Pose.stop(p);
 						p.removePotionEffect(PotionEffectType.BLINDNESS);
 					}
