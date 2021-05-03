@@ -19,39 +19,14 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashMap;
-
 import static me.smaks6.plugin.Main.gracze;
 
 public class Nokaut implements Listener {
-
-	private static HashMap<Player, Player> nokautEntity = new HashMap<>();
-
-	public static HashMap<Player, Player> getNokautEntity() {
-		return nokautEntity;
-	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void death(EntityDamageEvent event) {
 
 		if(event.getCause().equals(EntityDamageEvent.DamageCause.VOID)) {
-			return;
-		}
-
-		if(event instanceof EntityDamageByEntityEvent){
-			EntityDamageByEntityEvent entityEvent = (EntityDamageByEntityEvent) event;
-
-			if(entityEvent.getDamager() instanceof Player){
-				if(!gracze.get(entityEvent.getDamager()).equals(NokautEnum.STOI))return;
-			}
-			if (checkNokaut(event.getEntity(), event.getFinalDamage())) {
-				event.setCancelled(true);
-
-
-				if(entityEvent.getDamager() instanceof Player){
-					nokautEntity.put((Player) event.getEntity(), (Player) entityEvent.getDamager());
-				}
-			}
 			return;
 		}
 
@@ -147,10 +122,11 @@ public class Nokaut implements Listener {
     			if((czasm <= 0) && (czass <= 0)) {
     				if(Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")){
 
-    					if(!(nokautEntity.get(p) == null)){
-    						p.damage(200, nokautEntity.get(p));
-							nokautEntity.remove(p);
-							System.out.println("zabito przez debila");
+						EntityDamageEvent lastDamageCause = p.getLastDamageCause();
+						if(lastDamageCause instanceof EntityDamageByEntityEvent){
+							EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) lastDamageCause;
+							Entity damager = damageByEntityEvent.getDamager();
+							p.damage(20000, damager);
 						}else {
 							p.setHealth(0);
 						}
