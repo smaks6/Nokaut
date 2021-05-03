@@ -39,10 +39,14 @@ public class Nokaut implements Listener {
 		}
 
 		if(event instanceof EntityDamageByEntityEvent){
+			EntityDamageByEntityEvent entityEvent = (EntityDamageByEntityEvent) event;
+
+			if(entityEvent.getDamager() instanceof Player){
+				if(!gracze.get(entityEvent.getDamager()).equals(NokautEnum.STOI))return;
+			}
 			if (checkNokaut(event.getEntity(), event.getFinalDamage())) {
 				event.setCancelled(true);
 
-				EntityDamageByEntityEvent entityEvent = (EntityDamageByEntityEvent) event;
 
 				if(entityEvent.getDamager() instanceof Player){
 					nokautEntity.put((Player) event.getEntity(), (Player) entityEvent.getDamager());
