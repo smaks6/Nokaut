@@ -23,6 +23,7 @@
 
     <properties>
         <java.version>8</java.version>
+        <project.version>1.10</project.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
