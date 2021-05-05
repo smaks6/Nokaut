@@ -114,6 +114,7 @@ public class Main extends JavaPlugin{
 		Bukkit.getServer().getPluginManager().registerEvents(new ShootBowListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new EntityDismountListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new KickPlayerListenear() , this);
+		Bukkit.getServer().getPluginManager().registerEvents(new EntityTargetListener() , this);
 
 
 	}
