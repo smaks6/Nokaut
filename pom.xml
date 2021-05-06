@@ -6,7 +6,7 @@
 
     <groupId>me.smaks6</groupId>
     <artifactId>nokaut</artifactId>
-    <version>1.10</version>
+    <version>1.11.3</version>
     <modules>
         <module>plugin</module>
         <module>v1_16_R3</module>
@@ -23,7 +23,6 @@
 
     <properties>
         <java.version>8</java.version>
-        <project.version>1.10</project.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

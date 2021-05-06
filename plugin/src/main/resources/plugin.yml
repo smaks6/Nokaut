@@ -1,5 +1,5 @@
 name: nokaut
-version: 1.11.2
+version: ${version}
 main: me.smaks6.plugin.Main
 author: smaks6
 website: https://www.spigotmc.org/resources/nokaut.85152/
