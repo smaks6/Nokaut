@@ -1,8 +1,10 @@
 package me.smaks6.plugin.Listener;
 
+import me.smaks6.api.Enum.Nokaut;
 import me.smaks6.api.Enum.NokautEnum;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.Pose;
+import me.smaks6.plugin.utilities.PlayerUtilities;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,5 +36,11 @@ public class JoinListener implements Listener {
             p.hidePlayer(Main.getInstance(), znokautowany);
         }
 
+        if(PlayerUtilities.isNull(p)){
+            PlayerUtilities.setEnum(p, Nokaut.STAND);
+            System.out.println("stworzono enuma");
+        }
+
+        System.out.println(PlayerUtilities.getEnum(p));
     }
 }

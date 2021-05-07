@@ -12,10 +12,9 @@ import me.smaks6.plugin.cmd.nokaut.nokautcmd;
 import me.smaks6.plugin.cmd.nokaut.tabnokautcmd;
 import me.smaks6.plugin.cmd.podniesGracza.podniesGraczaCmd;
 import me.smaks6.plugin.cmd.rzucgracza.rzucgraczaCmd;
-import me.smaks6.plugin.nokaut.Nokaut;
-import me.smaks6.plugin.nokaut.Ocuc;
 import me.smaks6.plugin.service.WorldGuardFlag;
 import me.smaks6.plugin.service.updatechecker;
+import me.smaks6.plugin.utilities.PlayerUtilities;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -90,15 +89,26 @@ public class Main extends JavaPlugin{
         });
 
 	}
-	
+
+	@Override
+	public void onDisable() {
+		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+			PlayerUtilities.setEnum(player, null);
+		}
+	}
+
 	public static Main getInstance() {
 	    return instance;
 	}
 
 	private void registerEvents(){
 
-		Bukkit.getServer().getPluginManager().registerEvents(new Nokaut(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new Ocuc(), this);
+//		Bukkit.getServer().getPluginManager().registerEvents(new Nokaut(), this);
+
+		//sneak and nokaut events
+		Bukkit.getServer().getPluginManager().registerEvents(new EntityDamageListener() , this);
+		Bukkit.getServer().getPluginManager().registerEvents(new SneakListener() , this);
+
 		Bukkit.getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new CommandListener(), this);

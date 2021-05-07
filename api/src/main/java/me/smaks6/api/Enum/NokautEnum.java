@@ -1,6 +1,5 @@
 package me.smaks6.api.Enum;
 
-public enum NokautEnum {
+public enum NokautEnum{
     STOI, LEZY, NIES;
-
 }
