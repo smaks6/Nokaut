@@ -1,19 +1,17 @@
 package me.smaks6.plugin.Listener;
 
-import me.smaks6.api.Enum.NokautEnum;
+import me.smaks6.api.utilities.PlayerUtilities;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-
-import static me.smaks6.plugin.Main.gracze;
 
 public class MoveListener implements Listener {
 
     @EventHandler
     public void moveEvent(PlayerMoveEvent event){
         Player p = event.getPlayer();
-        if (!gracze.get(p).equals(NokautEnum.STOI)) {
+        if (!PlayerUtilities.isNull(p)) {
             double przed = event.getFrom().getY();
             double po = event.getTo().getY();
             double wynik = przed - po;

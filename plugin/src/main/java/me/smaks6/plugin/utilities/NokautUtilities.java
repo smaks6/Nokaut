@@ -1,6 +1,7 @@
 package me.smaks6.plugin.utilities;
 
-import me.smaks6.api.Enum.NokautEnum;
+import me.smaks6.api.Enum.Nokaut;
+import me.smaks6.api.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.Pose;
 import me.smaks6.plugin.service.CitizensListener;
@@ -12,8 +13,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import static me.smaks6.plugin.Main.gracze;
 
 public class NokautUtilities {
 
@@ -34,20 +33,18 @@ public class NokautUtilities {
 
             int hp = (int) p.getHealth();
             int dm = (int) dmm;
-            NokautEnum hashmap = gracze.get(p);
-            if (!hashmap.equals(NokautEnum.STOI)) {
+            if (!PlayerUtilities.isNull(p)) {
                 return false;
             }
             if (hp <= dm) {
 
                 if(!p.getPassengers().isEmpty()){
                     Player znokautowany = (Player) p.getPassengers().get(0);
-                    gracze.replace(znokautowany, NokautEnum.LEZY);
+                    PlayerUtilities.setEnum(znokautowany, Nokaut.LAY);
                     p.getPassengers().clear();
                     Pose.changegamemode(znokautowany, p, false);
                 }
 
-                gracze.replace(p, NokautEnum.LEZY);
                 p.setFireTicks(0);
                 p.setHealth(2);
 

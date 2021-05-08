@@ -1,6 +1,7 @@
 package me.smaks6.plugin.utilities;
 
-import me.smaks6.api.Enum.NokautEnum;
+import me.smaks6.api.Enum.Nokaut;
+import me.smaks6.api.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.Pose;
 import org.bukkit.ChatColor;
@@ -11,8 +12,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import static me.smaks6.plugin.Main.gracze;
 
 public class Runnables {
 
@@ -55,56 +54,52 @@ public class Runnables {
             @Override
             public void run() {
 
-                if(czass <= 9) {
-                    razem = czasm + ":0" + czass;
-                }else {
-                    razem = czasm + ":" + czass;
-                }
+                if(!PlayerUtilities.isNull(p)) {
 
-                p.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"),ChatColor.WHITE + razem, 1 , 20 , 1 );
+                    if (czass <= 9) {
+                        razem = czasm + ":0" + czass;
+                    } else {
+                        razem = czasm + ":" + czass;
+                    }
 
-                NokautEnum hashmap = gracze.get(p);
+                    p.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"), ChatColor.WHITE + razem, 1, 20, 1);
 
-                if(hashmap == null){
-                    this.cancel();
-                }
+                    if (PlayerUtilities.isNull(p)) {
+                        this.cancel();
+                    }
 
-                if(hashmap.equals(NokautEnum.STOI)) {
-                    this.cancel();
-                }
+                    if ((czass <= 0) && (czasm >= 1)) {
+                        --czasm;
+                        czass = 60;
+                    }
 
-                if((czass <= 0) && (czasm >= 1)) {
-                    --czasm;
-                    czass = 60;
-                }
+                    if ((czasm <= 0) && (czass <= 0)) {
+                        if (Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")) {
 
-                if((czasm <= 0) && (czass <= 0)) {
-                    if(Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")){
+                            EntityDamageEvent lastDamageCause = p.getLastDamageCause();
+                            if (lastDamageCause instanceof EntityDamageByEntityEvent) {
+                                EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) lastDamageCause;
+                                Entity damager = damageByEntityEvent.getDamager();
+                                p.damage(20000, damager);
+                            } else {
+                                p.setHealth(0);
+                            }
 
-                        EntityDamageEvent lastDamageCause = p.getLastDamageCause();
-                        if(lastDamageCause instanceof EntityDamageByEntityEvent){
-                            EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) lastDamageCause;
-                            Entity damager = damageByEntityEvent.getDamager();
-                            p.damage(20000, damager);
-                        }else {
-                            p.setHealth(0);
+                            System.out.println("koniec nokaut");
+                            Pose.stop(p);
+                        } else {
+                            System.out.println("koniec nokaut");
+                            Pose.stop(p);
+                            p.removePotionEffect(PotionEffectType.BLINDNESS);
                         }
-
-                        System.out.println("koniec nokaut");
-                        gracze.replace(p, NokautEnum.STOI);
-                        Pose.stop(p);
+                        this.cancel();
                     }
-                    else{
-                        System.out.println("koniec nokaut");
-                        gracze.replace(p, NokautEnum.STOI);
-                        Pose.stop(p);
-                        p.removePotionEffect(PotionEffectType.BLINDNESS);
-                    }
-                    this.cancel();
-                }
 
-                if(hashmap.equals(NokautEnum.LEZY)){
-                    --czass;
+                    if (PlayerUtilities.getEnum(p).equals(Nokaut.LAY)) {
+                        --czass;
+                    }
+                }else{
+                    cancel();
                 }
             }
         }.runTaskTimer(Main.getInstance(), 0L, 20L);

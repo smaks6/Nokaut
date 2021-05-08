@@ -1,6 +1,7 @@
 package me.smaks6.plugin.Listener;
 
-import me.smaks6.api.Enum.NokautEnum;
+import me.smaks6.api.Enum.Nokaut;
+import me.smaks6.api.utilities.PlayerUtilities;
 import me.smaks6.plugin.service.CitizensListener;
 import me.smaks6.plugin.utilities.Runnables;
 import org.bukkit.entity.Entity;
@@ -11,14 +12,12 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 
 import java.util.List;
 
-import static me.smaks6.plugin.Main.gracze;
-
 public class SneakListener implements Listener {
 
     @EventHandler
     public void sneakEvent(PlayerToggleSneakEvent e){
         Player p = e.getPlayer();
-        if(!gracze.get(p).equals(NokautEnum.STOI)){
+        if(!PlayerUtilities.isNull(p)){
             e.setCancelled(true);
             return;
         }
@@ -33,8 +32,7 @@ public class SneakListener implements Listener {
             }
             if(player instanceof Player){
                 Player plist = (Player) player;
-                NokautEnum hashmap = gracze.get(plist);
-                if(hashmap.equals(NokautEnum.LEZY)){
+                if(PlayerUtilities.getEnum(plist).equals(Nokaut.LAY)){
                     Runnables.revievePlayer(p, plist);
                     break;
                 }

@@ -1,14 +1,13 @@
 package me.smaks6.plugin.cmd.rzucgracza;
 
+import me.smaks6.api.Enum.Nokaut;
+import me.smaks6.api.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
-import me.smaks6.api.Enum.NokautEnum;
+import me.smaks6.plugin.pose.Pose;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import me.smaks6.plugin.pose.*;
-
-import static me.smaks6.plugin.Main.gracze;
 
 public class rzucgraczaCmd implements CommandExecutor {
 
@@ -33,7 +32,7 @@ public class rzucgraczaCmd implements CommandExecutor {
 
         Player player = (Player) sender.getPassengers().get(0);
         sender.getPassengers().clear();
-        gracze.replace(player, NokautEnum.LEZY);
+        PlayerUtilities.setEnum(player, Nokaut.LAY);
 
         Pose.changegamemode(player, sender, false);
 

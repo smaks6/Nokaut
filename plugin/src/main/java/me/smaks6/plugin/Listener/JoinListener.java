@@ -1,10 +1,9 @@
 package me.smaks6.plugin.Listener;
 
-import me.smaks6.api.Enum.Nokaut;
-import me.smaks6.api.Enum.NokautEnum;
+import me.smaks6.api.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.Pose;
-import me.smaks6.plugin.utilities.PlayerUtilities;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,34 +12,23 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import static me.smaks6.plugin.Main.gracze;
-
 public class JoinListener implements Listener {
 
     @EventHandler
     public void joinListenear(PlayerJoinEvent event) {
         Player p = event.getPlayer();
-        gracze.put(p, NokautEnum.STOI);
 
         List<Player> npc = new ArrayList<>();
 
-        gracze.forEach((player, nokautEnum) -> {
-
-            if(!nokautEnum.equals(NokautEnum.STOI)){
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+            if(!PlayerUtilities.isNull(player)){
                 npc.add(player);
             }
+        }
 
-        });
         for (Player znokautowany : npc) {
             Pose.createNPC(znokautowany, p);
             p.hidePlayer(Main.getInstance(), znokautowany);
         }
-
-        if(PlayerUtilities.isNull(p)){
-            PlayerUtilities.setEnum(p, Nokaut.STAND);
-            System.out.println("stworzono enuma");
-        }
-
-        System.out.println(PlayerUtilities.getEnum(p));
     }
 }

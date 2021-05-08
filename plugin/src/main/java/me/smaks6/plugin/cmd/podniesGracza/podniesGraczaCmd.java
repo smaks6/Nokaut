@@ -1,15 +1,14 @@
 package me.smaks6.plugin.cmd.podniesGracza;
 
+import me.smaks6.api.Enum.Nokaut;
+import me.smaks6.api.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
-import me.smaks6.plugin.pose.*;
-import me.smaks6.api.Enum.NokautEnum;
+import me.smaks6.plugin.pose.Pose;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-
-import static me.smaks6.plugin.Main.gracze;
 
 public class podniesGraczaCmd implements CommandExecutor {
 
@@ -27,7 +26,7 @@ public class podniesGraczaCmd implements CommandExecutor {
 
         Player sender = (Player) commandSender;
 
-        if(!gracze.get(sender).equals(NokautEnum.STOI) || !sender.getPassengers().isEmpty()){
+        if(!PlayerUtilities.isNull(sender) || !sender.getPassengers().isEmpty()){
             return false;
         }
 
@@ -37,8 +36,9 @@ public class podniesGraczaCmd implements CommandExecutor {
         for(Entity e : entities){
             if(e instanceof Player){
                 Player znokautowany = (Player) e;
-                if(gracze.get(znokautowany).equals(NokautEnum.LEZY)){
-                    gracze.replace(znokautowany, NokautEnum.NIES);
+
+                if(PlayerUtilities.getEnum(znokautowany).equals(Nokaut.LAY)){
+                    PlayerUtilities.setEnum(znokautowany, Nokaut.CARRY);
                     Pose.changegamemode(znokautowany, sender, true);
                     sender.addPassenger(znokautowany);
                     break;

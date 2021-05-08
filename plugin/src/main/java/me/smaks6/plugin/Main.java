@@ -5,7 +5,7 @@
 
 package me.smaks6.plugin;
 
-import me.smaks6.api.Enum.NokautEnum;
+import me.smaks6.api.utilities.PlayerUtilities;
 import me.smaks6.plugin.Listener.*;
 import me.smaks6.plugin.cmd.deathnow.deathnowcmd;
 import me.smaks6.plugin.cmd.nokaut.nokautcmd;
@@ -14,14 +14,11 @@ import me.smaks6.plugin.cmd.podniesGracza.podniesGraczaCmd;
 import me.smaks6.plugin.cmd.rzucgracza.rzucgraczaCmd;
 import me.smaks6.plugin.service.WorldGuardFlag;
 import me.smaks6.plugin.service.updatechecker;
-import me.smaks6.plugin.utilities.PlayerUtilities;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.HashMap;
 
 
 public class Main extends JavaPlugin{
@@ -30,7 +27,7 @@ public class Main extends JavaPlugin{
 
 	private String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	
-    public static HashMap<Player, NokautEnum> gracze = new HashMap<Player, NokautEnum>();// value = stoi, lezy, nies
+//    public static HashMap<Player, NokautEnum> gracze = new HashMap<Player, NokautEnum>();// value = stoi, lezy, nies
 
 	public void onEnable() {
 		instance = this;

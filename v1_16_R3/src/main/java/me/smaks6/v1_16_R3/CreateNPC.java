@@ -1,7 +1,8 @@
 package me.smaks6.v1_16_R3;
 
 import com.mojang.authlib.GameProfile;
-import me.smaks6.api.Enum.NokautEnum;
+import me.smaks6.api.Enum.Nokaut;
+import me.smaks6.api.utilities.PlayerUtilities;
 import net.minecraft.server.v1_16_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,7 +13,6 @@ import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 public class CreateNPC extends me.smaks6.api.CreateNPC {
@@ -21,10 +21,7 @@ public class CreateNPC extends me.smaks6.api.CreateNPC {
     private Player see;
     private EntityPlayer entityPlayer;
 
-    private static HashMap<Player, NokautEnum> gracze;
-
-    public CreateNPC(Player znokautowany, Player see, HashMap<Player, NokautEnum> gracze){
-        this.gracze = gracze;
+    public CreateNPC(Player znokautowany, Player see){
         this.znokautowany = znokautowany;
         this.see = see;
 
@@ -79,18 +76,17 @@ public class CreateNPC extends me.smaks6.api.CreateNPC {
 
 
                 if(znokautowany.isOnline()) {
-                    if (gracze.get(znokautowany).equals(NokautEnum.STOI)) {
+                    if (PlayerUtilities.isNull(znokautowany)) {
                         removenpc();
                         cancel();
                         return;
                     }
 
-                    if (gracze.get(znokautowany).equals(NokautEnum.LEZY)) {
+                    if (PlayerUtilities.getEnum(znokautowany).equals(Nokaut.LAY)) {
                         teleportNPc(-0.1);
                     }
 
-
-                    if (gracze.get(znokautowany).equals(NokautEnum.NIES)) {
+                    if (PlayerUtilities.getEnum(znokautowany).equals(Nokaut.CARRY)) {
                         teleportNPc(1.0);
                     }
 

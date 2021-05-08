@@ -1,14 +1,13 @@
 package me.smaks6.plugin.Listener;
 
-import me.smaks6.api.Enum.NokautEnum;
+import me.smaks6.api.Enum.Nokaut;
+import me.smaks6.api.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.spigotmc.event.entity.EntityDismountEvent;
-
-import static me.smaks6.plugin.Main.gracze;
 
 public class EntityDismountListener implements Listener {
 
@@ -17,11 +16,10 @@ public class EntityDismountListener implements Listener {
         if(!(event.getEntity() instanceof Player) )return;
         Player p = (Player) event.getEntity();
         if(!p.isOnline())return;
-        NokautEnum hashmap = gracze.get(p);
 
-        if(hashmap == null)return;
+        if(PlayerUtilities.isNull(p))return;
 
-        if(hashmap.equals(NokautEnum.NIES)) {
+        if(PlayerUtilities.getEnum(p).equals(Nokaut.CARRY)){
             event.setCancelled(true);
             p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
         }
