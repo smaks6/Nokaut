@@ -90,7 +90,7 @@ public class Main extends JavaPlugin{
 	@Override
 	public void onDisable() {
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-			PlayerUtilities.setEnum(player, null);
+			PlayerUtilities.unSet(player);
 		}
 	}
 
