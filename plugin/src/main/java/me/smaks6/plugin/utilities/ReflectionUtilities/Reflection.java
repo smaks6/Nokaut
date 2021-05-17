@@ -1,0 +1,37 @@
+package me.smaks6.plugin.utilities.ReflectionUtilities;
+
+import org.bukkit.Bukkit;
+
+import java.lang.reflect.Method;
+
+public interface Reflection {
+
+    static Class<?> getNMSClass(String nmsClassName) {
+        try {
+            return Class.forName("net.minecraft.server." +
+                    Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + "." + nmsClassName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    static Class<?> getBukkitClass(String bukkitClassName){
+        try {
+            return Class.forName("org.bukkit.craftbukkit." +
+                    Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + "." + bukkitClassName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    static Method getMethod(Class<?> clas, String methodName){
+        try {
+            return clas.getMethod(methodName);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
