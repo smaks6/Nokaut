@@ -4,7 +4,7 @@ import me.smaks6.api.Enum.Nokaut;
 import me.smaks6.api.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.Pose;
-import me.smaks6.plugin.utilities.Reflection.Npc;
+import me.smaks6.plugin.utilities.Reflection.Npc.Npc;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;

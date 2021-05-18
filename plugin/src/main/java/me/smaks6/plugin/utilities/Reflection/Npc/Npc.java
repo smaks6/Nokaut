@@ -1,4 +1,4 @@
-package me.smaks6.plugin.utilities.Reflection;
+package me.smaks6.plugin.utilities.Reflection.Npc;
 
 import com.mojang.authlib.GameProfile;
 import me.smaks6.plugin.Main;
