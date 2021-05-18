@@ -4,6 +4,7 @@ import me.smaks6.api.Enum.Nokaut;
 import me.smaks6.api.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.Pose;
+import me.smaks6.plugin.utilities.Reflection.Npc;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -103,5 +104,35 @@ public class Runnables {
                 }
             }
         }.runTaskTimer(Main.getInstance(), 0L, 20L);
+    }
+
+
+    public static void npcTimer(Player knockedPlayer, Npc npc){
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if(knockedPlayer.isOnline()) {
+                    if (PlayerUtilities.isNull(knockedPlayer)) {
+                        npc.delateEntity();
+                        cancel();
+                        return;
+                    }
+
+                    if (PlayerUtilities.getEnum(knockedPlayer).equals(Nokaut.LAY)) {
+                        npc.teleportEntity(-0.1);
+                    }
+
+                    if (PlayerUtilities.getEnum(knockedPlayer).equals(Nokaut.CARRY)) {
+                        npc.teleportEntity(1.0);
+                    }
+
+
+                }else {
+                    npc.delateEntity();
+                    cancel();
+                    return;
+                }
+            }
+        }.runTaskTimer(Main.getInstance(), 0L, 1L);
     }
 }

@@ -99,9 +99,6 @@ public class Main extends JavaPlugin{
 	}
 
 	private void registerEvents(){
-
-//		Bukkit.getServer().getPluginManager().registerEvents(new Nokaut(), this);
-
 		//sneak and nokaut events
 		Bukkit.getServer().getPluginManager().registerEvents(new EntityDamageListener() , this);
 		Bukkit.getServer().getPluginManager().registerEvents(new SneakListener() , this);
@@ -122,8 +119,6 @@ public class Main extends JavaPlugin{
 		Bukkit.getServer().getPluginManager().registerEvents(new EntityDismountListener(), this);
 		Bukkit.getServer().getPluginManager().registerEvents(new KickPlayerListenear() , this);
 		Bukkit.getServer().getPluginManager().registerEvents(new EntityTargetListener() , this);
-
-
 	}
 
 	private void checkVersion(){

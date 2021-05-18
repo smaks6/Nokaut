@@ -1,7 +1,6 @@
 package me.smaks6.plugin.utilities.ReflectionUtilities;
 
 import org.bukkit.Bukkit;
-
 import java.lang.reflect.Method;
 
 public interface Reflection {
@@ -33,5 +32,10 @@ public interface Reflection {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    static String getVersion(){
+        return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
     }
 }
