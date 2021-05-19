@@ -3,12 +3,15 @@ package me.smaks6.plugin.pose;
 import me.smaks6.api.Enum.Nokaut;
 import me.smaks6.api.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
+import me.smaks6.plugin.utilities.Reflection.GameMode.ChangeGameMode;
 import me.smaks6.plugin.utilities.Reflection.Npc.Npc;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class Pose{
 
@@ -71,15 +74,27 @@ public class Pose{
         //true - na plecach niech idzie
         //false - niech już spada z pleców
 
-        switch (version){
-            case "v1_16_R3": me.smaks6.v1_16_R3.OtherMetchod.changeGameMode(p, reviever, nies); break;
+//        switch (version){
+//            case "v1_16_R3": me.smaks6.v1_16_R3.OtherMetchod.changeGameMode(p, reviever, nies); break;
+//
+//            case "v1_16_R2": me.smaks6.v1_16_R2.OtherMetchod.changeGameMode(p, reviever, nies); break;
+//
+//            case "v1_16_R1": me.smaks6.v1_16_R1.OtherMetchod.changeGameMode(p, reviever, nies); break;
+//
+//            case "v1_15_R1": me.smaks6.v1_15_R1.OtherMetchod.changeGameMode(p, reviever, nies); break;
+//
+//        }
 
-            case "v1_16_R2": me.smaks6.v1_16_R2.OtherMetchod.changeGameMode(p, reviever, nies); break;
-
-            case "v1_16_R1": me.smaks6.v1_16_R1.OtherMetchod.changeGameMode(p, reviever, nies); break;
-
-            case "v1_15_R1": me.smaks6.v1_15_R1.OtherMetchod.changeGameMode(p, reviever, nies); break;
-
+        try {
+            ChangeGameMode.changeGameMode(p, reviever, nies);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
         }
 
     }
