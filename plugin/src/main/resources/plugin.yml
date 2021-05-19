@@ -4,7 +4,7 @@ main: me.smaks6.plugin.Main
 author: smaks6
 website: https://www.spigotmc.org/resources/nokaut.85152/
 description: Plugin jest kopia pluginu na nokaut z km
-api-version: 1.16
+api-version: 1.13
 loadbefore:
   - Citiznes
   - WorldGuard

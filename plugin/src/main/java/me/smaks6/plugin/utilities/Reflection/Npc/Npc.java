@@ -7,7 +7,6 @@ import me.smaks6.plugin.utilities.Runnables;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
@@ -25,11 +24,11 @@ public class Npc {
     private Player toShowPlayer;
     private SendNPCPacket sendNPCPacket;
 
-
     public Npc(Player knockedPlayer, Player toShowPlayer) {
 
         this.knockedPlayer = knockedPlayer;
         this.toShowPlayer = toShowPlayer;
+
 
         try {
             Object nmsServer = getNMSServer();
@@ -37,7 +36,7 @@ public class Npc {
             Object nmsWorld = getNMSWorld();
 
             GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"));
-            gameProfile.getProperties().putAll(((CraftPlayer) knockedPlayer).getHandle().getProfile().getProperties());
+//            gameProfile.getProperties().putAll(((CraftPlayer) knockedPlayer).getHandle().getProfile().getProperties());
 
             entityPlayer = getEntityPlayer(nmsServer, nmsWorld, gameProfile);
         } catch (Exception e) {
@@ -123,7 +122,7 @@ public class Npc {
 
         Object entityPlayer = constructor.newInstance(nmsServer, nmsWorld, gameProfile, playerInteractManager);
 
-        entityPlayerClass.getMethod("setPose", entityPoseClass).invoke(entityPlayer, entityPoseClass.getEnumConstants()[3]);
+        entityPlayer.getClass().getMethod("setPose", entityPoseClass).invoke(entityPlayer, entityPoseClass.getEnumConstants()[3]);
 
         return entityPlayer;
     }

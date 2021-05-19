@@ -49,7 +49,6 @@ public class CreateNPC extends me.smaks6.api.CreateNPC {
 
         CraftPlayer craftPlayer = npc.getBukkitEntity();
         craftPlayer.setCollidable(false);
-
         return npc;
     }
 

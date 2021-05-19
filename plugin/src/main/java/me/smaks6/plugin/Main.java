@@ -42,7 +42,7 @@ public class Main extends JavaPlugin{
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the plugin nokaut BY smaks6");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Server version: " + version);
 
-		checkVersion();
+//		checkVersion();
 
 		int pluginId = 9923;
 		Metrics metrics = new Metrics(this, pluginId);
