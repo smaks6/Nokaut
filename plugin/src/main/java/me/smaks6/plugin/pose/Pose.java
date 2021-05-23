@@ -23,6 +23,7 @@ public class Pose{
         p.setWalkSpeed(0);
         p.setFlySpeed(0);
         p.setCollidable(false);
+        p.removePotionEffect(PotionEffectType.POISON);
 
         p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 100));
 

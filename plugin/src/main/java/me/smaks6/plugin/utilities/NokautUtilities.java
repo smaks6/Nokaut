@@ -30,7 +30,6 @@ public class NokautUtilities {
                 if (WorldGuardFlag.isFlag(p)) return false;
             }
 
-
             int hp = (int) p.getHealth();
             int dm = (int) dmm;
             if (!PlayerUtilities.isNull(p)) {

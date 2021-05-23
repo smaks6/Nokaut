@@ -7,8 +7,7 @@ public interface Reflection {
 
     static Class<?> getNMSClass(String nmsClassName) {
         try {
-            return Class.forName("net.minecraft.server." +
-                    Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + "." + nmsClassName);
+            return Class.forName("net.minecraft.server." + getVersion() + "." + nmsClassName);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -17,8 +16,7 @@ public interface Reflection {
 
     static Class<?> getBukkitClass(String bukkitClassName){
         try {
-            return Class.forName("org.bukkit.craftbukkit." +
-                    Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3] + "." + bukkitClassName);
+            return Class.forName("org.bukkit.craftbukkit." + getVersion() + "." + bukkitClassName);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

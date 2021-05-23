@@ -7,8 +7,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 public class EntityDamageListener implements Listener {
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void entityDamageEvent(EntityDamageEvent event) {
+
+        if(event.getCause().equals(EntityDamageEvent.DamageCause.POISON))return;
 
         if(event.getCause().equals(EntityDamageEvent.DamageCause.VOID)) {
             return;

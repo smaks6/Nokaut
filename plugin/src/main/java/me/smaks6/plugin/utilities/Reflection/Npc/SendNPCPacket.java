@@ -31,7 +31,7 @@ class SendNPCPacket {
 
 
     private Enum<?> getEnum(int i){
-        Enum<?> ADD_PLAYER = (Enum<?>) Reflection.getNMSClass("PacketPlayOutPlayerInfo$EnumPlayerInfoA+ction").getEnumConstants()[i];
+        Enum<?> ADD_PLAYER = (Enum<?>) Reflection.getNMSClass("PacketPlayOutPlayerInfo$EnumPlayerInfoAction").getEnumConstants()[i];
 
         return ADD_PLAYER;
     }
