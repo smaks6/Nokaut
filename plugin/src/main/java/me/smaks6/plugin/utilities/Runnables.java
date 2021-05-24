@@ -81,7 +81,7 @@ public class Runnables {
                             if (lastDamageCause instanceof EntityDamageByEntityEvent) {
                                 EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) lastDamageCause;
                                 Entity damager = damageByEntityEvent.getDamager();
-                                p.damage(20000, damager);
+                                p.damage(500, damager);
                             } else {
                                 p.setHealth(0);
                             }

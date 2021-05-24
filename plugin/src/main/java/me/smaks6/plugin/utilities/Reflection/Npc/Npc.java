@@ -7,6 +7,7 @@ import me.smaks6.plugin.utilities.Runnables;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
@@ -17,6 +18,11 @@ import java.util.UUID;
 public class Npc {
 
     private final String version = Reflection.getVersion();
+
+    private final static Class<?> craftPlayerClass = Reflection.getBukkitClass("entity.CraftPlayer");
+    private final static Class<?> entityPlayerClass = Reflection.getNMSClass("EntityPlayer");
+    private final static Method getHandleMethod = Reflection.getMethod(craftPlayerClass, "getHandle");
+    private final static Method getProfileMethod = Reflection.getMethod(entityPlayerClass, "getProfile");
 
     private Object entityPlayer;
 
@@ -36,6 +42,10 @@ public class Npc {
             Object nmsWorld = getNMSWorld();
 
             GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"));
+
+            Object entityKnockedPlayer = getHandleMethod.invoke(knockedPlayer);
+            GameProfile playerGameProfile = (GameProfile) getProfileMethod.invoke(entityKnockedPlayer);
+            gameProfile.getProperties().putAll(playerGameProfile.getProperties());
 //            gameProfile.getProperties().putAll(((CraftPlayer) knockedPlayer).getHandle().getProfile().getProperties());
 
             entityPlayer = getEntityPlayer(nmsServer, nmsWorld, gameProfile);

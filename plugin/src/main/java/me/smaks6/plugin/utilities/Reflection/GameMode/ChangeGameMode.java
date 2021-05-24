@@ -75,7 +75,7 @@ public class ChangeGameMode {
 
         Enum<?> playerEnum = (Enum<?>) enumGamemode.getEnumConstants()[enumNumber];
 
-        playerInteractManager.getClass().getMethod("setGameMode", enumGamemode).invoke(entityPlayer, playerEnum);
+        playerInteractManager.getClass().getMethod("setGameMode", enumGamemode).invoke(playerInteractManager, playerEnum);
     }
 
 

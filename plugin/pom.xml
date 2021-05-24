@@ -71,24 +71,29 @@
 
     <dependencies>
 
+<!--        <dependency>-->
+<!--            <groupId>me.smaks6</groupId>-->
+<!--            <artifactId>v1_16_R2</artifactId>-->
+<!--            <version>1.11.3</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>me.smaks6</groupId>-->
+<!--            <artifactId>v1_16_R3</artifactId>-->
+<!--            <version>1.11.3</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>me.smaks6</groupId>-->
+<!--            <artifactId>v1_16_R1</artifactId>-->
+<!--            <version>1.11.3</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>me.smaks6</groupId>-->
+<!--            <artifactId>v1_15_R1</artifactId>-->
+<!--            <version>1.11.3</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>me.smaks6</groupId>
-            <artifactId>v1_16_R2</artifactId>
-            <version>1.11.3</version>
-        </dependency>
-        <dependency>
-            <groupId>me.smaks6</groupId>
-            <artifactId>v1_16_R3</artifactId>
-            <version>1.11.3</version>
-        </dependency>
-        <dependency>
-            <groupId>me.smaks6</groupId>
-            <artifactId>v1_16_R1</artifactId>
-            <version>1.11.3</version>
-        </dependency>
-        <dependency>
-            <groupId>me.smaks6</groupId>
-            <artifactId>v1_15_R1</artifactId>
+            <artifactId>api</artifactId>
             <version>1.11.3</version>
         </dependency>
 

@@ -13,10 +13,10 @@ public class DamageByEntityListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void stopdamage(EntityDamageByEntityEvent event){
 
-        if(CitizensListener.isNpc(event.getEntity()))return;
+        if(CitizensListener.isNpc(event.getDamager()))return;
 
         if(event.getDamager() instanceof Player){
-            if(!PlayerUtilities.isNull((Player) event.getEntity())){
+            if(!PlayerUtilities.isNull((Player) event.getDamager())){
                 event.setCancelled(true);
             }
         }
