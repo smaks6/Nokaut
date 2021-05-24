@@ -14,9 +14,6 @@ import org.bukkit.potion.PotionEffectType;
 import java.lang.reflect.InvocationTargetException;
 
 public class Pose{
-
-    private static final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-
     //start pose animation
     public static void start(Player p) {
         PlayerUtilities.setEnum(p, Nokaut.LAY);
@@ -30,7 +27,6 @@ public class Pose{
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             createNPC(p, onlinePlayer);
         }
-
         hidePlayers(p);
 
     }
@@ -47,14 +43,12 @@ public class Pose{
         p.setWalkSpeed(0.2F);
         p.setFlySpeed(0.1F);
 
-        p.setInvisible(false);
         p.setGameMode(GameMode.SURVIVAL);
 
         showPlayers(p);
     }
 
-    public static void createNPC(Player znokautowany, Player see){
-
+    public static void createNPC(Player knockedPlayer, Player see){
 //        switch (version){
 //            case "v1_16_R3": new me.smaks6.v1_16_R3.CreateNPC(znokautowany, see); break;
 //
@@ -65,8 +59,7 @@ public class Pose{
 //            case "v1_15_R1": new me.smaks6.v1_15_R1.CreateNPC(znokautowany, see); break;
 //
 //        }
-
-        new Npc(znokautowany, see);
+        new Npc(knockedPlayer, see);
     }
 
     //change game mode

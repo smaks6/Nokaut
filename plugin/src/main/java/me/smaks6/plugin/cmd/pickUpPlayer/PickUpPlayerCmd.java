@@ -1,4 +1,4 @@
-package me.smaks6.plugin.cmd.podniesGracza;
+package me.smaks6.plugin.cmd.pickUpPlayer;
 
 import me.smaks6.api.Enum.Nokaut;
 import me.smaks6.api.utilities.PlayerUtilities;
@@ -10,19 +10,18 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class podniesGraczaCmd implements CommandExecutor {
+public class PickUpPlayerCmd implements CommandExecutor {
 
-    public podniesGraczaCmd(Main main) {
-        Main.getInstance().getCommand("podniesgracza").setExecutor(this);
+
+    public PickUpPlayerCmd(Main main) {
+        main.getInstance().getCommand("pickuupplayer").setExecutor(this);
     }
-
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if(!(commandSender instanceof Player)){
             System.out.println("You are console!");
         }
-
 
         Player sender = (Player) commandSender;
 
@@ -35,12 +34,12 @@ public class podniesGraczaCmd implements CommandExecutor {
 
         for(Entity e : entities){
             if(e instanceof Player){
-                Player znokautowany = (Player) e;
+                Player knockedPlayer = (Player) e;
 
-                if(PlayerUtilities.getEnum(znokautowany).equals(Nokaut.LAY)){
-                    PlayerUtilities.setEnum(znokautowany, Nokaut.CARRY);
-                    Pose.changegamemode(znokautowany, sender, true);
-                    sender.addPassenger(znokautowany);
+                if(PlayerUtilities.getEnum(knockedPlayer).equals(Nokaut.LAY)){
+                    PlayerUtilities.setEnum(knockedPlayer, Nokaut.CARRY);
+                    Pose.changegamemode(knockedPlayer, sender, true);
+                    sender.addPassenger(knockedPlayer);
                     break;
                 }
             }
@@ -48,5 +47,4 @@ public class podniesGraczaCmd implements CommandExecutor {
 
         return false;
     }
-
 }

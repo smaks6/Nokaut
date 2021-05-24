@@ -1,4 +1,4 @@
-package me.smaks6.plugin.cmd.rzucgracza;
+package me.smaks6.plugin.cmd.dropPlayer;
 
 import me.smaks6.api.Enum.Nokaut;
 import me.smaks6.api.utilities.PlayerUtilities;
@@ -9,21 +9,18 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class rzucgraczaCmd implements CommandExecutor {
+public class DropPlayerCmd implements CommandExecutor {
 
-    public rzucgraczaCmd(Main main) {
-        Main.getInstance().getCommand("rzucgracza").setExecutor(this);
+    public DropPlayerCmd(Main main) {
+        Main.getInstance().getCommand("dropplayer").setExecutor(this);
     }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-
         if(!(commandSender instanceof Player)){
             System.out.println("You are console!");
         }
         Player sender = (Player) commandSender;
-
-
 
         if(sender.getPassengers().isEmpty()){
             //nic nie masz
@@ -33,13 +30,8 @@ public class rzucgraczaCmd implements CommandExecutor {
         Player player = (Player) sender.getPassengers().get(0);
         sender.getPassengers().clear();
         PlayerUtilities.setEnum(player, Nokaut.LAY);
-
         Pose.changegamemode(player, sender, false);
-
         player.teleport(sender);
-
-
-
         return false;
     }
 }

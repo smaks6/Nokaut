@@ -8,10 +8,10 @@ package me.smaks6.plugin;
 import me.smaks6.api.utilities.PlayerUtilities;
 import me.smaks6.plugin.Listener.*;
 import me.smaks6.plugin.cmd.deathnow.deathnowcmd;
+import me.smaks6.plugin.cmd.dropPlayer.DropPlayerCmd;
 import me.smaks6.plugin.cmd.nokaut.nokautcmd;
 import me.smaks6.plugin.cmd.nokaut.tabnokautcmd;
-import me.smaks6.plugin.cmd.podniesGracza.podniesGraczaCmd;
-import me.smaks6.plugin.cmd.rzucgracza.rzucgraczaCmd;
+import me.smaks6.plugin.cmd.pickUpPlayer.PickUpPlayerCmd;
 import me.smaks6.plugin.service.WorldGuardFlag;
 import me.smaks6.plugin.service.updatechecker;
 import org.bstats.bukkit.Metrics;
@@ -56,9 +56,10 @@ public class Main extends JavaPlugin{
 		}
 		
 		new deathnowcmd(this);
+		new PickUpPlayerCmd(this);
+		new DropPlayerCmd(this);
+
 		new nokautcmd(this);
-		new podniesGraczaCmd(this);
-		new rzucgraczaCmd(this);
 		getCommand("nokaut").setTabCompleter(new tabnokautcmd());
 
 		if(!getDescription().getAuthors().contains("smaks6")){

@@ -133,6 +133,6 @@ public class Runnables {
                     return;
                 }
             }
-        }.runTaskTimer(Main.getInstance(), 0L, 1L);
+        }.runTaskTimer(Main.getInstance(), 0L, Main.getInstance().getConfig().getInt("NpcTeleportTime"));
     }
 }

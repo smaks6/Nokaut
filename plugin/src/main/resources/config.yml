@@ -1,11 +1,33 @@
+#How many minutes is the knockout (enter the value in minutes)
 NokautTimeInMin: 2
+
+#message that will be displayed to the player when he tries to do something (e.g. to bet) during the knockout
 cancelmessage: Nie możesz tego robić w czasie nokautu
+
+#The message that the player receives immediately after the knockout
 helpnokautmessage: Musisz poprosić innego gracza aby cię uderzył(ocucił) przed minięciem
   czasu inaczej zginiesz....
+
+#The message received by the awakened player, the person who was awakened can be entered in the message as {player}
 wakeupplayer: Zostałeś ocucony przez {player}
+
+#The message that the reviving player receives, you can add to the message who revived by adding {player}
 wakeupdamager: ocuciłeś gracza {player}
+
+#The message received by a player who tries to use the / deathnow command when not knocked out
 deathnownot: Ta komenda jest dostępna tylko podczas nokautu
+
+#the text that appears on the screen during the knockout and the name of the person who was knocked out
 NokautTitle: Nokaut
+
+#if the value is false then when the player ends the countdown it will stand, if the value is true then the player will die
 DeathOnEnd: 'true'
+
+#if it is true then during the knockout the player gets the blidnes effect
 BlindnessOnNokaut: 'true'
+
+#an inscription that appears on the player's screen that wakes up another player
 WakeUpTitle: Reanimowanie
+
+#If your server is weak, you can set this value higher, but it is not recommended to go below 5-10
+NpcTeleportTime: 1
