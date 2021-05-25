@@ -1,6 +1,6 @@
 package me.smaks6.plugin.Listener;
 
-import me.smaks6.api.utilities.PlayerUtilities;
+import me.smaks6.plugin.utilities.PlayerUtilities;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

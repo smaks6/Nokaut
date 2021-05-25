@@ -1,6 +1,6 @@
-package me.smaks6.api.utilities;
+package me.smaks6.plugin.utilities;
 
-import me.smaks6.api.Enum.Nokaut;
+import me.smaks6.plugin.utilities.Enum.Nokaut;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;

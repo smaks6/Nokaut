@@ -6,7 +6,7 @@
 
     <groupId>me.smaks6</groupId>
     <artifactId>nokaut</artifactId>
-    <version>1.11.3</version>
+    <version>1.12</version>
     <modules>
         <module>plugin</module>
         <module>api</module>

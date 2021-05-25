@@ -1,10 +1,7 @@
 package me.smaks6.plugin.cmd.deathnow;
 
-import me.smaks6.api.Enum.Nokaut;
-import me.smaks6.api.utilities.PlayerUtilities;
+import me.smaks6.plugin.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
-import me.smaks6.plugin.pose.Pose;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

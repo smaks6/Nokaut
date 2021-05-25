@@ -5,7 +5,7 @@
 
 package me.smaks6.plugin;
 
-import me.smaks6.api.utilities.PlayerUtilities;
+import me.smaks6.plugin.utilities.PlayerUtilities;
 import me.smaks6.plugin.Listener.*;
 import me.smaks6.plugin.cmd.deathnow.deathnowcmd;
 import me.smaks6.plugin.cmd.dropPlayer.DropPlayerCmd;

@@ -1,6 +1,6 @@
 package me.smaks6.plugin.Listener;
 
-import me.smaks6.api.utilities.PlayerUtilities;
+import me.smaks6.plugin.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.Pose;
 import org.bukkit.Bukkit;

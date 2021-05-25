@@ -1,7 +1,7 @@
 package me.smaks6.plugin.Listener;
 
-import me.smaks6.api.Enum.Nokaut;
-import me.smaks6.api.utilities.PlayerUtilities;
+import me.smaks6.plugin.utilities.Enum.Nokaut;
+import me.smaks6.plugin.utilities.PlayerUtilities;
 import me.smaks6.plugin.service.CitizensListener;
 import me.smaks6.plugin.utilities.Runnables;
 import org.bukkit.entity.Entity;
