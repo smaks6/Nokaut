@@ -95,11 +95,13 @@ public class Runnables {
                         this.cancel();
                     }
 
-                    if (PlayerUtilities.getEnum(p).equals(Nokaut.LAY)) {
-                        --czass;
+                    if (!PlayerUtilities.isNull(p)) {
+                        if (PlayerUtilities.getEnum(p).equals(Nokaut.LAY)) {
+                            --czass;
+                        }
+                    } else {
+                        cancel();
                     }
-                }else{
-                    cancel();
                 }
             }
         }.runTaskTimer(Main.getInstance(), 0L, 20L);
