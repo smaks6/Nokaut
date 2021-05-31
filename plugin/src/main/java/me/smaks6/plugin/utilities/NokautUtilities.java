@@ -9,9 +9,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.List;
 
 public class NokautUtilities {
 
@@ -57,6 +60,15 @@ public class NokautUtilities {
                 }
                 p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("helpnokautmessage"));
                 Runnables.nokautTimer(p);
+
+                List<Entity> nearbyEntities = p.getNearbyEntities(50, 50, 50);
+                for (Entity nearbyEntity : nearbyEntities) {
+                    if(nearbyEntity instanceof Mob){
+                        Mob mob = (Mob) nearbyEntity;
+                        if(mob.getTarget() == null)continue;
+                        if(mob.getTarget().getUniqueId().equals(p.getUniqueId()))mob.setTarget(null);
+                    }
+                }
 
                 return true;
             }

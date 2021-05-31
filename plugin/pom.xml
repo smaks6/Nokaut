@@ -6,7 +6,7 @@
     <parent>
         <artifactId>nokaut</artifactId>
         <groupId>me.smaks6</groupId>
-        <version>1.12</version>
+        <version>1.11.4</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -72,7 +72,7 @@
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
+            <artifactId>spigot</artifactId>
             <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
