@@ -15,13 +15,18 @@ import java.lang.reflect.Method;
 import java.util.UUID;
 
 public class Npc {
-
-    private final String version = Reflection.getVersion();
-
     private final static Class<?> craftPlayerClass = Reflection.getBukkitClass("entity.CraftPlayer");
     private final static Class<?> entityPlayerClass = Reflection.getNMSClass("EntityPlayer");
     private final static Method getHandleMethod = Reflection.getMethod(craftPlayerClass, "getHandle");
     private final static Method getProfileMethod = Reflection.getMethod(entityPlayerClass, "getProfile");
+    private final static Class<?> craftServerClass = Reflection.getBukkitClass("CraftServer");
+    private final static Method getServer = Reflection.getMethod(craftServerClass, "getServer");
+    private final static Class<?> craftWorldClass = Reflection.getBukkitClass("CraftWorld");
+    private final static Method getHandle = Reflection.getMethod(craftWorldClass, "getHandle");
+    private final static Class<?> worldServerClass = Reflection.getNMSClass("WorldServer");
+    private final static Class<?> minecraftServerClass = Reflection.getNMSClass("MinecraftServer");
+    private final static Class<?> playerInteractManagerClass = Reflection.getNMSClass("PlayerInteractManager");
+    private final static Class<?> entityPoseClass = Reflection.getNMSClass("EntityPose");
 
     private Object entityPlayer;
 
@@ -93,9 +98,6 @@ public class Npc {
 
     private Object getNMSServer() throws InvocationTargetException, IllegalAccessException {
 
-        Class<?> craftServerClass = Reflection.getBukkitClass("CraftServer");
-
-        Method getServer = Reflection.getMethod(craftServerClass, "getServer");
 
         Object nmsServer = getServer.invoke(Bukkit.getServer());
 
@@ -103,9 +105,6 @@ public class Npc {
     }
 
     private Object getNMSWorld() throws InvocationTargetException, IllegalAccessException {
-        Class<?> craftWorldClass = Reflection.getBukkitClass("CraftWorld");
-
-        Method getHandle = Reflection.getMethod(craftWorldClass, "getHandle");
 
         Object nmsWorld = getHandle.invoke(toShowPlayer.getWorld());
 
@@ -114,13 +113,6 @@ public class Npc {
 
     private Object getEntityPlayer(Object nmsServer, Object nmsWorld, GameProfile gameProfile) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 
-        Class<?> entityPlayerClass = Reflection.getNMSClass("EntityPlayer");
-
-        Class<?> worldServerClass = Reflection.getNMSClass("WorldServer");
-        Class<?> minecraftServerClass = Reflection.getNMSClass("MinecraftServer");
-
-        Class<?> playerInteractManagerClass = Reflection.getNMSClass("PlayerInteractManager");
-        Class<?> entityPoseClass = Reflection.getNMSClass("EntityPose");
 
         Constructor<?> minecraftServerConstructor = playerInteractManagerClass.getConstructor(worldServerClass);
 

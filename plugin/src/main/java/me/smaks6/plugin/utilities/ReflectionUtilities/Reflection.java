@@ -7,7 +7,11 @@ public interface Reflection {
 
     static Class<?> getNMSClass(String nmsClassName) {
         try {
-            return Class.forName("net.minecraft.server." + getVersion() + "." + nmsClassName);
+            if(getVersion().equals("v1_16_R3") || getVersion().equals("v1_16_R2") || getVersion().equals("v1_16_R1")){
+                return Class.forName("net.minecraft.server." + getVersion() + "." + nmsClassName);
+            }else{
+                return Class.forName("net.minecraft.server." + nmsClassName);
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
