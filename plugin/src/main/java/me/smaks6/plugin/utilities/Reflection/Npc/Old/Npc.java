@@ -1,4 +1,4 @@
-package me.smaks6.plugin.utilities.Reflection.Npc;
+package me.smaks6.plugin.utilities.Reflection.Npc.Old;
 
 import com.mojang.authlib.GameProfile;
 import me.smaks6.plugin.Main;
@@ -15,17 +15,18 @@ import java.lang.reflect.Method;
 import java.util.UUID;
 
 public class Npc {
+
     private final static Class<?> craftPlayerClass = Reflection.getBukkitClass("entity.CraftPlayer");
-    private static Class<?> entityPlayerClass = null;
-    private static Class<?> worldServerClass = null;
-    private static Class<?> playerInteractManagerClass = null;
-    private static Class<?> entityPoseClass = null;
+    private static Class<?> entityPlayerClass = Reflection.getNMSClass("EntityPlayer");;
+    private static Class<?> worldServerClass = Reflection.getNMSClass("WorldServer");
+    private static Class<?> playerInteractManagerClass = Reflection.getNMSClass("PlayerInteractManager");
+    private static Class<?> entityPoseClass = Reflection.getNMSClass("EntityPose");
     private static Class<?> craftServerClass = Reflection.getBukkitClass("CraftServer");
     private static Class<?> craftWorldClass = Reflection.getBukkitClass("CraftWorld");
-    private static Class<?> minecraftServerClass = null;
+    private static Class<?> minecraftServerClass = Reflection.getBukkitClass("WorldServer");
 
     private final static Method getHandleMethod = Reflection.getMethod(craftPlayerClass, "getHandle");
-//    private final static Method getProfileMethod = Reflection.getMethod(entityPlayerClass, "getProfile");
+    private final static Method getProfileMethod = Reflection.getMethod(entityPlayerClass, "getProfile");
     private final static Method getServer = Reflection.getMethod(craftServerClass, "getServer");
     private final static Method getHandle = Reflection.getMethod(craftWorldClass, "getHandle");
 
@@ -36,18 +37,6 @@ public class Npc {
     private SendNPCPacket sendNPCPacket;
 
     public Npc(Player knockedPlayer, Player toShowPlayer) {
-
-        if(Reflection.isNewPackeges()){
-            entityPlayerClass = Reflection.getNMSClass("level.EntityPlayer");
-            worldServerClass = Reflection.getNMSClass("level.WorldServer");
-            playerInteractManagerClass =  Reflection.getNMSClass("level.PlayerInteractManager");
-            entityPoseClass = Reflection.getNMSClassNotServer("world.entity.EntityPose");
-        }else {
-            entityPlayerClass = Reflection.getNMSClass("EntityPlayer");
-            worldServerClass = Reflection.getNMSClass("WorldServer");
-            playerInteractManagerClass = Reflection.getNMSClass("PlayerInteractManager");
-            entityPoseClass = Reflection.getNMSClass("EntityPose");
-        }
 
         this.knockedPlayer = knockedPlayer;
         this.toShowPlayer = toShowPlayer;
@@ -60,9 +49,9 @@ public class Npc {
 
             GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"));
 
-//            Object entityKnockedPlayer = getHandleMethod.invoke(knockedPlayer);
-//            GameProfile playerGameProfile = (GameProfile) getProfileMethod.invoke(entityKnockedPlayer);
-//            gameProfile.getProperties().putAll(playerGameProfile.getProperties());
+            Object entityKnockedPlayer = getHandleMethod.invoke(knockedPlayer);
+            GameProfile playerGameProfile = (GameProfile) getProfileMethod.invoke(entityKnockedPlayer);
+            gameProfile.getProperties().putAll(playerGameProfile.getProperties());
 //            gameProfile.getProperties().putAll(((CraftPlayer) knockedPlayer).getHandle().getProfile().getProperties());
 
             entityPlayer = getEntityPlayer(nmsServer, nmsWorld, gameProfile);
@@ -81,7 +70,7 @@ public class Npc {
     public void teleportEntity(Double teleportHight) {
         try {
             Location loc = knockedPlayer.getLocation();
-            Method setLocation = entityPlayerClass.getMethod("setLocation", double.class, double.class, double.class, float.class, float.class);
+            Method setLocation = entityPlayer.getClass().getMethod("setLocation", double.class, double.class, double.class, float.class, float.class);
             setLocation.invoke(entityPlayer, loc.getX(), loc.getY() + teleportHight, loc.getZ(), 0, 0);
             sendNPCPacket.sendTeleportPacket();
         } catch (InstantiationException e) {
@@ -111,7 +100,6 @@ public class Npc {
 
     private Object getNMSServer() throws InvocationTargetException, IllegalAccessException {
 
-
         Object nmsServer = getServer.invoke(Bukkit.getServer());
 
         return nmsServer;
@@ -126,27 +114,15 @@ public class Npc {
 
     private Object getEntityPlayer(Object nmsServer, Object nmsWorld, GameProfile gameProfile) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 
-        Object entityPlayer;
-        Object playerInteractManager = null;
-        if(!Reflection.isNewPackeges()) {
-            Constructor<?> minecraftServerConstructor = playerInteractManagerClass.getConstructor(worldServerClass);
-            playerInteractManager = minecraftServerConstructor.newInstance(nmsWorld);
-        }
 
+        Constructor<?> minecraftServerConstructor = playerInteractManagerClass.getConstructor(worldServerClass);
 
-        if(Reflection.isNewPackeges()){
-            Constructor<?> constructor = entityPlayerClass.getConstructor
-                    (minecraftServerClass, worldServerClass, GameProfile.class);
+        Object playerInteractManager = minecraftServerConstructor.newInstance(nmsWorld);
 
-            entityPlayer = constructor.newInstance(nmsServer, nmsWorld, gameProfile);
+        Constructor<?> constructor = entityPlayerClass.getConstructor
+                (minecraftServerClass, worldServerClass, GameProfile.class, playerInteractManagerClass);
 
-        }else {
-            Constructor<?> constructor = entityPlayerClass.getConstructor
-                    (minecraftServerClass, worldServerClass, GameProfile.class, playerInteractManagerClass);
-            entityPlayer = constructor.newInstance(nmsServer, nmsWorld, gameProfile, playerInteractManager);
-        }
-
-
+        Object entityPlayer = constructor.newInstance(nmsServer, nmsWorld, gameProfile, playerInteractManager);
 
         entityPlayer.getClass().getMethod("setPose", entityPoseClass).invoke(entityPlayer, entityPoseClass.getEnumConstants()[3]);
 

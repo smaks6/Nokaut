@@ -4,7 +4,7 @@ import me.smaks6.plugin.utilities.Enum.Nokaut;
 import me.smaks6.plugin.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.utilities.Reflection.GameMode.ChangeGameMode;
-import me.smaks6.plugin.utilities.Reflection.Npc.Npc;
+import me.smaks6.plugin.utilities.Reflection.Npc.Old.Npc;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

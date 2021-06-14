@@ -3,7 +3,7 @@ package me.smaks6.plugin.utilities;
 import me.smaks6.plugin.utilities.Enum.Nokaut;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.pose.Pose;
-import me.smaks6.plugin.utilities.Reflection.Npc.Npc;
+import me.smaks6.plugin.utilities.Reflection.Npc.Old.Npc;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
