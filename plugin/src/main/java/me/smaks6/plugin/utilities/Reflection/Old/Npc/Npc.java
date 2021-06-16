@@ -1,10 +1,9 @@
-package me.smaks6.plugin.utilities.Reflection.Npc.Old;
+package me.smaks6.plugin.utilities.Reflection.Old.Npc;
 
 import com.mojang.authlib.GameProfile;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
 import me.smaks6.plugin.utilities.Runnables;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -21,14 +20,9 @@ public class Npc {
     private static Class<?> worldServerClass = Reflection.getNMSClass("WorldServer");
     private static Class<?> playerInteractManagerClass = Reflection.getNMSClass("PlayerInteractManager");
     private static Class<?> entityPoseClass = Reflection.getNMSClass("EntityPose");
-    private static Class<?> craftServerClass = Reflection.getBukkitClass("CraftServer");
-    private static Class<?> craftWorldClass = Reflection.getBukkitClass("CraftWorld");
-    private static Class<?> minecraftServerClass = Reflection.getBukkitClass("WorldServer");
+    private static Class<?> minecraftServerClass = Reflection.getNMSClass("MinecraftServer");
 
-    private final static Method getHandleMethod = Reflection.getMethod(craftPlayerClass, "getHandle");
     private final static Method getProfileMethod = Reflection.getMethod(entityPlayerClass, "getProfile");
-    private final static Method getServer = Reflection.getMethod(craftServerClass, "getServer");
-    private final static Method getHandle = Reflection.getMethod(craftWorldClass, "getHandle");
 
     private Object entityPlayer;
 
@@ -43,13 +37,13 @@ public class Npc {
 
 
         try {
-            Object nmsServer = getNMSServer();
+            Object nmsServer = Reflection.getNMSServer();
 
-            Object nmsWorld = getNMSWorld();
+            Object nmsWorld = Reflection.getNMSWorld();
 
             GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"));
 
-            Object entityKnockedPlayer = getHandleMethod.invoke(knockedPlayer);
+            Object entityKnockedPlayer = Reflection.getEntityPlayer(knockedPlayer);
             GameProfile playerGameProfile = (GameProfile) getProfileMethod.invoke(entityKnockedPlayer);
             gameProfile.getProperties().putAll(playerGameProfile.getProperties());
 //            gameProfile.getProperties().putAll(((CraftPlayer) knockedPlayer).getHandle().getProfile().getProperties());
@@ -96,20 +90,6 @@ public class Npc {
         } catch (InstantiationException e) {
             e.printStackTrace();
         }
-    }
-
-    private Object getNMSServer() throws InvocationTargetException, IllegalAccessException {
-
-        Object nmsServer = getServer.invoke(Bukkit.getServer());
-
-        return nmsServer;
-    }
-
-    private Object getNMSWorld() throws InvocationTargetException, IllegalAccessException {
-
-        Object nmsWorld = getHandle.invoke(toShowPlayer.getWorld());
-
-        return nmsWorld;
     }
 
     private Object getEntityPlayer(Object nmsServer, Object nmsWorld, GameProfile gameProfile) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {

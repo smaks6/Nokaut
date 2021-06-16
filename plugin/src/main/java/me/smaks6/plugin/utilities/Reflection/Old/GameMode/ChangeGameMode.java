@@ -1,4 +1,4 @@
-package me.smaks6.plugin.utilities.Reflection.GameMode;
+package me.smaks6.plugin.utilities.Reflection.Old.GameMode;
 
 import me.smaks6.plugin.utilities.ReflectionUtilities.PacketSender;
 import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
@@ -15,7 +15,7 @@ public class ChangeGameMode {
     private static Method getHandle = Reflection.getMethod(craftPlayerClass, "getHandle");
     private static Class<?> enumGamemode = Reflection.getNMSClass("EnumGamemode");
 
-    public static void changeGameMode(Player knockedPlayer, Player reviever, boolean carry) throws InvocationTargetException, IllegalAccessException, NoSuchFieldException, NoSuchMethodException {
+    public static void changeGameMode(Player knockedPlayer, Player reviever, boolean carry){
 
         if(carry){
             on(knockedPlayer, reviever);

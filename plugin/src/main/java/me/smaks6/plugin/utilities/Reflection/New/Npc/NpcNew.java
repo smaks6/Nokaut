@@ -1,22 +1,19 @@
-package me.smaks6.plugin.utilities.Reflection.Npc.New;
+package me.smaks6.plugin.utilities.Reflection.New.Npc;
 
 import com.mojang.authlib.GameProfile;
 import me.smaks6.plugin.utilities.Enum.Nokaut;
 import me.smaks6.plugin.utilities.PlayerUtilities;
+import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.network.syncher.DataWatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.EntityPlayer;
-import net.minecraft.server.level.PlayerInteractManager;
 import net.minecraft.server.level.WorldServer;
 import net.minecraft.server.network.PlayerConnection;
 import net.minecraft.world.entity.EntityPose;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_17_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -24,12 +21,12 @@ import java.util.UUID;
 
 public class NpcNew {
 
-    private Player znokautowany;
+    private Player knockeckPlayer;
     private Player see;
     private EntityPlayer entityPlayer;
 
     public NpcNew(Player znokautowany, Player see){
-        this.znokautowany = znokautowany;
+        this.knockeckPlayer = znokautowany;
         this.see = see;
 
         entityPlayer = spawnNPC();
@@ -37,41 +34,49 @@ public class NpcNew {
     }
 
     private EntityPlayer spawnNPC(){
-        Location location = znokautowany.getLocation();
-        MinecraftServer nmsServer = ((CraftServer) Bukkit.getServer()).getServer();
-        WorldServer nmsWorld = ((CraftWorld)Bukkit.getWorld(znokautowany.getWorld().getName())).getHandle();
+        Location location = knockeckPlayer.getLocation();
+        MinecraftServer nmsServer = (MinecraftServer) Reflection.getNMSServer();
+        WorldServer nmsWorld = (WorldServer) Reflection.getNMSWorld();
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED + "*Nokaut*");
-        gameProfile.getProperties().putAll(((CraftPlayer) znokautowany).getHandle().getProfile().getProperties());
+        gameProfile.getProperties().putAll((((EntityPlayer)Reflection.getEntityPlayer(knockeckPlayer)).getProfile().getProperties()));
         EntityPlayer npc = new EntityPlayer(nmsServer, nmsWorld, gameProfile);
         npc.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
-        npc.setPose(EntityPose.SWIMMING);
 
-        PlayerConnection connection = ((CraftPlayer) see).getHandle().b;
-        npc.setPose(EntityPose.SWIMMING);
+        //d - swimming
+        npc.setPose(EntityPose.d);
+
+        PlayerConnection connection = ((EntityPlayer)Reflection.getEntityPlayer(see)).b;
+        npc.setPose(EntityPose.d);
         DataWatcher watcher = npc.getDataWatcher();
-        connection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, npc));
+
+
+        //a - ADD_Player
+        //e - REMOVE-PLAYER
+        connection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.a, npc));
         connection.sendPacket(new PacketPlayOutNamedEntitySpawn(npc));
         connection.sendPacket(new PacketPlayOutEntityMetadata(npc.getId(), watcher, false));
-
-        CraftPlayer craftPlayer = npc.getBukkitEntity();
-        craftPlayer.setCollidable(false);
 
         return npc;
     }
 
     private void teleportNPc(Double teleportHight){
-        entityPlayer.setLocation(znokautowany.getLocation().getX(), znokautowany.getLocation().getY()+teleportHight, znokautowany.getLocation().getZ(),
-                entityPlayer.get, entityPlayer.);
+
+        //entityplayer.x = entityplayer.yaw
+        //entityplayer.y = entityplayer.pitch
+
+        entityPlayer.setLocation(knockeckPlayer.getLocation().getX(), knockeckPlayer.getLocation().getY()+teleportHight, knockeckPlayer.getLocation().getZ(),
+                entityPlayer.x, entityPlayer.y);
 
 
-        PlayerConnection connection = ((CraftPlayer) see).getHandle().b;
+        PlayerConnection connection = ((EntityPlayer) Reflection.getEntityPlayer(see)).b;
         connection.sendPacket(new PacketPlayOutEntityTeleport(entityPlayer));
     }
 
     private void removenpc(){
-        PlayerConnection connection = ((CraftPlayer) see).getHandle().b;
+        PlayerConnection connection = ((EntityPlayer) Reflection.getEntityPlayer(see)).b;
         connection.sendPacket(new PacketPlayOutEntityDestroy(entityPlayer.getId()));
-        connection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, entityPlayer));
+        //e - REMOVE-PLAYER
+        connection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.e, entityPlayer));
     }
 
     private void teleportNPCRunnable(){
@@ -81,18 +86,18 @@ public class NpcNew {
             public void run() {
 
 
-                if(znokautowany.isOnline()) {
-                    if (PlayerUtilities.isNull(znokautowany)) {
+                if(knockeckPlayer.isOnline()) {
+                    if (PlayerUtilities.isNull(knockeckPlayer)) {
                         removenpc();
                         cancel();
                         return;
                     }
 
-                    if (PlayerUtilities.getEnum(znokautowany).equals(Nokaut.LAY)) {
+                    if (PlayerUtilities.getEnum(knockeckPlayer).equals(Nokaut.LAY)) {
                         teleportNPc(-0.1);
                     }
 
-                    if (PlayerUtilities.getEnum(znokautowany).equals(Nokaut.CARRY)) {
+                    if (PlayerUtilities.getEnum(knockeckPlayer).equals(Nokaut.CARRY)) {
                         teleportNPc(1.0);
                     }
 

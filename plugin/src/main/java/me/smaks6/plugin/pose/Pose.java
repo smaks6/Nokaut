@@ -3,8 +3,11 @@ package me.smaks6.plugin.pose;
 import me.smaks6.plugin.utilities.Enum.Nokaut;
 import me.smaks6.plugin.utilities.PlayerUtilities;
 import me.smaks6.plugin.Main;
-import me.smaks6.plugin.utilities.Reflection.GameMode.ChangeGameMode;
-import me.smaks6.plugin.utilities.Reflection.Npc.Old.Npc;
+import me.smaks6.plugin.utilities.Reflection.New.GameMode.ChangeGameModeNew;
+import me.smaks6.plugin.utilities.Reflection.Old.GameMode.ChangeGameMode;
+import me.smaks6.plugin.utilities.Reflection.New.Npc.NpcNew;
+import me.smaks6.plugin.utilities.Reflection.Old.Npc.Npc;
+import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -59,7 +62,8 @@ public class Pose{
 //            case "v1_15_R1": new me.smaks6.v1_15_R1.CreateNPC(znokautowany, see); break;
 //
 //        }
-        new Npc(knockedPlayer, see);
+        if(Reflection.isNewPackeges())new NpcNew(knockedPlayer, see);
+        else new Npc(knockedPlayer, see);
     }
 
     //change game mode
@@ -79,17 +83,8 @@ public class Pose{
 //
 //        }
 
-        try {
-            ChangeGameMode.changeGameMode(p, reviever, nies);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
+            if(Reflection.isNewPackeges()) ChangeGameModeNew.changeGameMode(p, reviever, nies);
+            else ChangeGameMode.changeGameMode(p, reviever, nies);
 
     }
 

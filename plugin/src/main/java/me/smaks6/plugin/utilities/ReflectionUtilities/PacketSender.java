@@ -6,11 +6,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class PacketSender{
-    private static Class<?> craftPlayerClass = Reflection.getBukkitClass("entity.CraftPlayer");
     private static Class<?> playerConnectionClass = Reflection.getNMSClass("PlayerConnection");
     private static Class<?> entityPlayerClass = Reflection.getNMSClass("EntityPlayer");
     private static Class<?> packetClass = Reflection.getNMSClass("Packet");
-    private static Method getHandle = Reflection.getMethod(craftPlayerClass, "getHandle");
     private static Field playerConnection;
     private static Method sendPacket;
 
@@ -25,7 +23,7 @@ public class PacketSender{
             e.printStackTrace();
         }
 
-        Object entityPlayer = getHandle.invoke(player);
+        Object entityPlayer = Reflection.getEntityPlayer(player);
         Object connection = playerConnection.get(entityPlayer);
         sendPacket.invoke(connection, packet);
     }
