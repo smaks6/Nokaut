@@ -34,9 +34,11 @@ public class NokautUtilities {
 
             int hp = (int) p.getHealth();
             int dm = (int) dmm;
+
             if (!PlayerUtilities.isNull(p)) {
                 return false;
             }
+
             if (hp <= dm) {
 
                 if(!p.getPassengers().isEmpty()){

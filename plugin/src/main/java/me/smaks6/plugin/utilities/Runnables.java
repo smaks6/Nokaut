@@ -50,7 +50,6 @@ public class Runnables {
             int czass = 0;
             int czasm = Main.getInstance().getConfig().getInt("NokautTimeInMin");
             String razem;
-
             @Override
             public void run() {
 
@@ -65,7 +64,8 @@ public class Runnables {
                     p.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"), ChatColor.WHITE + razem, 1, 20, 1);
 
                     if (PlayerUtilities.isNull(p)) {
-                        this.cancel();
+                        cancel();
+                        return;
                     }
 
                     if ((czass <= 0) && (czasm >= 1)) {
@@ -85,14 +85,13 @@ public class Runnables {
                                 p.setHealth(0);
                             }
 
-                            System.out.println("koniec nokaut");
                             Pose.stop(p);
                         } else {
-                            System.out.println("koniec nokaut");
                             Pose.stop(p);
                             p.removePotionEffect(PotionEffectType.BLINDNESS);
                         }
-                        this.cancel();
+                        cancel();
+                        return;
                     }
 
                     if (!PlayerUtilities.isNull(p)) {
@@ -101,7 +100,11 @@ public class Runnables {
                         }
                     } else {
                         cancel();
+                        return;
                     }
+                }else{
+                    cancel();
+                    return;
                 }
             }
         }.runTaskTimer(Main.getInstance(), 0L, 20L);
