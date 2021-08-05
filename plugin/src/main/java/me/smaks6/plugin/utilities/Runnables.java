@@ -15,88 +15,88 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Runnables {
 
-    public static void revievePlayer(Player p, Player ocucany){
+    public static void revivePlayer(Player player, Player reviver){
 
-        Block block = p.getLocation().getBlock();
+        Block block = player.getLocation().getBlock();
         new BukkitRunnable() {
 
-            int czas = 0;
+            int time = 0;
 
             @Override
             public void run() {
 
-                if(!p.isSneaking() || !block.equals(p.getLocation().getBlock())){
+                if(!player.isSneaking() || !block.equals(player.getLocation().getBlock())){
                     this.cancel();
                 }
 
-                p.sendTitle(ChatColor.GREEN + Main.getInstance().getConfig().getString("WakeUpTitle"),ChatColor.GREEN + "" + czas + "%", 1 , 20 , 1 );
-                ocucany.sendTitle(ChatColor.GREEN + Main.getInstance().getConfig().getString("WakeUpTitle"),ChatColor.GREEN + "" + czas + "%", 1 , 20 , 1 );
+                player.sendTitle(ChatColor.GREEN + Main.getInstance().getConfig().getString("WakeUpTitle"),ChatColor.GREEN + "" + time + "%", 1 , 20 , 1 );
+                reviver.sendTitle(ChatColor.GREEN + Main.getInstance().getConfig().getString("WakeUpTitle"),ChatColor.GREEN + "" + time + "%", 1 , 20 , 1 );
 
-                if(czas >= 100){
+                if(time >= 100){
                     this.cancel();
-                    p.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupdamager").replace("{player}", ocucany.getName()));
-                    ocucany.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupplayer").replace("{player}", p.getName()));
-                    Pose.stop(ocucany);
-                    ocucany.removePotionEffect(PotionEffectType.BLINDNESS);
+                    player.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupdamager").replace("{player}", reviver.getName()));
+                    reviver.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupplayer").replace("{player}", player.getName()));
+                    Pose.stop(reviver);
+                    reviver.removePotionEffect(PotionEffectType.BLINDNESS);
                 }
 
-                ++czas;
+                ++time;
             }
         }.runTaskTimer(Main.getInstance(), 0L, 2L);
     }
 
-    public static void nokautTimer(Player p){
+    public static void nokautTimer(Player player){
         new BukkitRunnable() {
-            int czass = 0;
-            int czasm = Main.getInstance().getConfig().getInt("NokautTimeInMin");
-            String razem;
+            int timeInSeconds = 0;
+            int timeInMinutes = Main.getInstance().getConfig().getInt("NokautTimeInMin");
+            String timeToDisplay;
             @Override
             public void run() {
 
-                if(!PlayerUtilities.isNull(p)) {
+                if(!PlayerUtilities.isNull(player)) {
 
-                    if (czass <= 9) {
-                        razem = czasm + ":0" + czass;
+                    if (timeInSeconds <= 9) {
+                        timeToDisplay = timeInMinutes + ":0" + timeInSeconds;
                     } else {
-                        razem = czasm + ":" + czass;
+                        timeToDisplay = timeInMinutes + ":" + timeInSeconds;
                     }
 
-                    p.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"), ChatColor.WHITE + razem, 1, 20, 1);
+                    player.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"), ChatColor.WHITE + timeToDisplay, 1, 20, 1);
 
-                    if (PlayerUtilities.isNull(p)) {
+                    if (PlayerUtilities.isNull(player)) {
                         cancel();
                         return;
                     }
 
-                    if ((czass <= 0) && (czasm >= 1)) {
-                        --czasm;
-                        czass = 60;
+                    if ((timeInSeconds <= 0) && (timeInMinutes >= 1)) {
+                        --timeInMinutes;
+                        timeInSeconds = 60;
                     }
 
-                    if ((czasm <= 0) && (czass <= 0)) {
+                    if ((timeInMinutes <= 0) && (timeInSeconds <= 0)) {
                         if (Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")) {
 
-                            EntityDamageEvent lastDamageCause = p.getLastDamageCause();
+                            EntityDamageEvent lastDamageCause = player.getLastDamageCause();
                             if (lastDamageCause instanceof EntityDamageByEntityEvent) {
                                 EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) lastDamageCause;
                                 Entity damager = damageByEntityEvent.getDamager();
-                                p.damage(500, damager);
+                                player.damage(500, damager);
                             } else {
-                                p.setHealth(0);
+                                player.setHealth(0);
                             }
 
-                            Pose.stop(p);
+                            Pose.stop(player);
                         } else {
-                            Pose.stop(p);
-                            p.removePotionEffect(PotionEffectType.BLINDNESS);
+                            Pose.stop(player);
+                            player.removePotionEffect(PotionEffectType.BLINDNESS);
                         }
                         cancel();
                         return;
                     }
 
-                    if (!PlayerUtilities.isNull(p)) {
-                        if (PlayerUtilities.getEnum(p).equals(Nokaut.LAY)) {
-                            --czass;
+                    if (!PlayerUtilities.isNull(player)) {
+                        if (PlayerUtilities.getEnum(player).equals(Nokaut.LAY)) {
+                            --timeInSeconds;
                         }
                     } else {
                         cancel();
@@ -117,7 +117,7 @@ public class Runnables {
             public void run() {
                 if(knockedPlayer.isOnline()) {
                     if (PlayerUtilities.isNull(knockedPlayer)) {
-                        npc.delateEntity();
+                        npc.deleteEntity();
                         cancel();
                         return;
                     }
@@ -132,7 +132,7 @@ public class Runnables {
 
 
                 }else {
-                    npc.delateEntity();
+                    npc.deleteEntity();
                     cancel();
                     return;
                 }

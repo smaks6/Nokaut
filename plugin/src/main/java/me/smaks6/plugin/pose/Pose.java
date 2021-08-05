@@ -1,11 +1,11 @@
 package me.smaks6.plugin.pose;
 
+import me.smaks6.plugin.Main;
 import me.smaks6.plugin.utilities.Enum.Nokaut;
 import me.smaks6.plugin.utilities.PlayerUtilities;
-import me.smaks6.plugin.Main;
 import me.smaks6.plugin.utilities.Reflection.New.GameMode.ChangeGameModeNew;
-import me.smaks6.plugin.utilities.Reflection.Old.GameMode.ChangeGameMode;
 import me.smaks6.plugin.utilities.Reflection.New.Npc.NpcNew;
+import me.smaks6.plugin.utilities.Reflection.Old.GameMode.ChangeGameMode;
 import me.smaks6.plugin.utilities.Reflection.Old.Npc.Npc;
 import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
 import org.bukkit.Bukkit;
@@ -13,8 +13,6 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class Pose{
     //start pose animation

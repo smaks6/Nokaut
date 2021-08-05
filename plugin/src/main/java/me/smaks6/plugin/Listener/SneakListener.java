@@ -34,7 +34,7 @@ public class SneakListener implements Listener {
                 Player plist = (Player) player;
                 if(!PlayerUtilities.isNull(plist)){
                     if(PlayerUtilities.getEnum(plist).equals(Nokaut.LAY)){
-                        Runnables.revievePlayer(p, plist);
+                        Runnables.revivePlayer(p, plist);
                         break;
                     }
                 }

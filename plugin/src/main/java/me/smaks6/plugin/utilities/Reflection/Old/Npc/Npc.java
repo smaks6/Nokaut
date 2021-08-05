@@ -15,7 +15,6 @@ import java.util.UUID;
 
 public class Npc {
 
-    private final static Class<?> craftPlayerClass = Reflection.getBukkitClass("entity.CraftPlayer");
     private static Class<?> entityPlayerClass = Reflection.getNMSClass("EntityPlayer");;
     private static Class<?> worldServerClass = Reflection.getNMSClass("WorldServer");
     private static Class<?> playerInteractManagerClass = Reflection.getNMSClass("PlayerInteractManager");
@@ -61,11 +60,11 @@ public class Npc {
     }
 
 
-    public void teleportEntity(Double teleportHight) {
+    public void teleportEntity(Double teleportHeight) {
         try {
             Location loc = knockedPlayer.getLocation();
             Method setLocation = entityPlayer.getClass().getMethod("setLocation", double.class, double.class, double.class, float.class, float.class);
-            setLocation.invoke(entityPlayer, loc.getX(), loc.getY() + teleportHight, loc.getZ(), 0, 0);
+            setLocation.invoke(entityPlayer, loc.getX(), loc.getY() + teleportHeight, loc.getZ(), 0, 0);
             sendNPCPacket.sendTeleportPacket();
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -78,7 +77,7 @@ public class Npc {
         }
     }
 
-    public void delateEntity(){
+    public void deleteEntity(){
         try {
             sendNPCPacket.sendDelatePacket();
         } catch (InvocationTargetException e) {

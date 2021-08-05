@@ -9,15 +9,15 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 public class ChangeGameModeNew {
-    public static void changeGameMode(Player knockedPlayer, Player reviever, boolean nies){
+    public static void changeGameMode(Player knockedPlayer, Player reviver, boolean throwPlayer){
         //nies:
         //true - na plecach niech idzie
         //false - niech już spada z pleców
         EntityPlayer knockedEntity = (EntityPlayer) Reflection.getEntityPlayer(knockedPlayer);
 
-        if(nies){
+        if(throwPlayer){
             knockedPlayer.setGameMode(GameMode.SPECTATOR);
-            knockedPlayer.setSpectatorTarget(reviever);
+            knockedPlayer.setSpectatorTarget(reviver);
             knockedEntity.d.setGameMode(EnumGamemode.c);
 
         }else {

@@ -21,12 +21,12 @@ import java.util.UUID;
 
 public class NpcNew {
 
-    private Player knockeckPlayer;
+    private Player knockedPlayer;
     private Player see;
     private EntityPlayer entityPlayer;
 
-    public NpcNew(Player znokautowany, Player see){
-        this.knockeckPlayer = znokautowany;
+    public NpcNew(Player knockedPlayer, Player see){
+        this.knockedPlayer = knockedPlayer;
         this.see = see;
 
         entityPlayer = spawnNPC();
@@ -34,11 +34,11 @@ public class NpcNew {
     }
 
     private EntityPlayer spawnNPC(){
-        Location location = knockeckPlayer.getLocation();
+        Location location = knockedPlayer.getLocation();
         MinecraftServer nmsServer = (MinecraftServer) Reflection.getNMSServer();
         WorldServer nmsWorld = (WorldServer) Reflection.getNMSWorld();
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED + "*Nokaut*");
-        gameProfile.getProperties().putAll((((EntityPlayer)Reflection.getEntityPlayer(knockeckPlayer)).getProfile().getProperties()));
+        gameProfile.getProperties().putAll((((EntityPlayer)Reflection.getEntityPlayer(knockedPlayer)).getProfile().getProperties()));
         EntityPlayer npc = new EntityPlayer(nmsServer, nmsWorld, gameProfile);
         npc.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 
@@ -64,7 +64,7 @@ public class NpcNew {
         //entityplayer.x = entityplayer.yaw
         //entityplayer.y = entityplayer.pitch
 
-        entityPlayer.setLocation(knockeckPlayer.getLocation().getX(), knockeckPlayer.getLocation().getY()+teleportHight, knockeckPlayer.getLocation().getZ(),
+        entityPlayer.setLocation(knockedPlayer.getLocation().getX(), knockedPlayer.getLocation().getY()+teleportHight, knockedPlayer.getLocation().getZ(),
                 entityPlayer.x, entityPlayer.y);
 
 
@@ -86,18 +86,18 @@ public class NpcNew {
             public void run() {
 
 
-                if(knockeckPlayer.isOnline()) {
-                    if (PlayerUtilities.isNull(knockeckPlayer)) {
+                if(knockedPlayer.isOnline()) {
+                    if (PlayerUtilities.isNull(knockedPlayer)) {
                         removenpc();
                         cancel();
                         return;
                     }
 
-                    if (PlayerUtilities.getEnum(knockeckPlayer).equals(Nokaut.LAY)) {
+                    if (PlayerUtilities.getEnum(knockedPlayer).equals(Nokaut.LAY)) {
                         teleportNPc(-0.1);
                     }
 
-                    if (PlayerUtilities.getEnum(knockeckPlayer).equals(Nokaut.CARRY)) {
+                    if (PlayerUtilities.getEnum(knockedPlayer).equals(Nokaut.CARRY)) {
                         teleportNPc(1.0);
                     }
 

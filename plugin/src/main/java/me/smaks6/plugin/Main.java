@@ -5,8 +5,6 @@
 
 package me.smaks6.plugin;
 
-import me.smaks6.plugin.utilities.PlayerUtilities;
-import me.smaks6.plugin.Listener.*;
 import me.smaks6.plugin.cmd.deathnow.deathnowcmd;
 import me.smaks6.plugin.cmd.dropPlayer.DropPlayerCmd;
 import me.smaks6.plugin.cmd.nokaut.nokautcmd;
@@ -14,11 +12,17 @@ import me.smaks6.plugin.cmd.nokaut.tabnokautcmd;
 import me.smaks6.plugin.cmd.pickUpPlayer.PickUpPlayerCmd;
 import me.smaks6.plugin.service.WorldGuardFlag;
 import me.smaks6.plugin.service.updatechecker;
+import me.smaks6.plugin.utilities.PlayerUtilities;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.reflections.Reflections;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Set;
 
 
 public class Main extends JavaPlugin{
@@ -42,12 +46,20 @@ public class Main extends JavaPlugin{
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the plugin nokaut BY smaks6");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Server version: " + version);
 
-//		checkVersion();
-
 		int pluginId = 9923;
 		Metrics metrics = new Metrics(this, pluginId);
 
-		registerEvents();
+		try {
+			registerEvents();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 
 
 		//register WorldguardFlag
@@ -99,41 +111,15 @@ public class Main extends JavaPlugin{
 	    return instance;
 	}
 
-	private void registerEvents(){
-		//sneak and nokaut events
-		Bukkit.getServer().getPluginManager().registerEvents(new EntityDamageListener() , this);
-		Bukkit.getServer().getPluginManager().registerEvents(new SneakListener() , this);
-
-		Bukkit.getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new CommandListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new DamageByEntityListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new DeathEvent(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new DropItemListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new EntityRegainHealthListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new InteractListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new JoinListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new MoveListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new PickupItemListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new QuitListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new ShootBowListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new EntityDismountListener(), this);
-		Bukkit.getServer().getPluginManager().registerEvents(new KickPlayerListenear() , this);
-		Bukkit.getServer().getPluginManager().registerEvents(new EntityTargetListener() , this);
-	}
-
-	private void checkVersion(){
-		if(!(version.equals("v1_16_R3") || version.equals("v1_16_R2") || version.equals("v1_16_R1"))){
-
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "======================================");
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + " ");
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Sory, but your version is not support!");
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + " ");
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "======================================");
-
-			getServer().getPluginManager().disablePlugin(Main.getInstance());
+	private void registerEvents() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+		Reflections reflections = new Reflections("me.smaks6.plugin");
+		Set<Class<? extends Listener>> classSet = reflections.getSubTypesOf(Listener.class);
+		for (Class<?> aClass : classSet) {
+			Object o = aClass.getConstructor().newInstance();
+			Bukkit.getServer().getPluginManager().registerEvents((Listener) o, this);
 		}
 	}
+
 
 }
 
