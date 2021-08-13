@@ -40,7 +40,7 @@ public class NpcNew {
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED + "*Nokaut*");
         gameProfile.getProperties().putAll((((EntityPlayer)Reflection.getEntityPlayer(knockedPlayer)).getProfile().getProperties()));
         EntityPlayer npc = new EntityPlayer(nmsServer, nmsWorld, gameProfile);
-        npc.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+        npc.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), 40f);
 
         //d - swimming
         npc.setPose(EntityPose.d);
@@ -72,7 +72,7 @@ public class NpcNew {
         connection.sendPacket(new PacketPlayOutEntityTeleport(entityPlayer));
     }
 
-    private void removenpc(){
+    private void removeNpc(){
         PlayerConnection connection = ((EntityPlayer) Reflection.getEntityPlayer(see)).b;
         connection.sendPacket(new PacketPlayOutEntityDestroy(entityPlayer.getId()));
         //e - REMOVE-PLAYER
@@ -88,7 +88,7 @@ public class NpcNew {
 
                 if(knockedPlayer.isOnline()) {
                     if (PlayerUtilities.isNull(knockedPlayer)) {
-                        removenpc();
+                        removeNpc();
                         cancel();
                         return;
                     }
@@ -103,7 +103,7 @@ public class NpcNew {
 
 
                 }else {
-                    removenpc();
+                    removeNpc();
                     cancel();
                     return;
                 }

@@ -6,7 +6,7 @@
     <parent>
         <artifactId>nokaut</artifactId>
         <groupId>me.smaks6</groupId>
-        <version>1.12</version>
+        <version>1.12.1-pre1</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>

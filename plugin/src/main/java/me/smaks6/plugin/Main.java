@@ -10,15 +10,20 @@ import me.smaks6.plugin.cmd.dropPlayer.DropPlayerCmd;
 import me.smaks6.plugin.cmd.nokaut.nokautcmd;
 import me.smaks6.plugin.cmd.nokaut.tabnokautcmd;
 import me.smaks6.plugin.cmd.pickUpPlayer.PickUpPlayerCmd;
+import me.smaks6.plugin.pose.Pose;
 import me.smaks6.plugin.service.WorldGuardFlag;
 import me.smaks6.plugin.service.updatechecker;
 import me.smaks6.plugin.utilities.PlayerUtilities;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffectType;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
@@ -103,7 +108,25 @@ public class Main extends JavaPlugin{
 	@Override
 	public void onDisable() {
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-			PlayerUtilities.unSet(player);
+			if(!PlayerUtilities.isNull(player)) {
+				if (Main.getInstance().getConfig().getString("DeathOnEnd").equals("true")) {
+
+					EntityDamageEvent lastDamageCause = player.getLastDamageCause();
+					if (lastDamageCause instanceof EntityDamageByEntityEvent) {
+						EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) lastDamageCause;
+						Entity damager = damageByEntityEvent.getDamager();
+						player.damage(500, damager);
+						Pose.stop(player);
+					} else {
+						player.setHealth(0);
+					}
+
+					Pose.stop(player);
+				} else {
+					Pose.stop(player);
+					player.removePotionEffect(PotionEffectType.BLINDNESS);
+				}
+			}
 		}
 	}
 
