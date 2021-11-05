@@ -47,11 +47,16 @@ public class Runnables {
 
     public static void nokautTimer(Player player){
         new BukkitRunnable() {
-            int timeInSeconds = 0;
-            int timeInMinutes = Main.getInstance().getConfig().getInt("NokautTimeInMin");
+            int timeInSeconds = Main.getInstance().getConfig().getInt("NokautTime");
+            int timeInMinutes = 0;
             String timeToDisplay;
             @Override
             public void run() {
+
+                if(timeInSeconds > 60){
+                    timeInMinutes = timeInSeconds / 60;
+                    timeInSeconds = timeInSeconds - (timeInMinutes*60);
+                }
 
                 if(!PlayerUtilities.isNull(player)) {
 
