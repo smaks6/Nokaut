@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.util.StringUtil;
 
-public class tabnokautcmd implements TabCompleter {
+public class TabNokautCmd implements TabCompleter {
 
 	private static final List<String> COMMANDS = Arrays.asList("reload");
 

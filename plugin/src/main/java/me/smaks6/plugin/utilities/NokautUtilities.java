@@ -11,6 +11,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -76,5 +78,14 @@ public class NokautUtilities {
             }
         }
         return false;
+    }
+
+    public static Entity getLastDamager(Player player){
+        EntityDamageEvent lastDamageCause = player.getLastDamageCause();
+        if(lastDamageCause instanceof EntityDamageByEntityEvent){
+            EntityDamageByEntityEvent damageByEntityEvent = (EntityDamageByEntityEvent) lastDamageCause;
+            return damageByEntityEvent.getDamager();
+        }
+        return null;
     }
 }

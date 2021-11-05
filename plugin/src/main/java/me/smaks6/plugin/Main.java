@@ -5,10 +5,10 @@
 
 package me.smaks6.plugin;
 
-import me.smaks6.plugin.cmd.deathnow.deathnowcmd;
+import me.smaks6.plugin.cmd.deathnow.DeathnowCmd;
 import me.smaks6.plugin.cmd.dropPlayer.DropPlayerCmd;
-import me.smaks6.plugin.cmd.nokaut.nokautcmd;
-import me.smaks6.plugin.cmd.nokaut.tabnokautcmd;
+import me.smaks6.plugin.cmd.nokaut.NokautCmd;
+import me.smaks6.plugin.cmd.nokaut.TabNokautCmd;
 import me.smaks6.plugin.cmd.pickUpPlayer.PickUpPlayerCmd;
 import me.smaks6.plugin.pose.Pose;
 import me.smaks6.plugin.service.WorldGuardFlag;
@@ -72,12 +72,12 @@ public class Main extends JavaPlugin{
 			new WorldGuardFlag().registerFlag();
 		}
 		
-		new deathnowcmd(this);
+		new DeathnowCmd(this);
 		new PickUpPlayerCmd(this);
 		new DropPlayerCmd(this);
 
-		new nokautcmd(this);
-		getCommand("nokaut").setTabCompleter(new tabnokautcmd());
+		new NokautCmd(this);
+		getCommand("nokaut").setTabCompleter(new TabNokautCmd());
 
 		if(!getDescription().getAuthors().contains("smaks6")){
 			getLogger().info("Please..........");

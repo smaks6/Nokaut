@@ -2,6 +2,7 @@ package me.smaks6.plugin.pose;
 
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.utilities.Enum.Nokaut;
+import me.smaks6.plugin.utilities.NokautUtilities;
 import me.smaks6.plugin.utilities.PlayerUtilities;
 import me.smaks6.plugin.utilities.Reflection.New.GameMode.ChangeGameModeNew;
 import me.smaks6.plugin.utilities.Reflection.New.Npc.NpcNew;
@@ -10,9 +11,12 @@ import me.smaks6.plugin.utilities.Reflection.Old.Npc.Npc;
 import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.List;
 
 public class Pose{
     //start pose animation
@@ -29,6 +33,16 @@ public class Pose{
             createNPC(p, onlinePlayer);
         }
         hidePlayers(p);
+
+        //do commands
+
+        Entity damager = NokautUtilities.getLastDamager(p);
+        List<String> commandsOnNokaut = Main.getInstance().getConfig().getStringList("commandsOnNokaut");
+        for (String command : commandsOnNokaut) {
+            command = command.replaceAll("\"KnockedPlayer\"", p.getName());
+            command = command.replaceAll("\"Damager\"", (damager == null ? "" : damager.getName()));
+            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+        }
 
     }
 
@@ -47,6 +61,15 @@ public class Pose{
         p.setGameMode(GameMode.SURVIVAL);
 
         showPlayers(p);
+
+        // do commands
+        Entity damager = NokautUtilities.getLastDamager(p);
+        List<String> commandsAfterNokaut = Main.getInstance().getConfig().getStringList("commandsAfterNokaut");
+        for (String command : commandsAfterNokaut) {
+            command = command.replaceAll("\"KnockedPlayer\"", p.getName());
+            command = command.replaceAll("\"Damager\"", (damager == null ? "" : damager.getName()));
+            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+        }
     }
 
     public static void createNPC(Player knockedPlayer, Player see){

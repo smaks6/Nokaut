@@ -34,3 +34,11 @@ NpcTeleportTime: 1
 
 #Show PlayerName above knockout player
 showPlayerName: true
+
+#This commands has been executed if any player get knocked Out
+commandsOnNokaut:
+#  - say "KnockedPlayer" has been knocked by "Damager"
+
+#This commands has been executed if any player dies
+commandsAfterNokaut:
+#  - say "KnockedPlayer" has been died by "Damager"
