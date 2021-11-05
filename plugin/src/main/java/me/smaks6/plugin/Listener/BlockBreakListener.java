@@ -12,7 +12,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 public class BlockBreakListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
-    public void niszcz(BlockBreakEvent event) {
+    public void blockBreakEvent(BlockBreakEvent event) {
         Player p = event.getPlayer();
         if(!PlayerUtilities.isNull(p)) {
             event.setCancelled(true);

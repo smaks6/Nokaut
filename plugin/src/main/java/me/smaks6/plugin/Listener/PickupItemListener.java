@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 public class PickupItemListener implements Listener {
 
     @EventHandler
-    public void wezitem(PlayerPickupItemEvent event) {
+    public void pickupItemEvent(PlayerPickupItemEvent event) {
         Player p = event.getPlayer();
         if(!PlayerUtilities.isNull(p)) {
             event.setCancelled(true);

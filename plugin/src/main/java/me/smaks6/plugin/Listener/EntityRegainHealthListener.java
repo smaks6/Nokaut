@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 public class EntityRegainHealthListener implements Listener {
 
     @EventHandler
-    public void regeneracjaHP(EntityRegainHealthEvent e) {
+    public void hpRegenerationEvent(EntityRegainHealthEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player)e.getEntity();
             if(!PlayerUtilities.isNull(p)){

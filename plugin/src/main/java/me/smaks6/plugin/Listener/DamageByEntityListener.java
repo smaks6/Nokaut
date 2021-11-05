@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class DamageByEntityListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void stopdamage(EntityDamageByEntityEvent event){
+    public void damageByEntityEvent(EntityDamageByEntityEvent event){
 
         if(CitizensListener.isNpc(event.getDamager()))return;
 

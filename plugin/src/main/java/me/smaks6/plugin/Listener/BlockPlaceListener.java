@@ -12,7 +12,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 public class BlockPlaceListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
-    public void kladz(BlockPlaceEvent event) {
+    public void blockPlaceEvent(BlockPlaceEvent event) {
         Player p = event.getPlayer();
         if(!PlayerUtilities.isNull(p)) {
             event.setCancelled(true);

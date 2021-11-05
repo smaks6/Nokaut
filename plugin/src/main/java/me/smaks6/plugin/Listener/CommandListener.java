@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 public class CommandListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
-    public void commandblock(PlayerCommandPreprocessEvent event) {
+    public void playerExecuteCommandEvent(PlayerCommandPreprocessEvent event) {
         Player p = event.getPlayer();
         if(!PlayerUtilities.isNull(p)) {
             if (!event.getMessage().toLowerCase().startsWith("/zo") && !event.getMessage().toLowerCase().startsWith("/zginodrazu") && !event.getMessage().toLowerCase().startsWith("/deathnow") && !event.getMessage().toLowerCase().startsWith("/dn")) {

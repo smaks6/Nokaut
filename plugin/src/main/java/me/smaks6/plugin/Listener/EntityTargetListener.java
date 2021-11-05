@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityTargetEvent;
 public class EntityTargetListener implements Listener {
 
     @EventHandler
-    public void target(EntityTargetEvent event) {
+    public void setEntityTargetEvent(EntityTargetEvent event) {
         if(event.getTarget() instanceof Player){
             Player player = (Player) event.getTarget();
 

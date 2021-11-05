@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class QuitListener implements Listener {
 
     @EventHandler
-    public void wychodzi(PlayerQuitEvent event) {
+    public void playerQuitEvent(PlayerQuitEvent event) {
         Player p = event.getPlayer();
 
         if(!PlayerUtilities.isNull(p)) {
@@ -28,10 +28,10 @@ public class QuitListener implements Listener {
         }
 
         if(!p.getPassengers().isEmpty()){
-            Player znokautowany = (Player) p.getPassengers().get(0);
-            PlayerUtilities.setEnum(znokautowany, Nokaut.LAY);
+            Player knockedPlayer = (Player) p.getPassengers().get(0);
+            PlayerUtilities.setEnum(knockedPlayer, Nokaut.LAY);
             p.getPassengers().clear();
-            Pose.changegamemode(znokautowany, p, false);
+            Pose.changegamemode(knockedPlayer, p, false);
         }
 
         PlayerUtilities.unSet(p);

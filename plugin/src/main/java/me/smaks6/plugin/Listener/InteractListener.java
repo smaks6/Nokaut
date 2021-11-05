@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class InteractListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void chestitd(PlayerInteractEvent event) {
+    public void playerInteractEvent(PlayerInteractEvent event) {
         Player p = event.getPlayer();
         if(!PlayerUtilities.isNull(p)) {
             event.setCancelled(true);

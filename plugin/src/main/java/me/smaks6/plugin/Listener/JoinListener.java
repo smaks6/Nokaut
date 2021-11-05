@@ -17,7 +17,7 @@ import java.util.List;
 public class JoinListener implements Listener {
 
     @EventHandler
-    public void joinListenear(PlayerJoinEvent event) {
+    public void joinEvent(PlayerJoinEvent event) {
         Player p = event.getPlayer();
 
         List<Player> npc = new ArrayList<>();
@@ -28,9 +28,9 @@ public class JoinListener implements Listener {
             }
         }
 
-        for (Player znokautowany : npc) {
-            Pose.createNPC(znokautowany, p);
-            p.hidePlayer(Main.getInstance(), znokautowany);
+        for (Player knockedPlayer : npc) {
+            Pose.createNPC(knockedPlayer, p);
+            p.hidePlayer(Main.getInstance(), knockedPlayer);
         }
 
         if(p.isOp()){

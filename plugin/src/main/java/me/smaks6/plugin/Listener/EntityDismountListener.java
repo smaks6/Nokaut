@@ -12,7 +12,7 @@ import org.spigotmc.event.entity.EntityDismountEvent;
 public class EntityDismountListener implements Listener {
 
     @EventHandler
-    public void enityDismount(EntityDismountEvent event) {
+    public void entityDismountEvent(EntityDismountEvent event) {
         if(!(event.getEntity() instanceof Player) )return;
         Player p = (Player) event.getEntity();
         if(!p.isOnline())return;

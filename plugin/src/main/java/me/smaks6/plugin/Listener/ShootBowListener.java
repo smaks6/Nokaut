@@ -12,7 +12,7 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 public class ShootBowListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
-    public void bowshoot(EntityShootBowEvent event) {
+    public void bowShootEvent(EntityShootBowEvent event) {
         if(event.getEntity().getKiller() instanceof Player){
             Player p = event.getEntity().getKiller();
             if(!PlayerUtilities.isNull(p)) {

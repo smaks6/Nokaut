@@ -8,7 +8,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class DeathEvent implements Listener {
     @EventHandler
-    public void smierc(PlayerDeathEvent event) {
+    public void deathEvent(PlayerDeathEvent event) {
         Player p = event.getEntity();
         Pose.stop(p);
     }
