@@ -1,6 +1,7 @@
 package me.smaks6.plugin.utilities.Reflection.New.Npc;
 
 import com.mojang.authlib.GameProfile;
+import me.smaks6.plugin.Main;
 import me.smaks6.plugin.utilities.Enum.Nokaut;
 import me.smaks6.plugin.utilities.PlayerUtilities;
 import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
@@ -37,7 +38,8 @@ public class NpcNew {
         Location location = knockedPlayer.getLocation();
         MinecraftServer nmsServer = (MinecraftServer) Reflection.getNMSServer();
         WorldServer nmsWorld = (WorldServer) Reflection.getNMSWorld();
-        GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED + "*Nokaut*");
+        GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED +
+                (!Main.getInstance().getConfig().getBoolean("showPlayerName") ? "*Nokaut*" : knockedPlayer.getName() ));
         gameProfile.getProperties().putAll((((EntityPlayer)Reflection.getEntityPlayer(knockedPlayer)).getProfile().getProperties()));
         EntityPlayer npc = new EntityPlayer(nmsServer, nmsWorld, gameProfile);
         npc.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), 40f);

@@ -31,3 +31,6 @@ WakeUpTitle: Reanimowanie
 
 #If your server is weak, you can set this value higher, but it is not recommended to go below 5-10
 NpcTeleportTime: 1
+
+#Show PlayerName above knockout player
+showPlayerName: true
