@@ -2,7 +2,6 @@ package me.smaks6.plugin.utilities;
 
 import me.smaks6.plugin.utilities.Enum.Nokaut;
 import me.smaks6.plugin.Main;
-import me.smaks6.plugin.pose.Pose;
 import me.smaks6.plugin.utilities.Reflection.Old.Npc.Npc;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
@@ -36,7 +35,7 @@ public class Runnables {
                     this.cancel();
                     player.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupdamager").replace("{player}", reviver.getName()));
                     reviver.sendMessage(ChatColor.DARK_GREEN + Main.getInstance().getConfig().getString("wakeupplayer").replace("{player}", player.getName()));
-                    Pose.stop(reviver);
+                    PoseUtility.stop(reviver);
                     reviver.removePotionEffect(PotionEffectType.BLINDNESS);
                 }
 
@@ -58,7 +57,7 @@ public class Runnables {
                     timeInSeconds = timeInSeconds - (timeInMinutes*60);
                 }
 
-                if(!PlayerUtilities.isNull(player)) {
+                if(!PlayerUtility.isNull(player)) {
 
                     if (timeInSeconds <= 9) {
                         timeToDisplay = timeInMinutes + ":0" + timeInSeconds;
@@ -68,7 +67,7 @@ public class Runnables {
 
                     player.sendTitle(ChatColor.RED + Main.getInstance().getConfig().getString("NokautTitle"), ChatColor.WHITE + timeToDisplay, 1, 20, 1);
 
-                    if (PlayerUtilities.isNull(player)) {
+                    if (PlayerUtility.isNull(player)) {
                         cancel();
                         return;
                     }
@@ -90,17 +89,17 @@ public class Runnables {
                                 player.setHealth(0);
                             }
 
-                            Pose.stop(player);
+                            PoseUtility.stop(player);
                         } else {
-                            Pose.stop(player);
+                            PoseUtility.stop(player);
                             player.removePotionEffect(PotionEffectType.BLINDNESS);
                         }
                         cancel();
                         return;
                     }
 
-                    if (!PlayerUtilities.isNull(player)) {
-                        if (PlayerUtilities.getEnum(player).equals(Nokaut.LAY)) {
+                    if (!PlayerUtility.isNull(player)) {
+                        if (PlayerUtility.getEnum(player).equals(Nokaut.LAY)) {
                             --timeInSeconds;
                         }
                     } else {
@@ -121,17 +120,17 @@ public class Runnables {
             @Override
             public void run() {
                 if(knockedPlayer.isOnline()) {
-                    if (PlayerUtilities.isNull(knockedPlayer)) {
+                    if (PlayerUtility.isNull(knockedPlayer)) {
                         npc.deleteEntity();
                         cancel();
                         return;
                     }
 
-                    if (PlayerUtilities.getEnum(knockedPlayer).equals(Nokaut.LAY)) {
+                    if (PlayerUtility.getEnum(knockedPlayer).equals(Nokaut.LAY)) {
                         npc.teleportEntity(-0.1);
                     }
 
-                    if (PlayerUtilities.getEnum(knockedPlayer).equals(Nokaut.CARRY)) {
+                    if (PlayerUtility.getEnum(knockedPlayer).equals(Nokaut.CARRY)) {
                         npc.teleportEntity(1.0);
                     }
 
