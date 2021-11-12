@@ -1,46 +1,55 @@
-#How many minutes is the knockout (enter the value in seconds)
+#Time that knockout should last (in seconds)
 NokautTime: 120
 
-#message that will be displayed to the player when he tries to do something (e.g. to bet) during the knockout
-cancelmessage: Nie możesz tego robić w czasie nokautu
+#Message for forbidden behaviour during knockout
+cancelmessage: "You can't do that during knockout"
 
-#The message that the player receives immediately after the knockout
-helpnokautmessage: Musisz poprosić innego gracza aby cię uderzył(ocucił) przed minięciem
-  czasu inaczej zginiesz....
+#Message that player receives immediately after getting knockedout
+helpnokautmessage: "You got knocked! Ask other players to revive you"
 
-#The message received by the awakened player, the person who was awakened can be entered in the message as {player}
-wakeupplayer: Zostałeś ocucony przez {player}
+#xMessage that knocked player receives after getting revived by other player
+#You can use {player} variable for player that revived the knockedout player
+wakeupplayer: "You got revived by {player}"
 
-#The message that the reviving player receives, you can add to the message who revived by adding {player}
-wakeupdamager: ocuciłeś gracza {player}
+#Message that player receives after reviving someone
+#You can use {player} variable for player that got revived
+wakeupdamager: "You revived {player}"
 
-#The message received by a player who tries to use the / deathnow command when not knocked out
-deathnownot: Ta komenda jest dostępna tylko podczas nokautu
+#Message that player who tries to use the /deathnow command when not knocked out receives
+deathnownot: "This command is only available during knockout"
 
-#the text that appears on the screen during the knockout and the name of the person who was knocked out
-NokautTitle: Nokaut
+#Title that player sees during knockout
+NokautTitle: "Knockout"
 
-#if the value is false then when the player ends the countdown it will stand, if the value is true then the player will die
+#If value is true then after the knockout - player dies, otherwise he stands and lives
 DeathOnEnd: 'true'
 
-#if it is true then during the knockout the player gets the blidnes effect
+#If value is true then during the knockout the player has the blidnes effect
 BlindnessOnNokaut: 'true'
 
-#an inscription that appears on the player's screen that wakes up another player
-WakeUpTitle: Reanimowanie
+#Title when player is beeing revived
+WakeUpTitle: "Reviving..."
 
-#If your server is weak, you can set this value higher, but it is not recommended to go below 5-10
+#If your server is too weak, you can set this value higher, but it is not recommended to go higher than 8
 NpcTeleportTime: 1
 
-#This commands has been executed if any player get knocked Out
+#These commands are beeing executed when any player gets knockedout
+#You can use variable "KnockedPlayer" for the player that had been knocked
+#You can use variable "Damager" for the player that knocked other player
 commandsOnNokaut:
 #  - say "KnockedPlayer" has been knocked by "Damager"
 
-#This commands has been executed if any player dies
+#These commands are beeing executed when any player dies because of knockout
+#You can use variable "KnockedPlayer" for the player that had been knocked
+#You can use variable "Damager" for the player that knocked other player
 commandsAfterNokaut:
-#  - say "KnockedPlayer" has been died by "Damager"
+#  - say "KnockedPlayer" has died because of "Damager"
 
-#
-NokautTitleAbovePlayer: "*nokaut*"
+#Title that is above player's name during knockout
+NokautTitleAbovePlayer: "knockout"
 
-SlownessWhenCarryingThePlayer: 'true'
+#Do you want to require player 5 levels to revive someone?
+RequireLevelToRevive: true
+
+#Message that player receives if he tries to revive but has not enough level
+NotEnoughLevelMessage: "You don't have enough level to revive someone"

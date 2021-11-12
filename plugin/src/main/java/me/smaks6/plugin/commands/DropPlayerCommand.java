@@ -25,7 +25,7 @@ public class DropPlayerCommand implements CommandExecutor, PluginCommand {
         Player player = (Player) sender.getPassengers().get(0);
         sender.getPassengers().clear();
         PlayerUtility.setState(player, Nokaut.LAY);
-        PoseUtility.changegamemode(player, sender, false);
+        PoseUtility.changeGameMode(player, sender, false);
         player.teleport(sender);
         return false;
     }

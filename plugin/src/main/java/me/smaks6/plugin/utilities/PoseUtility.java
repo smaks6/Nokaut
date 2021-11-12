@@ -31,7 +31,7 @@ public class PoseUtility {
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             createNPC(p, onlinePlayer);
         }
-        hidePlayers(p);
+        hidePlayer(p);
 
         //do commands
 
@@ -56,13 +56,14 @@ public class PoseUtility {
         p.setDisplayName(p.getName());
 
         p.removePotionEffect(PotionEffectType.INVISIBILITY);
+        p.removePotionEffect(PotionEffectType.BLINDNESS);
 
         p.setWalkSpeed(0.2F);
         p.setFlySpeed(0.1F);
 
         p.setGameMode(GameMode.SURVIVAL);
 
-        showPlayers(p);
+        showPlayer(p);
 
         // do commands
         Entity damager = NokautUtility.getLastDamager(p);
@@ -90,7 +91,7 @@ public class PoseUtility {
     }
 
     //change game mode
-    public static void changegamemode(Player p, Player reviever, boolean nies){
+    public static void changeGameMode(Player p, Player reviever, boolean nies){
         //nies:
         //true - na plecach niech idzie
         //false - niech już spada z pleców
@@ -112,13 +113,13 @@ public class PoseUtility {
     }
 
 
-    public static void hidePlayers(Player player) {
+    public static void hidePlayer(Player player) {
         for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
             onlinePlayer.hidePlayer(Main.getInstance(), player);
         }
     }
 
-    public static void showPlayers(Player player){
+    public static void showPlayer(Player player){
         for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
             onlinePlayer.showPlayer(Main.getInstance(), player);
         }

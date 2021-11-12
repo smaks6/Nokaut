@@ -46,7 +46,7 @@ public class NokautUtility {
                     Player znokautowany = (Player) p.getPassengers().get(0);
                     PlayerUtility.setState(znokautowany, Nokaut.LAY);
                     p.getPassengers().clear();
-                    PoseUtility.changegamemode(znokautowany, p, false);
+                    PoseUtility.changeGameMode(znokautowany, p, false);
                 }
 
                 p.setFireTicks(0);

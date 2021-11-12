@@ -16,6 +16,14 @@ public class Runnables {
 
     public static void revivePlayer(Player player, Player reviver){
 
+        Boolean requireLevelToRevive = Main.getInstance().getConfig().getBoolean("RequireLevelToRevive");
+
+        if(player.getLevel() < 5 && requireLevelToRevive){
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    Main.getInstance().getConfig().getString("NotEnoughLevelMessage")));
+            return;
+        }
+
         Block block = player.getLocation().getBlock();
         new BukkitRunnable() {
 
@@ -30,6 +38,10 @@ public class Runnables {
 
                 player.sendTitle(ChatColor.GREEN + Main.getInstance().getConfig().getString("WakeUpTitle"),ChatColor.GREEN + "" + time + "%", 1 , 20 , 1 );
                 reviver.sendTitle(ChatColor.GREEN + Main.getInstance().getConfig().getString("WakeUpTitle"),ChatColor.GREEN + "" + time + "%", 1 , 20 , 1 );
+
+                if(requireLevelToRevive && time % 20 == 0 && time > 0){
+                    player.setLevel(player.getLevel() - 1);
+                }
 
                 if(time >= 100){
                     this.cancel();
@@ -92,7 +104,6 @@ public class Runnables {
                             PoseUtility.stop(player);
                         } else {
                             PoseUtility.stop(player);
-                            player.removePotionEffect(PotionEffectType.BLINDNESS);
                         }
                         cancel();
                         return;
