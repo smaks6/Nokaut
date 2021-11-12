@@ -17,7 +17,7 @@ public class KickPlayerListenear implements Listener {
 
         if(PlayerUtility.isNull(p))return;
 
-        if(PlayerUtility.getEnum(p).equals(Nokaut.CARRY) && event.getReason().contains("Cannot interact with self!")) {
+        if(PlayerUtility.getState(p).equals(Nokaut.CARRY) && event.getReason().contains("Cannot interact with self!")) {
             event.setCancelled(true);
             p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
         }

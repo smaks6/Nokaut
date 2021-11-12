@@ -44,7 +44,7 @@ public class NokautUtility {
 
                 if(!p.getPassengers().isEmpty()){
                     Player znokautowany = (Player) p.getPassengers().get(0);
-                    PlayerUtility.setEnum(znokautowany, Nokaut.LAY);
+                    PlayerUtility.setState(znokautowany, Nokaut.LAY);
                     p.getPassengers().clear();
                     PoseUtility.changegamemode(znokautowany, p, false);
                 }

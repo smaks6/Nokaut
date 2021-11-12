@@ -24,7 +24,7 @@ public class Runnables {
             @Override
             public void run() {
 
-                if(!player.isSneaking() || !block.equals(player.getLocation().getBlock())){
+                if(!player.isSneaking() || !block.equals(player.getLocation().getBlock()) || PlayerUtility.isNull(reviver)){
                     this.cancel();
                 }
 
@@ -99,7 +99,7 @@ public class Runnables {
                     }
 
                     if (!PlayerUtility.isNull(player)) {
-                        if (PlayerUtility.getEnum(player).equals(Nokaut.LAY)) {
+                        if (PlayerUtility.getState(player).equals(Nokaut.LAY)) {
                             --timeInSeconds;
                         }
                     } else {
@@ -126,11 +126,11 @@ public class Runnables {
                         return;
                     }
 
-                    if (PlayerUtility.getEnum(knockedPlayer).equals(Nokaut.LAY)) {
+                    if (PlayerUtility.getState(knockedPlayer).equals(Nokaut.LAY)) {
                         npc.teleportEntity(-0.1);
                     }
 
-                    if (PlayerUtility.getEnum(knockedPlayer).equals(Nokaut.CARRY)) {
+                    if (PlayerUtility.getState(knockedPlayer).equals(Nokaut.CARRY)) {
                         npc.teleportEntity(1.0);
                     }
 

@@ -4,6 +4,8 @@ import me.smaks6.plugin.utilities.ReflectionUtilities.PacketSender;
 import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

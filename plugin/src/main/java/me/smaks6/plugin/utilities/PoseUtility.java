@@ -1,6 +1,7 @@
 package me.smaks6.plugin.utilities;
 
 import me.smaks6.plugin.Main;
+import me.smaks6.plugin.objects.ArmorStandNokaut;
 import me.smaks6.plugin.utilities.Enum.Nokaut;
 import me.smaks6.plugin.utilities.Reflection.New.GameMode.ChangeGameModeNew;
 import me.smaks6.plugin.utilities.Reflection.New.Npc.NpcNew;
@@ -19,7 +20,7 @@ import java.util.List;
 public class PoseUtility {
     //start pose animation
     public static void start(Player p) {
-        PlayerUtility.setEnum(p, Nokaut.LAY);
+        PlayerUtility.setState(p, Nokaut.LAY);
         p.setWalkSpeed(0);
         p.setFlySpeed(0);
         p.setCollidable(false);
@@ -41,6 +42,9 @@ public class PoseUtility {
             command = command.replaceAll("\"Damager\"", (damager == null ? "" : damager.getName()));
             Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
         }
+
+        ArmorStandNokaut armorStandNokaut = new ArmorStandNokaut(p);
+        armorStandNokaut.teleportArmorStands();
 
     }
 

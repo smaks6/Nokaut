@@ -30,8 +30,8 @@ public class PickUpPlayerCommand implements CommandExecutor, PluginCommand {
             if(e instanceof Player){
                 Player knockedPlayer = (Player) e;
 
-                if(PlayerUtility.getEnum(knockedPlayer).equals(Nokaut.LAY)){
-                    PlayerUtility.setEnum(knockedPlayer, Nokaut.CARRY);
+                if(PlayerUtility.getState(knockedPlayer).equals(Nokaut.LAY)){
+                    PlayerUtility.setState(knockedPlayer, Nokaut.CARRY);
                     PoseUtility.changegamemode(knockedPlayer, sender, true);
                     sender.addPassenger(knockedPlayer);
                     break;

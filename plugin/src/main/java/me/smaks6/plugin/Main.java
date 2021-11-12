@@ -11,6 +11,7 @@ import me.smaks6.plugin.commands.DropPlayerCommand;
 import me.smaks6.plugin.commands.NokautCommand;
 import me.smaks6.plugin.commands.tabcomplete.TabNokautCommand;
 import me.smaks6.plugin.commands.PickUpPlayerCommand;
+import me.smaks6.plugin.objects.ArmorStandNokaut;
 import me.smaks6.plugin.utilities.PoseUtility;
 import me.smaks6.plugin.service.WorldGuardService;
 import me.smaks6.plugin.service.UpdateCheckerService;
@@ -18,6 +19,7 @@ import me.smaks6.plugin.utilities.PlayerUtility;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -124,6 +126,13 @@ public class Main extends JavaPlugin{
 					PoseUtility.stop(player);
 					player.removePotionEffect(PotionEffectType.BLINDNESS);
 				}
+			}
+		}
+
+
+		for (World world : Bukkit.getWorlds()) {
+			for (Entity entity : world.getEntities()) {
+				if(ArmorStandNokaut.isNokautArmorStand(entity))entity.remove();
 			}
 		}
 	}

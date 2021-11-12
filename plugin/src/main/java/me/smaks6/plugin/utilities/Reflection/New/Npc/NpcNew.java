@@ -1,7 +1,6 @@
 package me.smaks6.plugin.utilities.Reflection.New.Npc;
 
 import com.mojang.authlib.GameProfile;
-import me.smaks6.plugin.Main;
 import me.smaks6.plugin.utilities.Enum.Nokaut;
 import me.smaks6.plugin.utilities.PlayerUtility;
 import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
@@ -38,8 +37,7 @@ public class NpcNew {
         Location location = knockedPlayer.getLocation();
         MinecraftServer nmsServer = (MinecraftServer) Reflection.getNMSServer();
         WorldServer nmsWorld = (WorldServer) Reflection.getNMSWorld();
-        GameProfile gameProfile = new GameProfile(UUID.randomUUID(),
-                (!Main.getInstance().getConfig().getBoolean("showPlayerName") ? "*Nokaut*" : knockedPlayer.getName() ));
+        GameProfile gameProfile = new GameProfile(UUID.randomUUID(), "");
         gameProfile.getProperties().putAll((((EntityPlayer)Reflection.getEntityPlayer(knockedPlayer)).getProfile().getProperties()));
         EntityPlayer npc = new EntityPlayer(nmsServer, nmsWorld, gameProfile);
         npc.setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), 40f);
@@ -95,11 +93,11 @@ public class NpcNew {
                         return;
                     }
 
-                    if (PlayerUtility.getEnum(knockedPlayer).equals(Nokaut.LAY)) {
+                    if (PlayerUtility.getState(knockedPlayer).equals(Nokaut.LAY)) {
                         teleportNPc(-0.1);
                     }
 
-                    if (PlayerUtility.getEnum(knockedPlayer).equals(Nokaut.CARRY)) {
+                    if (PlayerUtility.getState(knockedPlayer).equals(Nokaut.CARRY)) {
                         teleportNPc(1.0);
                     }
 

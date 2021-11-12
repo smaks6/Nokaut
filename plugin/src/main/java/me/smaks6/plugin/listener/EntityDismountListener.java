@@ -19,7 +19,7 @@ public class EntityDismountListener implements Listener {
 
         if(PlayerUtility.isNull(p))return;
 
-        if(PlayerUtility.getEnum(p).equals(Nokaut.CARRY)){
+        if(PlayerUtility.getState(p).equals(Nokaut.CARRY)){
             event.setCancelled(true);
             p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
         }

@@ -32,9 +32,6 @@ WakeUpTitle: Reanimowanie
 #If your server is weak, you can set this value higher, but it is not recommended to go below 5-10
 NpcTeleportTime: 1
 
-#Show PlayerName above knockout player
-showPlayerName: true
-
 #This commands has been executed if any player get knocked Out
 commandsOnNokaut:
 #  - say "KnockedPlayer" has been knocked by "Damager"
@@ -42,3 +39,8 @@ commandsOnNokaut:
 #This commands has been executed if any player dies
 commandsAfterNokaut:
 #  - say "KnockedPlayer" has been died by "Damager"
+
+#
+NokautTitleAbovePlayer: "*nokaut*"
+
+SlownessWhenCarryingThePlayer: 'true'
