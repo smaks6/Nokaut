@@ -40,7 +40,7 @@ public class Npc {
 
             Object nmsWorld = Reflection.getNMSWorld();
 
-            GameProfile gameProfile = new GameProfile(UUID.randomUUID(), "");
+            GameProfile gameProfile = new GameProfile(UUID.randomUUID(), knockedPlayer.getName());
             Object entityKnockedPlayer = Reflection.getEntityPlayer(knockedPlayer);
             GameProfile playerGameProfile = (GameProfile) getProfileMethod.invoke(entityKnockedPlayer);
             gameProfile.getProperties().putAll(playerGameProfile.getProperties());
