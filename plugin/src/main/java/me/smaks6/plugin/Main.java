@@ -38,7 +38,7 @@ public class Main extends JavaPlugin{
 	
 	private static Main instance;
 
-	private String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+	private static String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	
 //    public static HashMap<Player, NokautEnum> gracze = new HashMap<Player, NokautEnum>();// value = stoi, lezy, nies
 
@@ -159,7 +159,9 @@ public class Main extends JavaPlugin{
 		).forEach(PluginCommand::enable);
 	}
 
-
+	public static String getVersion() {
+		return version;
+	}
 }
 
 

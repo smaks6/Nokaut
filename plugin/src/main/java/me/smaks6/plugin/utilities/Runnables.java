@@ -2,7 +2,7 @@ package me.smaks6.plugin.utilities;
 
 import me.smaks6.plugin.utilities.Enum.Nokaut;
 import me.smaks6.plugin.Main;
-import me.smaks6.plugin.utilities.Reflection.Old.Npc.Npc;
+import me.smaks6.plugin.utilities.Reflection.old.Npc.Npc;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;

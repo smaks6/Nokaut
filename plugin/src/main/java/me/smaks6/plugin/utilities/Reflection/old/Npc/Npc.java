@@ -1,10 +1,8 @@
-package me.smaks6.plugin.utilities.Reflection.Old.Npc;
+package me.smaks6.plugin.utilities.Reflection.old.Npc;
 
 import com.mojang.authlib.GameProfile;
-import me.smaks6.plugin.Main;
 import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
 import me.smaks6.plugin.utilities.Runnables;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 

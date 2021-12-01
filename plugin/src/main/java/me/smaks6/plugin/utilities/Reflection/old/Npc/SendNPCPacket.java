@@ -1,4 +1,4 @@
-package me.smaks6.plugin.utilities.Reflection.Old.Npc;
+package me.smaks6.plugin.utilities.Reflection.old.Npc;
 
 import me.smaks6.plugin.utilities.ReflectionUtilities.PacketSender;
 import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
