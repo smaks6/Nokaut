@@ -67,7 +67,7 @@ public class ChangeGameModeNew {
 
         try {
             Method setGameMode = PlayerInteractManager.class.getMethod("setGameMode", EnumGamemode.class);
-            setGameMode.invoke(entityPlayer, enumGamemode);
+            setGameMode.invoke(entityPlayer.d, enumGamemode);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }

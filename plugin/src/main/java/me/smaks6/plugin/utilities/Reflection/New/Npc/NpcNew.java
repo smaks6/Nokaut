@@ -8,6 +8,8 @@ import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.network.syncher.DataWatcher;
+import net.minecraft.network.syncher.DataWatcherObject;
+import net.minecraft.network.syncher.DataWatcherRegistry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.server.level.WorldServer;
@@ -69,21 +71,25 @@ public class NpcNew {
             entityplayerId = (int) getId.invoke(npc);
         }
 
-        setPose(npc);
-        //d - swimming
-        if(is1_18()){
-            watcher = npc.ai();
-        }else {
-            Method getDataWatcher = EntityPlayer.class.getMethod("getDataWatcher");
-            watcher = (DataWatcher) getDataWatcher.invoke(npc);
-        }
-
-
         //a - ADD_Player
         //e - REMOVE-PLAYER
         sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.a, npc));
         sendPacket(new PacketPlayOutNamedEntitySpawn(npc));
-        sendPacket(new PacketPlayOutEntityMetadata(entityplayerId, watcher, false));
+        //d - swimming
+        if(is1_18()){
+            watcher = npc.ai();
+
+            byte o = (Byte)watcher.a(DataWatcherRegistry.a.a(17));
+            watcher.b(DataWatcherRegistry.a.a(17), o);
+            watcher.b(DataWatcherRegistry.s.a(6), EntityPose.d);
+
+            sendPacket(new PacketPlayOutEntityMetadata(entityplayerId, watcher, true));
+        }else {
+            Method getDataWatcher = EntityPlayer.class.getMethod("getDataWatcher");
+            watcher = (DataWatcher) getDataWatcher.invoke(npc);
+            setPose(npc);
+            sendPacket(new PacketPlayOutEntityMetadata(entityplayerId, watcher, false));
+        }
 
         return npc;
     }
@@ -135,7 +141,7 @@ public class NpcNew {
             Method setLocation = EntityPlayer.class.getMethod("setLocation", double.class, double.class, double.class,
                     float.class, float.class);
 
-            setLocation.invoke(knockedPlayer, x ,y, z, yaw, 40f);
+            setLocation.invoke(entityPlayerr, x ,y, z, yaw, 40f);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
