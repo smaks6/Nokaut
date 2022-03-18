@@ -12,9 +12,9 @@ import me.smaks6.plugin.commands.NokautCommand;
 import me.smaks6.plugin.commands.tabcomplete.TabNokautCommand;
 import me.smaks6.plugin.commands.PickUpPlayerCommand;
 import me.smaks6.plugin.objects.ArmorStandNokaut;
+import me.smaks6.plugin.utilities.ChatUtility;
 import me.smaks6.plugin.utilities.PoseUtility;
 import me.smaks6.plugin.service.WorldGuardService;
-import me.smaks6.plugin.service.UpdateCheckerService;
 import me.smaks6.plugin.utilities.PlayerUtility;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -34,7 +34,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 
-public class Main extends JavaPlugin{
+public final class Main extends JavaPlugin{
 	
 	private static Main instance;
 
@@ -87,21 +87,7 @@ public class Main extends JavaPlugin{
 		saveConfig();
 		reloadConfig();
 
-        new UpdateCheckerService(85152).getVersion(version -> {
-            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-            	Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "You have the latest version of the plugin");
-            	Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Nokaut plugin BY smaks6");
-            } else {
-            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "You don't have the latest plugin version");
-            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "\\          /");
-            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + " \\        /");
-            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "  \\      /");
-            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "   \\    /");
-            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "    \\  /");
-            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "     \\/");
-            	Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Nokaut plugin BY smaks6");
-            }
-        });
+		ChatUtility.checkVersion();
 
 	}
 

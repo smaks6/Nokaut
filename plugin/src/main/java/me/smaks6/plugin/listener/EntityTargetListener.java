@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetEvent;
 
-public class EntityTargetListener implements Listener {
+public final class EntityTargetListener implements Listener {
 
     @EventHandler
     public void onSetEntityTargetEvent(EntityTargetEvent event) {

@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JoinListener implements Listener {
+public final class JoinListener implements Listener {
 
     @EventHandler
     public void onJoinEvent(PlayerJoinEvent event) {

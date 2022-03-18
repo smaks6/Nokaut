@@ -18,7 +18,6 @@ public class TabNokautCommand implements TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         final List<String> completions = new ArrayList<>();
         StringUtil.copyPartialMatches(args[0], Arrays.asList("reload", "wakeup", "nokaut"), completions);
-        Collections.sort(completions);
         if(args[0].equalsIgnoreCase("wakeup") || args[0].equalsIgnoreCase("nokaut")){
             List<String> playersNicks = new ArrayList<>();
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {

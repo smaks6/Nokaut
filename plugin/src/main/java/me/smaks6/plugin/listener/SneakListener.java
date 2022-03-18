@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 
 import java.util.List;
 
-public class SneakListener implements Listener {
+public final class SneakListener implements Listener {
 
     @EventHandler
     public void onSneakEvent(PlayerToggleSneakEvent e){

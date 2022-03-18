@@ -1,5 +1,6 @@
 package me.smaks6.plugin.listener;
 
+import me.smaks6.plugin.utilities.ChatUtility;
 import me.smaks6.plugin.utilities.PlayerUtility;
 import me.smaks6.plugin.Main;
 import org.bukkit.ChatColor;
@@ -9,14 +10,14 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-public class BlockBreakListener implements Listener {
+public final class BlockBreakListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
     public void onBlockBreakEvent(BlockBreakEvent event) {
         Player p = event.getPlayer();
         if(!PlayerUtility.isNull(p)) {
             event.setCancelled(true);
-            p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
+            ChatUtility.sendDenyMessage(p);
         }
     }
 
