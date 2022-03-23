@@ -13,19 +13,19 @@ import java.util.UUID;
 
 public class Npc {
 
-    private static Class<?> entityPlayerClass = Reflection.getNMSClass("EntityPlayer");;
-    private static Class<?> worldServerClass = Reflection.getNMSClass("WorldServer");
-    private static Class<?> playerInteractManagerClass = Reflection.getNMSClass("PlayerInteractManager");
-    private static Class<?> entityPoseClass = Reflection.getNMSClass("EntityPose");
-    private static Class<?> minecraftServerClass = Reflection.getNMSClass("MinecraftServer");
+    private static final Class<?> entityPlayerClass = Reflection.getNMSClass("EntityPlayer");
+    private static final Class<?> worldServerClass = Reflection.getNMSClass("WorldServer");
+    private static final Class<?> playerInteractManagerClass = Reflection.getNMSClass("PlayerInteractManager");
+    private static final Class<?> entityPoseClass = Reflection.getNMSClass("EntityPose");
+    private static final Class<?> minecraftServerClass = Reflection.getNMSClass("MinecraftServer");
 
     private final static Method getProfileMethod = Reflection.getMethod(entityPlayerClass, "getProfile");
 
     private Object entityPlayer;
 
-    private Player knockedPlayer;
-    private Player toShowPlayer;
-    private SendNPCPacket sendNPCPacket;
+    private final Player knockedPlayer;
+    private final Player toShowPlayer;
+    private final SendNPCPacket sendNPCPacket;
 
     public Npc(Player knockedPlayer, Player toShowPlayer) {
 

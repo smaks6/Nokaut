@@ -8,7 +8,6 @@ import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.network.syncher.DataWatcher;
-import net.minecraft.network.syncher.DataWatcherObject;
 import net.minecraft.network.syncher.DataWatcherRegistry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.EntityPlayer;
@@ -51,7 +50,13 @@ public class NpcNew {
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), knockedPlayer.getName());
 
         if(is1_18()){
-            gameProfile.getProperties().putAll((((EntityPlayer)Reflection.getEntityPlayer(knockedPlayer)).fp().getProperties()));
+            if(Main.getVersion().equals("v1_18_R1")){
+                Method method = EntityPlayer.class.getMethod("fp");
+                GameProfile knockedPlayerGameProfile = (GameProfile) method.invoke(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)));
+                gameProfile.getProperties().putAll(knockedPlayerGameProfile.getProperties());
+            }else{
+                gameProfile.getProperties().putAll(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)).fq().getProperties());
+            }
         }else {
             Method method = EntityPlayer.class.getMethod("getProfile");
             GameProfile knockedPlayerGameProfile = (GameProfile) method.invoke(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)));
