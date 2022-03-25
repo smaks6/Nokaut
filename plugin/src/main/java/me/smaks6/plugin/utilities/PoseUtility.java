@@ -3,6 +3,7 @@ package me.smaks6.plugin.utilities;
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.objects.ArmorStandNokaut;
 import me.smaks6.plugin.utilities.Enum.Nokaut;
+import me.smaks6.plugin.utilities.Enum.NokautError;
 import me.smaks6.plugin.utilities.Reflection.New.GameMode.ChangeGameModeNew;
 import me.smaks6.plugin.utilities.Reflection.New.Npc.NpcNew;
 import me.smaks6.plugin.utilities.Reflection.old.GameMode.ChangeGameMode;
@@ -24,6 +25,11 @@ public class PoseUtility {
         p.setWalkSpeed(0);
         p.setFlySpeed(0);
         p.setCollidable(false);
+        p.setSwimming(false);
+        p.setGliding(false);
+        p.setFlying(false);
+        p.setSneaking(false);
+        p.setSprinting(false);
         p.removePotionEffect(PotionEffectType.POISON);
 
         p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 100));
@@ -86,8 +92,12 @@ public class PoseUtility {
 //            case "v1_15_R1": new me.smaks6.v1_15_R1.CreateNPC(znokautowany, see); break;
 //
 //        }
-        if(Reflection.isNewPackeges())new NpcNew(knockedPlayer, see);
-        else new Npc(knockedPlayer, see);
+        try {
+            if (Reflection.isNewPackeges()) new NpcNew(knockedPlayer, see);
+            else new Npc(knockedPlayer, see);
+        }catch (Exception e){
+            ChatUtility.sendErrorMessage(NokautError.NPC_CREATE_ERROR, e.getMessage());
+        }
     }
 
     //change game mode
@@ -107,8 +117,13 @@ public class PoseUtility {
 //
 //        }
 
+        try {
             if(Reflection.isNewPackeges()) ChangeGameModeNew.changeGameMode(p, reviever, nies);
             else ChangeGameMode.changeGameMode(p, reviever, nies);
+        }catch (Exception e){
+            ChatUtility.sendErrorMessage(NokautError.GAMEMODE_ERROR, e.getMessage());
+        }
+
 
     }
 

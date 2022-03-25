@@ -29,3 +29,6 @@ permissions:
   nokaut.admin:
     description: Permissions to the admin command
     default: op
+  nokaut.revive:
+    description: Permission to revive player
+    default: true

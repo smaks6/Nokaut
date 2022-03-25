@@ -16,6 +16,8 @@ public class Runnables {
 
     public static void revivePlayer(Player player, Player reviver){
 
+        if(!player.hasPermission("nokaut.revive"))return;
+
         Boolean requireLevelToRevive = Main.getInstance().getConfig().getBoolean("RequireLevelToRevive");
 
         if(player.getLevel() < 5 && requireLevelToRevive){

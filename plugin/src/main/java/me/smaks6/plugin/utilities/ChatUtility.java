@@ -2,9 +2,14 @@ package me.smaks6.plugin.utilities;
 
 import me.smaks6.plugin.Main;
 import me.smaks6.plugin.service.UpdateCheckerService;
+import me.smaks6.plugin.utilities.Enum.NokautError;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.logging.Logger;
 
 public final class ChatUtility{
     public static void checkVersion(){
@@ -26,7 +31,41 @@ public final class ChatUtility{
     }
 
     public static void sendDenyMessage(CommandSender sender){
-        sender.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
+        String cancelmessage = Main.getInstance().getConfig().getString("cancelmessage");
+        if(cancelmessage.equals(""))return;
+        //sender.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("cancelmessage"));
+        sendConfigMessageWithColors("cancelmessage", sender);
+    }
+
+
+    public static void sendConfigMessageWithColors(String configName, CommandSender sender){
+        String config = Main.getInstance().getConfig().getString(configName);
+        if(config == null){
+            sendErrorMessage(NokautError.CHAT_ERROR);
+            return;
+        }
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', config));
+    }
+
+    public static void sendErrorMessage(NokautError nokautError){sendErrorMessage(nokautError, null);}
+    public static void sendErrorMessage(NokautError nokautError, String stacktrace){
+        if(stacktrace == null)stacktrace = "";
+        Bukkit.getConsoleSender().sendMessage(String.valueOf(nokautError));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "!!!NOKAUT, PLUGIN ERROR!!!");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "This is plugin error, please report it on discord");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "ERROR message:");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "https://discord.gg/3Uhs9C2");
+        System.out.println(stacktrace);
+
+        for (OfflinePlayer operator : Bukkit.getOperators()) {
+            if(operator.isOnline()){
+                operator.getPlayer().sendMessage(ChatColor.RED + "!!!NOKAUT, PLUGIN ERROR!!!");
+                operator.getPlayer().sendMessage(ChatColor.RED + "This is plugin error, please report it on discord");
+                operator.getPlayer().sendMessage(ChatColor.RED + "ERROR message:");
+                operator.getPlayer().sendMessage(String.valueOf(nokautError));
+                operator.getPlayer().sendMessage(ChatColor.RED + "https://discord.gg/3Uhs9C2");
+            }
+        }
     }
 
     private ChatUtility(){}

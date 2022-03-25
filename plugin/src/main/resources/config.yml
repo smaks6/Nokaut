@@ -2,10 +2,10 @@
 NokautTime: 120
 
 #Message for forbidden behaviour during knockout
-cancelmessage: "You can't do that during knockout"
+cancelmessage: "&cYou can't do that during knockout"
 
 #Message that player receives immediately after getting knockedout
-helpnokautmessage: "You got knocked! Ask other players to revive you"
+helpnokautmessage: "&cYou got knocked! Ask other players to revive you"
 
 #xMessage that knocked player receives after getting revived by other player
 #You can use {player} variable for player that revived the knockedout player
@@ -16,7 +16,7 @@ wakeupplayer: "You got revived by {player}"
 wakeupdamager: "You revived {player}"
 
 #Message that player who tries to use the /deathnow command when not knocked out receives
-deathnownot: "This command is only available during knockout"
+deathnownot: "&cThis command is only available during knockout"
 
 #Title that player sees during knockout
 NokautTitle: "Knockout"
@@ -52,4 +52,4 @@ NokautTitleAbovePlayer: "knockout"
 RequireLevelToRevive: true
 
 #Message that player receives if he tries to revive but has not enough level
-NotEnoughLevelMessage: "You don't have enough level to revive someone"
+NotEnoughLevelMessage: "&cYou don't have enough level to revive someone"

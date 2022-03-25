@@ -61,7 +61,7 @@ public class NokautUtility {
                 if (p.getHealth() <= 10.0) {
                     p.setHealth(10.0);
                 }
-                p.sendMessage(ChatColor.RED + Main.getInstance().getConfig().getString("helpnokautmessage"));
+                ChatUtility.sendConfigMessageWithColors("helpnokautmessage", p);
                 Runnables.nokautTimer(p);
 
                 List<Entity> nearbyEntities = p.getNearbyEntities(50, 50, 50);
