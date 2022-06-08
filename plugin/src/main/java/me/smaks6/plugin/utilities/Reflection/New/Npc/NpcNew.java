@@ -51,21 +51,21 @@ public class NpcNew {
         WorldServer nmsWorld = (WorldServer) Reflection.getNMSWorld();
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), knockedPlayer.getName());
 
-        if(is1_18() || is1_19()){
-            if(Main.getVersion().equals("v1_18_R1")){
+        if (is1_18() || is1_19()) {
+            if (Main.getVersion().equals("v1_18_R1")) {
                 Method method = EntityPlayer.class.getMethod("fp");
                 GameProfile knockedPlayerGameProfile = (GameProfile) method.invoke(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)));
                 gameProfile.getProperties().putAll(knockedPlayerGameProfile.getProperties());
-            }else{
-                if(is1_19()){
+            } else {
+                if (is1_19()) {
                     gameProfile.getProperties().putAll(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)).fz().getProperties());
-                }else {
+                } else {
                     Method method = EntityPlayer.class.getMethod("fq");
                     GameProfile knockedPlayerGameProfile = (GameProfile) method.invoke(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)));
                     gameProfile.getProperties().putAll(knockedPlayerGameProfile.getProperties());
                 }
             }
-        }else {
+        } else {
             Method method = EntityPlayer.class.getMethod("getProfile");
             GameProfile knockedPlayerGameProfile = (GameProfile) method.invoke(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)));
             gameProfile.getProperties().putAll(knockedPlayerGameProfile.getProperties());
@@ -73,16 +73,16 @@ public class NpcNew {
 
 
         EntityPlayer npc;
-        if(is1_19()){
+        if (is1_19()) {
             npc = new EntityPlayer(nmsServer, nmsWorld, gameProfile, null);
-        }else {
+        } else {
             Constructor<EntityPlayer> constructor = EntityPlayer.class.getConstructor(MinecraftServer.class, WorldServer.class, GameProfile.class);
             npc = constructor.newInstance(nmsServer, nmsWorld, gameProfile);
         }
 
-        if(is1_18()||is1_19()){
+        if (is1_18() || is1_19()) {
             entityplayerId = npc.ae();
-        }else{
+        } else {
             Method getId = EntityPlayer.class.getMethod("getId");
             entityplayerId = (int) getId.invoke(npc);
         }
@@ -96,19 +96,20 @@ public class NpcNew {
         sendPacket(new PacketPlayOutNamedEntitySpawn(npc));
         //d - swimming
 
-        DataWatcher watcher =  null;
-        if(is1_18()||is1_19()){
+        DataWatcher watcher = null;
+        if (is1_18() || is1_19()) {
             watcher = npc.ai();
 
-            byte o = (Byte)watcher.a(DataWatcherRegistry.a.a(17));
+            byte o = (Byte) watcher.a(DataWatcherRegistry.a.a(17));
             watcher.b(DataWatcherRegistry.a.a(17), o);
-            if(is1_19()){
-                watcher.b(DataWatcherRegistry.t.a(6), EntityPose.d);
-            }else {
-                Method b = DataWatcher.class.getMethod("b", DataWatcherSerializer.class, EntityPose.class);
-                b.invoke(DataWatcherRegistry.s.a(6), EntityPose.d);
-            }
 
+            if (is1_19()) {
+                watcher.b(DataWatcherRegistry.t.a(6), EntityPose.d);
+            } else {
+                Field s = DataWatcherRegistry.class.getField("s");
+                DataWatcherSerializer<EntityPose> dataWatcherSerializer = (DataWatcherSerializer<EntityPose>) s.get(null);
+                watcher.b(dataWatcherSerializer.a(6), EntityPose.d);
+            }
             sendPacket(new PacketPlayOutEntityMetadata(entityplayerId, watcher, true));
         }else {
             Method getDataWatcher = EntityPlayer.class.getMethod("getDataWatcher");
