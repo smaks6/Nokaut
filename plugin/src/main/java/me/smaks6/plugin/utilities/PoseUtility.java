@@ -96,7 +96,8 @@ public class PoseUtility {
             if (Reflection.isNewPackeges()) new NpcNew(knockedPlayer, see);
             else new Npc(knockedPlayer, see);
         }catch (Exception e){
-            ChatUtility.sendErrorMessage(NokautError.NPC_CREATE_ERROR, e.getMessage());
+            //ChatUtility.sendErrorMessage(NokautError.NPC_CREATE_ERROR, e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -122,6 +123,7 @@ public class PoseUtility {
             else ChangeGameMode.changeGameMode(p, reviever, nies);
         }catch (Exception e){
             ChatUtility.sendErrorMessage(NokautError.GAMEMODE_ERROR, e.getMessage());
+            e.printStackTrace();
         }
 
 

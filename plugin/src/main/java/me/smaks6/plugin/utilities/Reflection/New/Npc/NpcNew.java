@@ -8,7 +8,9 @@ import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.network.syncher.DataWatcher;
+import net.minecraft.network.syncher.DataWatcherObject;
 import net.minecraft.network.syncher.DataWatcherRegistry;
+import net.minecraft.network.syncher.DataWatcherSerializer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.EntityPlayer;
 import net.minecraft.server.level.WorldServer;
@@ -19,8 +21,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
+import java.util.OptionalInt;
 import java.util.UUID;
 
 public class NpcNew {
@@ -36,26 +38,32 @@ public class NpcNew {
 
         try {
             entityPlayer = spawnNPC();
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | NoSuchFieldException e) {
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | NoSuchFieldException |
+                 InstantiationException e) {
             e.printStackTrace();
         }
         teleportNPCRunnable();
     }
 
-    //ChatColor.RED +
-    private EntityPlayer spawnNPC() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
+    private EntityPlayer spawnNPC() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException, InstantiationException {
         Location location = knockedPlayer.getLocation();
         MinecraftServer nmsServer = (MinecraftServer) Reflection.getNMSServer();
         WorldServer nmsWorld = (WorldServer) Reflection.getNMSWorld();
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), knockedPlayer.getName());
 
-        if(is1_18()){
+        if(is1_18() || is1_19()){
             if(Main.getVersion().equals("v1_18_R1")){
                 Method method = EntityPlayer.class.getMethod("fp");
                 GameProfile knockedPlayerGameProfile = (GameProfile) method.invoke(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)));
                 gameProfile.getProperties().putAll(knockedPlayerGameProfile.getProperties());
             }else{
-                gameProfile.getProperties().putAll(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)).fq().getProperties());
+                if(is1_19()){
+                    gameProfile.getProperties().putAll(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)).fz().getProperties());
+                }else {
+                    Method method = EntityPlayer.class.getMethod("fq");
+                    GameProfile knockedPlayerGameProfile = (GameProfile) method.invoke(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)));
+                    gameProfile.getProperties().putAll(knockedPlayerGameProfile.getProperties());
+                }
             }
         }else {
             Method method = EntityPlayer.class.getMethod("getProfile");
@@ -63,30 +71,43 @@ public class NpcNew {
             gameProfile.getProperties().putAll(knockedPlayerGameProfile.getProperties());
         }
 
-        EntityPlayer npc = new EntityPlayer(nmsServer, nmsWorld, gameProfile);
-        setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), npc);
-//        npc.a(location.getX(), location.getY(), location.getZ(), location.getYaw(), 40f);
 
-        DataWatcher watcher =  null;
+        EntityPlayer npc;
+        if(is1_19()){
+            npc = new EntityPlayer(nmsServer, nmsWorld, gameProfile, null);
+        }else {
+            Constructor<EntityPlayer> constructor = EntityPlayer.class.getConstructor(MinecraftServer.class, WorldServer.class, GameProfile.class);
+            npc = constructor.newInstance(nmsServer, nmsWorld, gameProfile);
+        }
 
-        if(is1_18()){
+        if(is1_18()||is1_19()){
             entityplayerId = npc.ae();
         }else{
             Method getId = EntityPlayer.class.getMethod("getId");
             entityplayerId = (int) getId.invoke(npc);
         }
 
+        setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), npc);
+//        npc.a(location.getX(), location.getY(), location.getZ(), location.getYaw(), 40f);
+
         //a - ADD_Player
         //e - REMOVE-PLAYER
         sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.a, npc));
         sendPacket(new PacketPlayOutNamedEntitySpawn(npc));
         //d - swimming
-        if(is1_18()){
+
+        DataWatcher watcher =  null;
+        if(is1_18()||is1_19()){
             watcher = npc.ai();
 
             byte o = (Byte)watcher.a(DataWatcherRegistry.a.a(17));
             watcher.b(DataWatcherRegistry.a.a(17), o);
-            watcher.b(DataWatcherRegistry.s.a(6), EntityPose.d);
+            if(is1_19()){
+                watcher.b(DataWatcherRegistry.t.a(6), EntityPose.d);
+            }else {
+                Method b = DataWatcher.class.getMethod("b", DataWatcherSerializer.class, EntityPose.class);
+                b.invoke(DataWatcherRegistry.s.a(6), EntityPose.d);
+            }
 
             sendPacket(new PacketPlayOutEntityMetadata(entityplayerId, watcher, true));
         }else {
@@ -107,7 +128,6 @@ public class NpcNew {
         setLocation(knockedPlayer.getLocation().getX(), knockedPlayer.getLocation().getY()+teleportHight,
                 knockedPlayer.getLocation().getZ(), entityPlayer.x, entityPlayer);
 
-
         sendPacket(new PacketPlayOutEntityTeleport(entityPlayer));
     }
 
@@ -119,7 +139,7 @@ public class NpcNew {
 
     private void sendPacket(Packet<?> packet){
         PlayerConnection connection = ((EntityPlayer)Reflection.getEntityPlayer(see)).b;
-        if(is1_18()){
+        if(is1_18()||is1_19()){
             connection.a(packet);
             return;
         }
@@ -137,7 +157,7 @@ public class NpcNew {
     }
 
     private void setLocation(double x, double y, double z, float yaw, EntityPlayer entityPlayerr){
-        if(is1_18()){
+        if(is1_18() || is1_19()){
             entityPlayerr.a(x, y, z, yaw, 40f);
             return;
         }
@@ -157,7 +177,7 @@ public class NpcNew {
     }
 
     private void setPose(EntityPlayer entityPlayer){
-        if(is1_18()){
+        if(is1_18()||is1_19()){
             entityPlayer.a(EntityPose.d);
             return;
         }
@@ -207,9 +227,13 @@ public class NpcNew {
     }
 
     public static boolean is1_18(){
-        if(Main.getVersion().equals("v1_17_R1") || Main.getVersion().equals("v1_17_R2"))return false;
-        return true;
+        if(Main.getVersion().equals("v1_18_R1") || Main.getVersion().equals("v1_18_R2"))return true;
+        return false;
     }
 
+    public static boolean is1_19(){
+        if(Main.getVersion().equals("v1_19_R1") || Main.getVersion().equals("v1_19_R2"))return true;
+        return false;
+    }
 
 }

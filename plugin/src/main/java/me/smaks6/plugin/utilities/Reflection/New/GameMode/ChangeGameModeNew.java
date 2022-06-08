@@ -53,7 +53,6 @@ public class ChangeGameModeNew {
             }
 //            connection.a();
 
-
         }
 
     }
