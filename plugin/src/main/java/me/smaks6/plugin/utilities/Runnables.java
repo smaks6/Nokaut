@@ -41,6 +41,8 @@ public class Runnables {
                 player.sendTitle(ChatColor.GREEN + Main.getInstance().getConfig().getString("WakeUpTitle"),ChatColor.GREEN + "" + time + "%", 1 , 20 , 1 );
                 reviver.sendTitle(ChatColor.GREEN + Main.getInstance().getConfig().getString("WakeUpTitle"),ChatColor.GREEN + "" + time + "%", 1 , 20 , 1 );
 
+                if(!(player.getLevel() > 0))cancel();
+
                 if(requireLevelToRevive && time % 20 == 0 && time > 0){
                     player.setLevel(player.getLevel() - 1);
                 }
