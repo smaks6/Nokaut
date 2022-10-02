@@ -58,7 +58,14 @@ public class NpcNew {
                 gameProfile.getProperties().putAll(knockedPlayerGameProfile.getProperties());
             } else {
                 if (is1_19()) {
-                    gameProfile.getProperties().putAll(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)).fz().getProperties());
+                    if(Bukkit.getVersion().contains("1.19.2") || Bukkit.getVersion().contains("1.19.1")) {
+                        gameProfile.getProperties().putAll(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)).fy().getProperties());
+                    }else{
+                        Method method = EntityPlayer.class.getMethod("fz");
+                        GameProfile knockedPlayerGameProfile = (GameProfile) method.invoke(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)));
+                        gameProfile.getProperties().putAll(knockedPlayerGameProfile.getProperties());
+//                        gameProfile.getProperties().putAll(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)).fz().getProperties());
+                    }
                 } else {
                     Method method = EntityPlayer.class.getMethod("fq");
                     GameProfile knockedPlayerGameProfile = (GameProfile) method.invoke(((EntityPlayer) Reflection.getEntityPlayer(knockedPlayer)));

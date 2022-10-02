@@ -15,6 +15,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.util.List;
 
@@ -22,8 +24,13 @@ public class PoseUtility {
     //start pose animation
     public static void start(Player p) {
         PlayerUtility.setState(p, Nokaut.LAY);
-        p.setWalkSpeed(0);
-        p.setFlySpeed(0);
+        if(Main.getInstance().getConfig().getBoolean("MoveWhileKnockout")){
+            p.setWalkSpeed(0.02F);
+            p.setFlySpeed(0.02F);
+        }else {
+            p.setWalkSpeed(0);
+            p.setFlySpeed(0);
+        }
         p.setCollidable(false);
         p.setSwimming(false);
         p.setGliding(false);
@@ -33,6 +40,7 @@ public class PoseUtility {
         p.removePotionEffect(PotionEffectType.POISON);
 
         p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 100));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 1000000, 180));
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             createNPC(p, onlinePlayer);
@@ -52,6 +60,10 @@ public class PoseUtility {
         ArmorStandNokaut armorStandNokaut = new ArmorStandNokaut(p);
         armorStandNokaut.teleportArmorStands();
 
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        Team noCollisionTeam = scoreboard.registerNewTeam(p.getName());
+        noCollisionTeam.addEntry(p.getName());
+        noCollisionTeam.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
     }
 
     //stop pose animation
@@ -78,6 +90,11 @@ public class PoseUtility {
             command = command.replaceAll("\"KnockedPlayer\"", p.getName());
             command = command.replaceAll("\"Damager\"", (damager == null ? "" : damager.getName()));
             Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+        }
+
+        Team team = p.getScoreboard().getTeam(p.getName());
+        if(team != null) {
+            team.unregister();
         }
     }
 

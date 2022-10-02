@@ -53,3 +53,6 @@ RequireLevelToRevive: true
 
 #Message that player receives if he tries to revive but has not enough level
 NotEnoughLevelMessage: "&cYou don't have enough level to revive someone"
+
+#Player can move while knockout?
+MoveWhileKnockout: false
