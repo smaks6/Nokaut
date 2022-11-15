@@ -8,7 +8,6 @@ import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.network.syncher.DataWatcher;
-import net.minecraft.network.syncher.DataWatcherObject;
 import net.minecraft.network.syncher.DataWatcherRegistry;
 import net.minecraft.network.syncher.DataWatcherSerializer;
 import net.minecraft.server.MinecraftServer;
@@ -22,7 +21,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.*;
-import java.util.OptionalInt;
 import java.util.UUID;
 
 public class NpcNew {
@@ -30,7 +28,7 @@ public class NpcNew {
     private final Player knockedPlayer;
     private final Player see;
     private EntityPlayer entityPlayer;
-    private int entityplayerId = 0;
+    private int entityPlayerId = 0;
 
     public NpcNew(Player knockedPlayer, Player see){
         this.knockedPlayer = knockedPlayer;
@@ -38,6 +36,7 @@ public class NpcNew {
 
         try {
             entityPlayer = spawnNPC();
+            entityPlayer.getBukkitEntity().setCollidable(false);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | NoSuchFieldException |
                  InstantiationException e) {
             e.printStackTrace();
@@ -88,10 +87,10 @@ public class NpcNew {
         }
 
         if (is1_18() || is1_19()) {
-            entityplayerId = npc.ae();
+            entityPlayerId = npc.ae();
         } else {
             Method getId = EntityPlayer.class.getMethod("getId");
-            entityplayerId = (int) getId.invoke(npc);
+            entityPlayerId = (int) getId.invoke(npc);
         }
 
         setLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), npc);
@@ -117,12 +116,12 @@ public class NpcNew {
                 DataWatcherSerializer<EntityPose> dataWatcherSerializer = (DataWatcherSerializer<EntityPose>) s.get(null);
                 watcher.b(dataWatcherSerializer.a(6), EntityPose.d);
             }
-            sendPacket(new PacketPlayOutEntityMetadata(entityplayerId, watcher, true));
+            sendPacket(new PacketPlayOutEntityMetadata(entityPlayerId, watcher, true));
         }else {
             Method getDataWatcher = EntityPlayer.class.getMethod("getDataWatcher");
             watcher = (DataWatcher) getDataWatcher.invoke(npc);
             setPose(npc);
-            sendPacket(new PacketPlayOutEntityMetadata(entityplayerId, watcher, false));
+            sendPacket(new PacketPlayOutEntityMetadata(entityPlayerId, watcher, false));
         }
 
         return npc;
@@ -140,7 +139,7 @@ public class NpcNew {
     }
 
     private void removeNpc(){
-        sendPacket(new PacketPlayOutEntityDestroy(entityplayerId));
+        sendPacket(new PacketPlayOutEntityDestroy(entityPlayerId));
         //e - REMOVE-PLAYER
         sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.e, entityPlayer));
     }

@@ -12,6 +12,7 @@ import me.smaks6.plugin.utilities.ReflectionUtilities.Reflection;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -61,9 +62,12 @@ public class PoseUtility {
         armorStandNokaut.teleportArmorStands();
 
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
-        Team noCollisionTeam = scoreboard.registerNewTeam(p.getName());
-        noCollisionTeam.addEntry(p.getName());
+        Team noCollisionTeam = scoreboard.getTeam(p.getName());
+        if(noCollisionTeam == null){
+            noCollisionTeam = scoreboard.registerNewTeam(p.getName());
+        }
         noCollisionTeam.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
+        noCollisionTeam.addEntry(p.getName());
     }
 
     //stop pose animation
@@ -75,6 +79,7 @@ public class PoseUtility {
 
         p.removePotionEffect(PotionEffectType.INVISIBILITY);
         p.removePotionEffect(PotionEffectType.BLINDNESS);
+        p.removePotionEffect(PotionEffectType.JUMP);
 
         p.setWalkSpeed(0.2F);
         p.setFlySpeed(0.1F);
@@ -99,45 +104,19 @@ public class PoseUtility {
     }
 
     public static void createNPC(Player knockedPlayer, Player see){
-//        switch (version){
-//            case "v1_16_R3": new me.smaks6.v1_16_R3.CreateNPC(znokautowany, see); break;
-//
-//            case "v1_16_R2": new me.smaks6.v1_16_R2.CreateNPC(znokautowany, see); break;
-//
-//            case "v1_16_R1": new me.smaks6.v1_16_R1.CreateNPC(znokautowany, see); break;
-//
-//            case "v1_15_R1": new me.smaks6.v1_15_R1.CreateNPC(znokautowany, see); break;
-//
-//        }
         try {
             if (Reflection.isNewPackeges()) new NpcNew(knockedPlayer, see);
             else new Npc(knockedPlayer, see);
         }catch (Exception e){
-            //ChatUtility.sendErrorMessage(NokautError.NPC_CREATE_ERROR, e.getMessage());
             e.printStackTrace();
         }
     }
 
     //change game mode
-    public static void changeGameMode(Player p, Player reviever, boolean nies){
-        //nies:
-        //true - na plecach niech idzie
-        //false - niech już spada z pleców
-
-//        switch (version){
-//            case "v1_16_R3": me.smaks6.v1_16_R3.OtherMetchod.changeGameMode(p, reviever, nies); break;
-//
-//            case "v1_16_R2": me.smaks6.v1_16_R2.OtherMetchod.changeGameMode(p, reviever, nies); break;
-//
-//            case "v1_16_R1": me.smaks6.v1_16_R1.OtherMetchod.changeGameMode(p, reviever, nies); break;
-//
-//            case "v1_15_R1": me.smaks6.v1_15_R1.OtherMetchod.changeGameMode(p, reviever, nies); break;
-//
-//        }
-
+    public static void changeGameMode(Player p, Player reviver, boolean nies){
         try {
-            if(Reflection.isNewPackeges()) ChangeGameModeNew.changeGameMode(p, reviever, nies);
-            else ChangeGameMode.changeGameMode(p, reviever, nies);
+            if(Reflection.isNewPackeges()) ChangeGameModeNew.changeGameMode(p, reviver, nies);
+            else ChangeGameMode.changeGameMode(p, reviver, nies);
         }catch (Exception e){
             ChatUtility.sendErrorMessage(NokautError.GAMEMODE_ERROR, e.getMessage());
             e.printStackTrace();
