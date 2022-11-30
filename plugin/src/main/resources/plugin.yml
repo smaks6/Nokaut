@@ -17,9 +17,9 @@ commands:
     aliases: nk
     permission: nokaut.admin
   pickuupplayer:
-    aliases: podniesgracza
+    aliases: [pg , podniesgracza, pp]
   dropplayer:
-    aliases: rzucgracza
+    aliases: [rg, rzucgracza, dp]
 
 
 permissions:
