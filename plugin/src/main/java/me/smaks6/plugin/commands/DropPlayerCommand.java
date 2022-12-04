@@ -27,6 +27,7 @@ public class DropPlayerCommand implements CommandExecutor, PluginCommand {
         PlayerUtility.setState(player, Nokaut.LAY);
         PoseUtility.changeGameMode(player, sender, false);
         player.teleport(sender);
+        sender.removePotionEffect(PotionEffectType.SLOW);
         return false;
     }
 
