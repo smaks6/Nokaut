@@ -34,6 +34,8 @@ public class PickUpPlayerCommand implements CommandExecutor, PluginCommand {
                     PlayerUtility.setState(knockedPlayer, Nokaut.CARRY);
                     PoseUtility.changeGameMode(knockedPlayer, sender, true);
                     sender.addPassenger(knockedPlayer);
+                    int slowLvl = Main.getInstance().getConfig().getInt("slownesLevel");
+                    sender.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1000000 , slowLvl));
                     break;
                 }
             }
