@@ -1,6 +1,9 @@
 #Time that knockout should last (in seconds)
 NokautTime: 120
 
+#Level of slownes when player pickup knockedplayer
+slownesLevel: 1
+
 #Message for forbidden behaviour during knockout
 cancelmessage: "&cYou can't do that during knockout"
 
