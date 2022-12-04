@@ -96,6 +96,10 @@ public class PoseUtility {
         if(team != null) {
             team.unregister();
         }
+        if(p.getVehicle() != null){
+            Player vechicle = (Player) p.getVehicle();
+            vechicle.removePotionEffect(PotionEffectType.SLOW);
+        }
     }
 
     public static void createNPC(Player knockedPlayer, Player see){
