@@ -23,7 +23,7 @@ import java.util.List;
 public class PoseUtility {
 
     //fields
-    private static String teamprefix = Main.getInstance().getConfig().getString("TeamPrefix");
+    private static final String teamprefix = Main.getInstance().getConfig().getString("TeamPrefix");
 
 
     //start pose animation
