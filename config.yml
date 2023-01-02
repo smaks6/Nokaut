@@ -1,0 +1,63 @@
+#Time that knockout should last (in seconds)
+NokautTime: 120
+
+#Team Settings
+Team: true
+TeamPrefix: "Nokaut"
+
+
+#Message for forbidden behaviour during knockout
+cancelmessage: "&cYou can't do that during knockout"
+
+#Message that player receives immediately after getting knockedout
+helpnokautmessage: "&cYou got knocked! Ask other players to revive you"
+
+#xMessage that knocked player receives after getting revived by other player
+#You can use {player} variable for player that revived the knockedout player
+wakeupplayer: "You got revived by {player}"
+
+#Message that player receives after reviving someone
+#You can use {player} variable for player that got revived
+wakeupdamager: "You revived {player}"
+
+#Message that player who tries to use the /deathnow command when not knocked out receives
+deathnownot: "&cThis command is only available during knockout"
+
+#Title that player sees during knockout
+NokautTitle: "Knockout"
+
+#If value is true then after the knockout - player dies, otherwise he stands and lives
+DeathOnEnd: 'true'
+
+#If value is true then during the knockout the player has the blidnes effect
+BlindnessOnNokaut: 'true'
+
+#Title when player is beeing revived
+WakeUpTitle: "Reviving..."
+
+#If your server is too weak, you can set this value higher, but it is not recommended to go higher than 8
+NpcTeleportTime: 1
+
+#These commands are beeing executed when any player gets knockedout
+#You can use variable "KnockedPlayer" for the player that had been knocked
+#You can use variable "Damager" for the player that knocked other player
+commandsOnNokaut:
+#  - say "KnockedPlayer" has been knocked by "Damager"
+
+#These commands are beeing executed when any player dies because of knockout
+#You can use variable "KnockedPlayer" for the player that had been knocked
+#You can use variable "Damager" for the player that knocked other player
+commandsAfterNokaut:
+#  - say "KnockedPlayer" has died because of "Damager"
+
+#Title that is above player's name during knockout
+NokautTitleAbovePlayer: "knockout"
+
+#Do you want to require player 5 levels to revive someone?
+RequireLevelToRevive: true
+
+#Message that player receives if he tries to revive but has not enough level
+NotEnoughLevelMessage: "&cYou don't have enough level to revive someone"
+
+#Player can move while knockout?
+MoveWhileKnockout: false
